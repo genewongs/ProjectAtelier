@@ -6,6 +6,6 @@ const app = express();
 const port = process.env.PORT;
 
 app.use(express.json());
-app.use(express.static(__dirname+ './client/dist'));
+app.use(express.static('client/dist'));
 
 app.listen(port, () => { console.log('listening on port: ', port) });
