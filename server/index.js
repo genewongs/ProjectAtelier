@@ -13,10 +13,9 @@ app.listen(port, () => { console.log('listening on port: ', port); });
 
 app.get('/api', (req, res) => {
   const options = {
-    url: `https://app-hrsei-api.herokuapp.com/api/fec2/rfp/${req.params}`,
+    url: `https://app-hrsei-api.herokuapp.com/api/fec2/rfp/${req.query.path}`,
     headers: {
-      'User-Agent': 'request',
-      Authorization: `token ${process.env.APIKEY}`,
+      Authorization: process.env.APIKEY,
     },
   };
 
@@ -33,5 +32,5 @@ app.post('/api', (req, res) => {
   };
 
   axios.post(options.url, req.body.query, { headers: options.headers })
-    .then((reponse) => res.send(reponse.data));
+    .then((reponse) => res.status(201).end(reponse.data));
 });
