@@ -1,7 +1,8 @@
 import styled from 'styled-components';
 
 export const GalleryStyled = styled.div`
-  width: 60%;
+  display: flex;
+  flex-grow: 1;
   height: 700px;
   background-color: darkgray;
 `;
@@ -18,7 +19,7 @@ export const GalleryInnerStyled = styled.div`
 
 export const GalleryInnerLeftStyled = styled.div`
   display: flex;
-  flex: 10%;
+  flex: 8%;
   height: 100%;
   align-items: center;
   justify-content: center;
@@ -32,13 +33,13 @@ export const GalleryInnerLeftStyled = styled.div`
 `;
 
 export const GalleryInnerCenterStyled = styled.div`
-  flex: 80%;
+  flex: 84%;
   height: 100%;
 `;
 
 export const GalleryInnerRightStyled = styled.div`
   display: flex;
-  flex: 10%;
+  flex: 8%;
   height: 100%;
   align-items: center;
   justify-content: center;

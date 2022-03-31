@@ -3,5 +3,8 @@ import styled from 'styled-components';
 export const Flex = styled.div`
   display: flex;
   flex-direction: row;
-  flex-grow: 2;
+  width: 80%;
+  justify-self: center;
+  align-self: center;
+  border: 5px solid orange;
 `;
