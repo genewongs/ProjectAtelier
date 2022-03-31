@@ -10,9 +10,9 @@ function App() {
   return (
     <div className="app-container">
       <Overview />
-      <RI />
+      {/* <RI />
       <QA />
-      <RR />
+      <RR /> */}
     </div>
   );
 }

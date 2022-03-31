@@ -1,7 +1,7 @@
 import React from 'react';
 import sampleStyles from './sampleStyles.js';
 import styled from 'styled-components';
-import { SelectorContainer, CircleContainer } from './styles/StyledStyleSelector.js';
+import { SelectorContainer, ImageContainer } from './styles/StyledStyleSelector.js';
 import { ProductInfo } from './styles/ProductInfoStyled.js';
 import { SelectSize, SelectQuantity, AddCartButton } from './styles/SelectSizeStyled.js';
 
@@ -9,7 +9,6 @@ function StyleSelector({ styles }) {
   console.log(styles.results[0])
   return(
     <SelectorContainer>
-
       <ProductInfo>
         <h2> {styles.results[0].name} </h2>
         <span> $ {styles.results[0].original_price} </span>
@@ -19,11 +18,11 @@ function StyleSelector({ styles }) {
       <div>
         <span>STYLE > </span> SELECTED STYLE
       </div> <br></br>
-      <CircleContainer>
+      <ImageContainer>
         {sampleStyles.results.map((product) => {
           return <img key={product.style_id} src={product.photos[0].thumbnail_url} />
         })}
-      </CircleContainer>
+      </ImageContainer>
 
       <SelectSize>
         {Object.values(styles.results[0].skus).map((item, id) => {

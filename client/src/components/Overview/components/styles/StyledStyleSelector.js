@@ -11,14 +11,13 @@ export const SelectorContainer = styled.div`
   }
 `;
 
-export const CircleContainer = styled.div`
+export const ImageContainer = styled.div`
   border: 1px solid darkgreen;
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
   width: 100%;
   flex-flow: row wrap;
-
 
   > img {
     height: 70px;

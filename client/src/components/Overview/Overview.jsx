@@ -6,7 +6,6 @@ import ProdDescription from './components/ProdDescription.jsx';
 import { Flex } from './components/styles/OverviewContainerStyled.js';
 import { LordContainer } from './components/styles/LordContainerStyled.js';
 import { RightFlex } from './components/styles/ProductInfoStyled.js';
-
 import Gallery from './components/Gallery.jsx';
 
 export default function Overview() {
