@@ -8,7 +8,7 @@ import RR from './components/RR/RR.jsx';
 
 function App() {
   return (
-    <div className="app-container" style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+    <div className="app-container">
       <Overview />
       {/* <RI />
       <QA />
