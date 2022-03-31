@@ -12,12 +12,18 @@ export const SelectorContainer = styled.div`
 `;
 
 export const ImageContainer = styled.div`
-  border: 1px solid darkgreen;
-  display: flex;
+  padding: 20px;
+  border-radius: 15px;
+  /* display: flex;
   flex-direction: row;
   justify-content: space-evenly;
-  width: 100%;
-  flex-flow: row wrap;
+  flex-flow: row wrap; */
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: minmax(100px, auto);
+  max-width: 100%;
+  overflow: auto;
+
 
   > img {
     height: 70px;
