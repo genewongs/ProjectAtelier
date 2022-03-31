@@ -1,7 +1,11 @@
 import React from 'react';
+import sampleStyles from './components/sampleStyles.js';
+import StyleSelector from './components/StyleSelector.jsx';
 
 export default function Overview() {
   return (
-    <div>Hello we`&apos;`re inside Overview</div>
+    <div>
+      <StyleSelector styles={sampleStyles} />
+    </div>
   );
 }
