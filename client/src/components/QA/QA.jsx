@@ -1,41 +1,30 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+// eslint-disable-next-line import/extensions
+import QuestionList from './components/QuestionList.jsx';
 
-class QA extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      questions: ['1', '2', '3'],
-    };
-  }
+// require('dotenv').config();
 
-  componentDidMount() {
-    this.getAllQuestions();
-  }
+// const id = process.env.id;
 
-  getAllQuestions() {
-    return axios.get();
-  }
+export default function QA() {
+  const [questionData, setQuestionData] = useState([]);
 
-  render() {
-    return (
-      <div>
-        {this.state.questions}
-      </div>
-    );
+  function getFirstFourQuestions() {
+    return axios.get('/api', { params: { path: 'qa/questions?product_id=65631' } })
+      .then((response) => setQuestionData(response.data.results.slice(0, 4)))
+      .catch((err) => console.error(err));
   }
+  console.log(questionData);
+
+  useEffect(() => {
+    getFirstFourQuestions();
+  }, []);
+
+  return (
+    <div>
+      <QuestionList questions={questionData} />
+      <input type="submit" value="More Answered Questions" />
+    </div>
+  );
 }
-
-// export default function QA() {
-//   return (
-//     <div> Hello we`&apos;`re inside Questions and Answers </div>
-//   );
-// }
-
-// function get(e) {
-//   e.preventDefault();
-//   axios.get('/api', { params: { path: `products/${id}/styles` } })
-//     .then((prod) => setProduct(prod.data));
-// }
-
-export default QA;
