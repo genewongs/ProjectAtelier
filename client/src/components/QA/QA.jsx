@@ -15,7 +15,12 @@ export default function QA() {
       .then((response) => setQuestionData(response.data.results.slice(0, 4)))
       .catch((err) => console.error(err));
   }
-  console.log(questionData);
+
+  function showAllQuestions() {
+    return axios.get('/api', { params: { path: 'qa/questions?product_id=65631' } })
+      .then((response) => setQuestionData(response.data.results))
+      .catch((err) => console.error(err));
+  }
 
   useEffect(() => {
     getFirstFourQuestions();
@@ -24,7 +29,7 @@ export default function QA() {
   return (
     <div>
       <QuestionList questions={questionData} />
-      <input type="submit" value="More Answered Questions" />
+      <input type="submit" value="More Answered Questions" onClick={() => showAllQuestions()} />
     </div>
   );
 }
