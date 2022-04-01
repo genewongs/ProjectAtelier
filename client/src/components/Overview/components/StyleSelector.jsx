@@ -17,10 +17,10 @@ function StyleSelector({ styles, product }) {
 
   useEffect(() => {
     generateOptions(currentSku.quantity)
-  }, [currentSku])
+  }, [currentSku, selectedStyle])
 
-  function click() {
-    console.log(quantityArr)
+  function click(product) {
+    console.log(product)
   }
 
   function showTarget() {
@@ -47,11 +47,15 @@ function StyleSelector({ styles, product }) {
         <span>STYLE > </span> SELECTED STYLE
       </div> <br></br>
       <ImageContainer>
-        <BadgeStyled>
+        {/* <BadgeStyled>
           <FontAwesomeIcon icon={faCheck} />
-        </BadgeStyled>
+        </BadgeStyled> */}
         {sampleStyles.results.map((product) => {
-          return <img key={product.style_id} src={product.photos[0].thumbnail_url} onClick={() => {click()}}/>
+          return <img
+            key={product.style_id}
+            src={product.photos[0].thumbnail_url}
+            onClick={() => {click(product)}
+          }/>
         })}
       </ImageContainer>
 
@@ -87,3 +91,8 @@ function StyleSelector({ styles, product }) {
 }
 
 export default StyleSelector;
+
+//when i click a style button
+//the goal is to apply a style to that circle
+
+//

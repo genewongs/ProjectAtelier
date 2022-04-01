@@ -14,7 +14,8 @@ export const SelectSize = styled.div`
     }
   }
   >button.selected {
-      background-color: red;
+      background-color: rgb(247, 0, 0);
+      color: white;
     }
 `;
 
@@ -44,4 +45,4 @@ export const AddCartButton = styled.div`
       transition: all ease-in-out 0.03s;
     }
   }
-`
+`;

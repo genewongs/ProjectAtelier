@@ -37,10 +37,6 @@ export const ImageContainer = styled.div`
     transform: scale(0.97);
     box-shadow: 5px 2px 2px rgba(0, 0, 0, 0.235);
     }
-
-    .active {
-      background-color: red;
-    }
   }
 `;
 
