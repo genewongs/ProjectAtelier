@@ -21,7 +21,7 @@ export default function QA() {
   }
 
   function getAllQuestions() {
-    return axios.get('/api', { params: { path: `qa/questions?product_id=${id}` } })
+    return axios.get('/api', { params: { path: `qa/questions?product_id=${id}&count=9999` } })
       .then((response) => setAllQuestionData(response.data.results))
       .catch((err) => err);
   }
