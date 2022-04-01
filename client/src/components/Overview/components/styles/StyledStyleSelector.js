@@ -12,20 +12,20 @@ export const SelectorContainer = styled.div`
 `;
 
 export const ImageContainer = styled.div`
-  padding: 20px;
+  /* padding: 20px 5px; */
   border-radius: 15px;
   /* display: flex;
   flex-direction: row;
   justify-content: space-evenly;
   flex-flow: row wrap; */
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(4, 90px);
   grid-auto-rows: minmax(100px, auto);
   max-width: 100%;
   overflow: auto;
 
-
   > img {
+    position: relative;
     height: 70px;
     width: 70px;
     border-radius: 50%;
@@ -37,5 +37,14 @@ export const ImageContainer = styled.div`
     transform: scale(0.97);
     box-shadow: 5px 2px 2px rgba(0, 0, 0, 0.235);
     }
+
+    .active {
+      background-color: red;
+    }
   }
+`;
+
+export const BadgeStyled = styled.div`
+  position: absolute;
+  top: 20px;
 `;
