@@ -1,5 +1,5 @@
 import React, {
-  useState, useContext, useEffect, useCallback, useRef,
+  useState, useContext, useEffect, useCallback,
 } from 'react';
 import axios from 'axios';
 import ReviewStoreContext from '../utils/ReviewContext.jsx';
@@ -12,6 +12,7 @@ function Container() {
   const [reviewCount, setReviewCount] = useState(0);
   const [limitHit, setLimitHit] = useState(true);
   const [sort, setSort] = useState('relevant');
+
   function getReviews() {
     axios.get('api', { params: { path: `reviews?count=${count}&sort=${sort}&product_id=${id}` } })
       .then((response) => {
@@ -66,7 +67,7 @@ function Container() {
             More Reviews
           </button>
         )}
-      <AddReview />
+      <AddReview id={id} />
     </div>
   );
 }
