@@ -1,6 +1,6 @@
 import React from 'react';
 
-function AnswerListEntry({ answer }) {
+export default function AnswerListEntry({ answer }) {
   return (
     <div>
       <ul>
@@ -11,5 +11,3 @@ function AnswerListEntry({ answer }) {
     </div>
   );
 }
-
-export default AnswerListEntry;

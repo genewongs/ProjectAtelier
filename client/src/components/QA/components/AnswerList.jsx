@@ -5,8 +5,7 @@ import AnswerListEntry from './AnswerListEntry.jsx';
 function AnswerList({ answers }) {
   return (
     <div>
-      {/* eslint-disable-next-line react/no-array-index-key */}
-      {answers.map((answer, key) => <AnswerListEntry answer={answer} key={key} />)}
+      {answers.map((answer) => <AnswerListEntry answer={answer} key={answer.answer_id} />)}
     </div>
   );
 }
