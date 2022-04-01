@@ -12,7 +12,6 @@ function StyleSelector({ styles, product }) {
   const [quantityArr, setQuantity] = useState([]);
   const [selectedSize, setSelectedSize] = useState();
   const [selectedStyle, setSelectedStyle] = useState();
-  console.log('stylesss', styles)
 
   const prodSkus = styles[0].skus;
 
@@ -52,7 +51,6 @@ function StyleSelector({ styles, product }) {
           <FontAwesomeIcon icon={faCheck} />
         </BadgeStyled> */}
         {styles.map((product) => {
-          console.log(product)
           return <img
             className={selectedStyle === product.style_id ? 'selectedSize' : ''}
             key={product.style_id}

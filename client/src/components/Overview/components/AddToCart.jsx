@@ -4,7 +4,7 @@ function AddToCart({ styles }) {
 
   return(
     <div>
-      {console.log(styles[0])}
+      {/* {console.log(styles[0])} */}
     </div>
   )
 }
