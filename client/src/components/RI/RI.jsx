@@ -4,6 +4,7 @@ import RelatedProductsContext, { RelatedProducts } from './utils/RelatedProducts
 
 export default function RI() {
   return (
+    // Change name when 'your cart' implementation
     <RelatedProducts>
       <Container />
     </RelatedProducts>
