@@ -3,7 +3,6 @@ import styled from 'styled-components';
 export const GalleryStyled = styled.div`
   display: flex;
   flex-grow: 1;
-  height: 704px;
   background-color: darkgray;
 `;
 
@@ -13,6 +12,7 @@ export const GalleryInnerStyled = styled.div`
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+  object-fit: cover;
   background-image: url(${(props) => props.img || ''});
   display: flex;
 `;

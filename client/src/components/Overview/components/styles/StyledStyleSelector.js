@@ -29,13 +29,16 @@ export const ImageContainer = styled.div`
     height: 70px;
     width: 70px;
     border-radius: 50%;
-    border: 1px solid black;
+    border: 2px solid black;
     margin: 10px;
+    transition: all ease-in-out 0.3s;
 
     &:hover {
     cursor: pointer;
-    transform: scale(0.97);
+    border: 2px solid red;
+    transform: scale(0.98);
     box-shadow: 5px 2px 2px rgba(0, 0, 0, 0.235);
+    transition: all ease-in-out 0.3s;
     }
   }
 `;

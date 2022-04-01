@@ -12,15 +12,16 @@ function StyleSelector({ styles, product }) {
   const [quantityArr, setQuantity] = useState([]);
   const [selectedSize, setSelectedSize] = useState();
   const [selectedStyle, setSelectedStyle] = useState();
+  console.log('stylesss', styles)
 
-  const prodSkus = styles.results[0].skus;
+  const prodSkus = styles[0].skus;
 
   useEffect(() => {
     generateOptions(currentSku.quantity)
   }, [currentSku, selectedStyle])
 
   function click(product) {
-    console.log(product)
+    console.log(styles, product)
   }
 
   function showTarget() {
@@ -38,8 +39,8 @@ function StyleSelector({ styles, product }) {
   return(
     <SelectorContainer>
       <ProductInfo>
-        <h2> {styles.results[0].name} </h2>
-        <span> ${styles.results[0].original_price} </span>
+        <h2> {styles[0].name} </h2>
+        <span> ${styles[0].original_price} </span>
         <br></br>
       </ProductInfo>
 
@@ -50,7 +51,7 @@ function StyleSelector({ styles, product }) {
         {/* <BadgeStyled>
           <FontAwesomeIcon icon={faCheck} />
         </BadgeStyled> */}
-        {sampleStyles.results.map((product) => {
+        {styles.map((product) => {
           return <img
             key={product.style_id}
             src={product.photos[0].thumbnail_url}
