@@ -8,19 +8,20 @@ export default function Container() {
   const { setRelatedData } = useContext(RelatedProductsContext);
 
   function getRelatedProductInfo(relatedIDArr) {
-    const result = [];
-    relatedIDArr.forEach((relatedID) => {
-      axios.get('/api', { params: { path: `products/${relatedID}` } })
-        .then((response) => {
-          result.push(response.data);
-        })
-        .catch((error) => {
-          throw new Error(error);
-        })
-        .then(() => {
-          setRelatedData(result);
-        });
-    });
+    Promise.all(
+      relatedIDArr.map((relatedID) => new Promise((resolve, reject) => {
+        axios.get('/api', { params: { path: `products/${relatedID}` } })
+          .then((response) => {
+            resolve(response.data);
+          })
+          .catch((error) => {
+            reject(error);
+          });
+      })),
+    )
+      .then((related) => {
+        setRelatedData(related);
+      });
   }
 
   function getRelatedProductIDs() {
