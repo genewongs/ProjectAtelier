@@ -31,15 +31,19 @@ export const ImageContainer = styled.div`
     border-radius: 50%;
     border: 2px solid black;
     margin: 10px;
-    transition: all ease-in-out 0.3s;
+    transition: all ease-in-out 0.05s;
 
     &:hover {
     cursor: pointer;
     border: 2px solid red;
     transform: scale(0.98);
     box-shadow: 5px 2px 2px rgba(0, 0, 0, 0.235);
-    transition: all ease-in-out 0.3s;
+    transition: all ease-in-out 0.05s;
     }
+  }
+
+  >img.selectedSize {
+    border: 2px solid red;
   }
 `;
 

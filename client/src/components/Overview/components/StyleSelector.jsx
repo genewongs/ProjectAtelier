@@ -52,10 +52,15 @@ function StyleSelector({ styles, product }) {
           <FontAwesomeIcon icon={faCheck} />
         </BadgeStyled> */}
         {styles.map((product) => {
+          console.log(product)
           return <img
+            className={selectedStyle === product.style_id ? 'selectedSize' : ''}
             key={product.style_id}
             src={product.photos[0].thumbnail_url}
-            onClick={() => {click(product)}
+            onClick={() => {
+              setSelectedStyle(product.style_id)
+              click(product);
+            }
           }/>
         })}
       </ImageContainer>
