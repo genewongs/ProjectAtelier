@@ -1,8 +1,9 @@
 import React, { useState, useContext, useEffect } from 'react';
 import axios from 'axios';
 import RelatedProductsContext from '../utils/RelatedProductsContext.jsx';
+import RelatedProductsList from './RelatedProductsList.jsx';
 
-function Container() {
+export default function Container() {
   const { setRelatedData, id } = useContext(RelatedProductsContext);
 
   function getRelatedProductInfo(relatedIDArr) {
@@ -37,8 +38,6 @@ function Container() {
   }, []);
 
   return (
-    <div>Inside Container</div>
+    <RelatedProductsList />
   );
 }
-
-export default Container;
