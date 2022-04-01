@@ -1,5 +1,5 @@
 import React, {
-  useState, useContext, useEffect, useCallback, useRef,
+  useState, useContext, useEffect, useCallback,
 } from 'react';
 import axios from 'axios';
 import ReviewStoreContext from '../utils/ReviewContext.jsx';
@@ -7,22 +7,29 @@ import ReviewList from './ReviewList.jsx';
 import AddReview from './AddReview.jsx';
 
 function Container() {
-  const { id, setReviewData } = useContext(ReviewStoreContext);
+  const { id, setReviewData, setMetaData } = useContext(ReviewStoreContext);
   const [count, setCount] = useState(2);
   const [reviewCount, setReviewCount] = useState(0);
-  const [limitHit, setLimitHit] = useState(true);
+  const [limitHit, setLimitHit] = useState(false);
   const [sort, setSort] = useState('relevant');
+
   function getReviews() {
     axios.get('api', { params: { path: `reviews?count=${count}&sort=${sort}&product_id=${id}` } })
       .then((response) => {
         setReviewData(response.data.results);
-        if (count >= reviewCount) {
+        if (reviewCount && count >= reviewCount) {
           setLimitHit(true);
         } else {
           setLimitHit(false);
         }
       })
       .catch((err) => console.error(err));
+  }
+
+  function getMetaData() {
+    axios.get('api', { params: { path: `reviews/meta?product_id=${id}` } })
+      .then((response) => setMetaData(response.data))
+      .catch((err) => console.log(err));
   }
 
   function getMaxReviewCount() {
@@ -36,6 +43,7 @@ function Container() {
   useEffect(() => {
     getMaxReviewCount();
     getReviews();
+    getMetaData();
   }, []);
 
   useEffect(() => {
@@ -66,7 +74,7 @@ function Container() {
             More Reviews
           </button>
         )}
-      <AddReview />
+      <AddReview id={id} />
     </div>
   );
 }
