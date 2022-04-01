@@ -1,7 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
+import Container from './components/Container.jsx';
+import RelatedProductsContext from './utils/RelatedProductsContext.jsx';
 
 export default function RI() {
+  const [relatedData, setRelatedData] = useState([]);
   return (
-    <div>Hello we`&apos;`re inside Related Items</div>
+    <RelatedProductsContext.Provider value={{ relatedData, setRelatedData }}>
+      <Container />
+    </RelatedProductsContext.Provider>
   );
 }
