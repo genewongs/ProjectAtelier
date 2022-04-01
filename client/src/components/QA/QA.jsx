@@ -13,13 +13,13 @@ export default function QA() {
   function getFirstFourQuestions() {
     return axios.get('/api', { params: { path: 'qa/questions?product_id=65631' } })
       .then((response) => setQuestionData(response.data.results.slice(0, 4)))
-      .catch((err) => console.error(err));
+      .catch((err) => err);
   }
 
   function showAllQuestions() {
     return axios.get('/api', { params: { path: 'qa/questions?product_id=65631' } })
       .then((response) => setQuestionData(response.data.results))
-      .catch((err) => console.error(err));
+      .catch((err) => err);
   }
 
   useEffect(() => {
