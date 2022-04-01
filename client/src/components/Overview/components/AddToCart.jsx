@@ -1,15 +1,10 @@
 import React from 'react';
 
-function AddToCart() {
+function AddToCart({ styles }) {
 
   return(
     <div>
-      <select name="cars" id="cars">
-        <option value="volvo">Volvo</option>
-        <option value="saab">Saab</option>
-        <option value="mercedes">Mercedes</option>
-        <option value="audi">Audi</option>
-      </select>
+      {/* {console.log(styles[0])} */}
     </div>
   )
 }

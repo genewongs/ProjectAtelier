@@ -1,0 +1,6 @@
+* {
+  background-color: rgb(191, 29, 0);
+}
+
+on click of a button,
+re-render the quantity to match how many there are.
