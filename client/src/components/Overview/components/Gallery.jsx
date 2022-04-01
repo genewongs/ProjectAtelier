@@ -6,12 +6,13 @@ import {
   GalleryInnerLeftStyled, GalleryInnerCenterStyled, GalleryInnerRightStyled,
 } from './styles/GalleryStyled.js';
 
-function Gallery({ styles }) {
+function Gallery({ style }) {
   const [img, setImg] = useState(0);
+  console.log('style', style)
 
   return (
     <GalleryStyled>
-      <GalleryInnerStyled img={styles[0].photos[img].url}>
+      <GalleryInnerStyled img={style.photos[img].url}>
 
         <GalleryInnerLeftStyled>
           <FontAwesomeIcon icon={faCircleChevronLeft} size="2x" onClick={() => { img > 0 && setImg(img - 1); }} />
@@ -24,7 +25,7 @@ function Gallery({ styles }) {
             icon={faCircleChevronRight}
             size="2x"
             onClick={() => {
-              img < styles[0].photos.length - 1 && setImg(img + 1);
+              img < style.photos.length - 1 && setImg(img + 1);
             }}
           />
         </GalleryInnerRightStyled>

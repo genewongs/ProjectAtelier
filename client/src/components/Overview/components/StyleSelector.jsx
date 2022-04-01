@@ -7,7 +7,7 @@ import { SelectorContainer, ImageContainer, BadgeStyled } from './styles/StyledS
 import { ProductInfo } from './styles/ProductInfoStyled.js';
 import { SelectSize, SelectQuantity, AddCartButton } from './styles/SelectSizeStyled.js';
 
-function StyleSelector({ styles, product }) {
+function StyleSelector({ styles, product, changeGallery }) {
   const [currentSku, setSku] = useState({});
   const [quantityArr, setQuantity] = useState([]);
   const [selectedSize, setSelectedSize] = useState();
@@ -20,11 +20,7 @@ function StyleSelector({ styles, product }) {
   }, [currentSku, selectedStyle])
 
   function click(product) {
-    console.log(styles, product)
-  }
-
-  function showTarget() {
-    console.log(selected)
+    // console.log(styles, product)
   }
 
   function generateOptions(num) {
@@ -56,8 +52,8 @@ function StyleSelector({ styles, product }) {
             key={product.style_id}
             src={product.photos[0].thumbnail_url}
             onClick={() => {
-              setSelectedStyle(product.style_id)
-              click(product);
+              changeGallery(product);
+              setSelectedStyle(product.style_id);
             }
           }/>
         })}

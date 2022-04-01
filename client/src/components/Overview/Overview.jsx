@@ -14,15 +14,23 @@ const axios = require('axios');
 
 export default function Overview() {
   const [style, setStyle] = useState(null);
+  const [product, setProduct] = useState(null);
+  const [currentStyle, setCurrentStyle] = useState(null);
   const [displayStyle, setDisplayStyle] = useState([]);
-  const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
     fetchStyles('65631')
       .then((res) => {
         if (res.status === 200) {
           setStyle(res.data.results);
-          setLoaded(true);
+          setCurrentStyle(res.data.results[0]);
+        }
+      })
+      .catch((res) => res.sendStatus(500));
+    fetchProduct('65631')
+      .then((res) => {
+        if (res.status === 200) {
+          setProduct(res.data);
         }
       })
       .catch((res) => res.sendStatus(500));
@@ -32,8 +40,12 @@ export default function Overview() {
     return axios.get('api', { params: { path: `products/${id}/styles` } });
   }
 
-  function changeStyle(object) {
-    setStyle(object);
+  function fetchProduct(id) {
+    return axios.get('api', { params: { path: `products/${id}`} });
+  }
+
+  function changeGallery(object) {
+    setCurrentStyle(object);
   }
 
   return (
@@ -42,18 +54,19 @@ export default function Overview() {
         <img src="./dist/images/BACKLASH_LOGO.png" />
       </LogoStyle>
       <Flex>
-        {style && <Gallery styles={style} />}
+        {currentStyle && <Gallery style={currentStyle} />}
         <RightFlex>
-          {style && (
+          {style && product && (
           <StyleSelector
             styles={style}
-            product={sampleProduct}
+            product={product}
             fetchStyles={fetchStyles}
+            changeGallery={changeGallery}
           />
           )}
         </RightFlex>
       </Flex>
-      <ProdDescription product={sampleProduct} />
+      {product && <ProdDescription product={product} />}
     </LordContainer>
   );
 }
