@@ -13,6 +13,9 @@ export const SelectSize = styled.div`
       cursor: pointer;
     }
   }
+  >button.selected {
+      background-color: red;
+    }
 `;
 
 export const SelectQuantity = styled.div`
