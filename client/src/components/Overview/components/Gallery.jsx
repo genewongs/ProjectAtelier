@@ -11,7 +11,7 @@ function Gallery({ styles }) {
 
   return (
     <GalleryStyled>
-      <GalleryInnerStyled img={styles.results[0].photos[img].url}>
+      <GalleryInnerStyled img={styles[0].photos[img].url}>
 
         <GalleryInnerLeftStyled>
           <FontAwesomeIcon icon={faCircleChevronLeft} size="2x" onClick={() => { img > 0 && setImg(img - 1); }} />
@@ -24,7 +24,7 @@ function Gallery({ styles }) {
             icon={faCircleChevronRight}
             size="2x"
             onClick={() => {
-              img < styles.results[0].photos.length - 1 && setImg(img + 1);
+              img < styles[0].photos.length - 1 && setImg(img + 1);
             }}
           />
         </GalleryInnerRightStyled>
