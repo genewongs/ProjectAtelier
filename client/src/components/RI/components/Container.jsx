@@ -3,6 +3,8 @@ import axios from 'axios';
 import RelatedProductsContext from '../utils/RelatedProductsContext.jsx';
 import RelatedProductsList from './RelatedProductsList.jsx';
 
+import { ContainerStyled } from '../styles/ContainerStyled.styled';
+
 export default function Container() {
   const { setRelatedData, id } = useContext(RelatedProductsContext);
 
@@ -38,6 +40,8 @@ export default function Container() {
   }, []);
 
   return (
-    <RelatedProductsList />
+    <ContainerStyled>
+      <RelatedProductsList />
+    </ContainerStyled>
   );
 }
