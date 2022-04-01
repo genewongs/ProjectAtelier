@@ -9,37 +9,48 @@ import { RightFlex } from './components/styles/ProductInfoStyled.js';
 import Gallery from './components/Gallery.jsx';
 import { LogoStyle } from './components/styles/LogoStyled.js';
 import AddToCart from './components/AddToCart.jsx';
+
 const axios = require('axios');
 
 export default function Overview() {
-  const [style, setStyle] = useState([]);
+  const [style, setStyle] = useState(null);
+  const [displayStyle, setDisplayStyle] = useState([]);
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
     fetchStyles('65631')
-      .then(res => {
-        if(res.status === 200) {
-          setStyle(res.data);
+      .then((res) => {
+        if (res.status === 200) {
+          setStyle(res.data.results);
           setLoaded(true);
-        };
+        }
       })
-      .catch(res => res.sendStatus(500));
+      .catch((res) => res.sendStatus(500));
   }, []);
 
   function fetchStyles(id) {
-    return axios.get('api', { params: { path: `products?${id}/styles` } });
+    return axios.get('api', { params: { path: `products/${id}/styles` } });
+  }
+
+  function changeStyle(object) {
+    setStyle(object);
   }
 
   return (
     <LordContainer>
       <LogoStyle>
-        <img src={'./dist/images/BACKLASH_LOGO.png'}/>
+        <img src="./dist/images/BACKLASH_LOGO.png" />
       </LogoStyle>
-      {/* <AddToCart styles={style}></AddToCart> */}
       <Flex>
-        <Gallery styles={sampleStyles} />
+        {style && <Gallery styles={style} />}
         <RightFlex>
-          <StyleSelector styles={sampleStyles} product={sampleProduct} fetchStyles={fetchStyles} />
+          {style && (
+          <StyleSelector
+            styles={style}
+            product={sampleProduct}
+            fetchStyles={fetchStyles}
+          />
+          )}
         </RightFlex>
       </Flex>
       <ProdDescription product={sampleProduct} />
