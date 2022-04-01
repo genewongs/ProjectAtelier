@@ -4,7 +4,7 @@ import { ProdDescriptionStyled } from './styles/ProdDescriptionStyled.js';
 function ProdDescription({ product }) {
   return (
     <ProdDescriptionStyled>
-      <h2>DESCRIPTION:</h2>
+      <h2><i>{product.slogan}</i></h2>
       <p>{product.description}</p>
     </ProdDescriptionStyled>
   );
