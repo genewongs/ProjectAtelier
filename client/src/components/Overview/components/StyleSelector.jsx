@@ -13,7 +13,7 @@ function StyleSelector({ styles, product, changeGallery }) {
   const [selectedSize, setSelectedSize] = useState();
   const [selectedStyle, setSelectedStyle] = useState();
 
-  const prodSkus = styles[0].skus;
+  let prodSkus = styles[0].skus;
 
   useEffect(() => {
     generateOptions(currentSku.quantity)
@@ -72,11 +72,11 @@ function StyleSelector({ styles, product, changeGallery }) {
       </SelectSize>
 
       <SelectQuantity>
-        <select name="hello">
+        <select name="selectQuantity">
         <option value="" disabled selected>Select Quantity</option>
           {quantityArr.map((line, index) => {
             if(line <= 15) {
-              return <option key={index}>{line}</option>
+              return <option key={index} value="">{line}</option>
             }
           })}
           }

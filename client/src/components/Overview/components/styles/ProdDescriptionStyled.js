@@ -6,4 +6,8 @@ export const ProdDescriptionStyled = styled.div`
   text-align: center;
   justify-self: center;
   align-self: center;
+  > h2{
+    text-decoration: underline;
+    text-shadow: 2px 2px rgba(0, 0, 0, 0.2);
+  }
 `;
