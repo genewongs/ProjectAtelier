@@ -2,10 +2,8 @@ import React, { useState, useContext, useEffect } from 'react';
 import axios from 'axios';
 import RelatedProductsContext from '../utils/RelatedProductsContext.jsx';
 
-const id = 65631;
-
-export default function Container() {
-  const { setRelatedData } = useContext(RelatedProductsContext);
+function Container() {
+  const { setRelatedData, id } = useContext(RelatedProductsContext);
 
   function getRelatedProductInfo(relatedIDArr) {
     Promise.all(
@@ -42,3 +40,5 @@ export default function Container() {
     <div>Inside Container</div>
   );
 }
+
+export default Container;
