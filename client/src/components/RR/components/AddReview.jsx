@@ -1,13 +1,14 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useCallback, useEffect, useContext } from 'react';
 import axios from 'axios';
 import Modal from './Modal.jsx';
 import RatingForm from './RatingForm.jsx';
 import CharacteristicsForm from './CharacteristicsForm.jsx';
+import ReviewStoreContext from '../utils/ReviewContext.jsx';
 
-function AddReview({ id }) {
+function AddReview() {
+  const { id } = useContext(ReviewStoreContext);
   const [modalState, setModalState] = useState(false);
   const [productName, setProductName] = useState('');
-  const [photos, setPhotos] = useState([]);
   const [formData, setFormData] = useState({
     product_id: id,
     rating: null,
@@ -16,23 +17,19 @@ function AddReview({ id }) {
     recommend: true,
     name: '',
     email: '',
-    photos,
+    photos: [],
     characteristics: {},
   });
-  const [query, setQuery] = useState({
+  const query = {
     path: 'reviews',
     query: formData,
-  });
+  };
 
   function handleChange(e) {
     setFormData((prevForm) => ({ ...prevForm, [e.target.id]: e.target.value }));
   }
 
   const toggleModal = useCallback(() => setModalState(!modalState), []);
-
-  function addReviewModal() {
-
-  }
 
   function getProductName() {
     axios.get('/api', { params: { path: `products/${id}` } })
