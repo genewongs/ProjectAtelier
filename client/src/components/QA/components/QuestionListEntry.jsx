@@ -1,29 +1,44 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 
+// eslint-disable-next-line import/extensions
+import AnswerList from './AnswerList.jsx';
+
 export default function QuestionListEntry({ question }) {
-  // const [answerData, setAnswerData] = useState([]);
+  const [answerData, setAnswerData] = useState([]);
+  const [count, setCount] = useState(2);
 
-  // function getAllAnswers() {
-  //   return axios.get('/api', { params: { path: `qa/questions?question_id=${question.question_id}` } })
-  //     .then((response) => setAnswerData(response))
-  //     .catch((err) => console.error(err));
-  // }
+  function getAnswers() {
+    return axios.get('/api', { params: { path: `qa/questions/${question.question_id}/answers?count=${count}` } })
+      .then((response) => setAnswerData(response.data.results))
+      .catch((err) => err);
+  }
 
-  // // https://app-hrsei-api.herokuapp.com/api/fec2/rfp/qa/questions?product_id=65631&question_id=573870/answers
+  const incrementCount = useCallback(() => setCount((prevCount) => prevCount + 2), []);
 
-  // console.log(answerData);
-
-  // useEffect(() => {
-  //   getAllAnswers();
-  // }, []);
+  useEffect(() => {
+    getAnswers();
+  }, [count]);
 
   return (
     <div>
       <ul>
         <li>{question.question_body}</li>
-        <li>{question.question_helpfulness}</li>
+        <span>
+          {question.question_helpfulness}
+          people found this question helpful
+        </span>
+        <div>
+          <AnswerList answers={answerData} />
+        </div>
+        <button
+          type="button"
+          onClick={incrementCount}
+        >
+          Load More Answers
+        </button>
       </ul>
+
     </div>
   );
 }
