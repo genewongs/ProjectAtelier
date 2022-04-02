@@ -16,6 +16,7 @@ export default function Overview() {
   const [style, setStyle] = useState(null);
   const [product, setProduct] = useState(null);
   const [currentStyle, setCurrentStyle] = useState(null);
+  const [index, setIndex] = useState(0);
   const [displayStyle, setDisplayStyle] = useState([]);
 
   useEffect(() => {
@@ -41,11 +42,15 @@ export default function Overview() {
   }
 
   function fetchProduct(id) {
-    return axios.get('api', { params: { path: `products/${id}`} });
+    return axios.get('api', { params: { path: `products/${id}` } });
   }
 
   function changeGallery(object) {
     setCurrentStyle(object);
+  }
+
+  function changeStyle(object, index) {
+    setIndex(index);
   }
 
   return (
@@ -59,9 +64,11 @@ export default function Overview() {
           {style && product && (
           <StyleSelector
             styles={style}
+            index={index}
             product={product}
             fetchStyles={fetchStyles}
             changeGallery={changeGallery}
+            changeStyle={changeStyle}
           />
           )}
         </RightFlex>

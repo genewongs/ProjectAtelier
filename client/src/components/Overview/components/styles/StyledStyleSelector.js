@@ -42,7 +42,9 @@ export const ImageContainer = styled.div`
   }
 
   >img.selectedSize {
-    border: 2px solid red;
+    border: 2px solid black;
+    box-shadow: 4px 2px 2px rgba(0, 0, 0, 0.35);
+    transform: scale(1.02);
   }
 `;
 

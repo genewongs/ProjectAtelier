@@ -7,21 +7,19 @@ import { SelectorContainer, ImageContainer, BadgeStyled } from './styles/StyledS
 import { ProductInfo } from './styles/ProductInfoStyled.js';
 import { SelectSize, SelectQuantity, AddCartButton } from './styles/SelectSizeStyled.js';
 
-function StyleSelector({ styles, product, changeGallery }) {
+function StyleSelector({ styles, product, index, changeGallery, changeStyle }) {
   const [currentSku, setSku] = useState({});
   const [quantityArr, setQuantity] = useState([]);
-  const [selectedSize, setSelectedSize] = useState();
-  const [selectedStyle, setSelectedStyle] = useState();
+  const [selectedSize, setSelectedSize] = useState(0);
+  const [selectedStyle, setSelectedStyle] = useState(null);
+  const [selectIndex, setSelectIndex] = useState(0);
 
-  let prodSkus = styles[0].skus;
+  let prodSkus = styles[index].skus;
 
   useEffect(() => {
     generateOptions(currentSku.quantity)
-  }, [currentSku, selectedStyle])
-
-  function click(product) {
-    // console.log(styles, product)
-  }
+    setSelectedStyle(Object.keys(styles[0].skus)[0])
+  }, [currentSku]);
 
   function generateOptions(num) {
     let html = [];
@@ -34,26 +32,34 @@ function StyleSelector({ styles, product, changeGallery }) {
   return(
     <SelectorContainer>
       <ProductInfo>
-        <h2> {styles[0].name} </h2>
-        <span> ${styles[0].original_price} </span>
+        <h2> {styles[index].name} </h2>
+        <span style={{color: styles[index].sale_price ? 'red' : 'black' }}>
+          ${styles[index].sale_price ? `${styles[index].sale_price}` : styles[index].original_price}
+        </span>
+
+        <span style={{textDecoration: 'line-through', display: 'block'}}>
+            {styles[index].sale_price ? `$${styles[index].original_price}` : ''}
+        </span>
         <br></br>
       </ProductInfo>
 
       <div>
-        <span>STYLE > </span> SELECTED STYLE
+        <span style={{fontWeight: 'bold'}}>STYLE > </span> SELECTED STYLE
       </div> <br></br>
       <ImageContainer>
         {/* <BadgeStyled>
           <FontAwesomeIcon icon={faCheck} />
         </BadgeStyled> */}
-        {styles.map((product) => {
+        {styles.map((product, index) => {
           return <img
-            className={selectedStyle === product.style_id ? 'selectedSize' : ''}
+            className={index === selectIndex ? 'selectedSize' : ''}
             key={product.style_id}
             src={product.photos[0].thumbnail_url}
             onClick={() => {
               changeGallery(product);
-              setSelectedStyle(product.style_id);
+              // setSelectedStyle(product.style_id);
+              setSelectIndex(index);
+              changeStyle(product, index);
             }
           }/>
         })}

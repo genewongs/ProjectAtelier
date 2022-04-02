@@ -11,4 +11,5 @@ export const ProductInfo = styled.div`
   display: flex;
   flex-direction: column;
   text-align: left;
+  min-height: 130px;
 `;
