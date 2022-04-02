@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import ReviewStoreContext from '../utils/ReviewContext.jsx';
 
-function CharacteristicsForm() {
+function CharacteristicsForm({ handleChange }) {
   const { metaData } = useContext(ReviewStoreContext);
   const size = {
     'size-e': 'A size too small',
@@ -52,66 +52,66 @@ function CharacteristicsForm() {
         && (
         <div className="form-container">
           {Object.keys(metaData.characteristics).includes('Size') && (
-          <form className="size-container">
+          <form>
             <div>Size</div>
-            {Object.entries(size).map((option, index) => (
-              <label htmlFor={option[0]} key={option[0]} className="size">
-                <input type="radio" className="size" name={option[1]} id={option[0]} value={index + 1} />
+            {Object.keys(size).map((option, index) => (
+              <label htmlFor={option} key={option} className="size">
+                <input type="radio" className="size" name="size" id={option} value={index + 1} onChange={handleChange} />
               </label>
             ))}
           </form>
           )}
           {Object.keys(metaData.characteristics).includes('Width')
           && (
-          <form className="width-container">
+          <form>
             <div>Width</div>
-            {Object.entries(width).map((option, index) => (
-              <label htmlFor={option[0]} key={option[0]} className="width">
-                <input type="radio" className="width" name={option[1]} id={option[0]} value={index + 1} />
+            {Object.keys(width).map((option, index) => (
+              <label htmlFor={option} key={option} className="width">
+                <input type="radio" className="width" name="width" id={option} value={index + 1} onChange={handleChange} />
               </label>
             ))}
           </form>
           )}
           {Object.keys(metaData.characteristics).includes('Comfort')
           && (
-          <form className="comfort-container">
+          <form>
             <div>Comfort</div>
-            {Object.entries(comfort).map((option, index) => (
-              <label htmlFor={option[0]} key={option[0]} className="comfort">
-                <input type="radio" className="comfort" name={option[1]} id={option[0]} value={index + 1} />
+            {Object.keys(comfort).map((option, index) => (
+              <label htmlFor={option} key={option} className="comfort">
+                <input type="radio" className="comfort" name="comfort" id={option} value={index + 1} onChange={handleChange} />
               </label>
             ))}
           </form>
           )}
           {Object.keys(metaData.characteristics).includes('Quality')
           && (
-          <form className="quality-container">
+          <form>
             <div>Quality</div>
-            {Object.entries(quality).map((option, index) => (
-              <label htmlFor={option[0]} key={option[0]} className="quality">
-                <input type="radio" className="quality" name={option[1]} id={option[0]} value={index + 1} />
+            {Object.keys(quality).map((option, index) => (
+              <label htmlFor={option} key={option} className="quality">
+                <input type="radio" className="quality" name="quality" id={option} value={index + 1} onChange={handleChange} />
               </label>
             ))}
           </form>
           )}
           {Object.keys(metaData.characteristics).includes('Length')
           && (
-          <form className="length-container">
+          <form>
             <div>Length</div>
-            {Object.entries(length).map((option, index) => (
-              <label htmlFor={option[0]} key={option[0]} className="length">
-                <input type="radio" className="length" name={option[1]} id={option[0]} value={index + 1} />
+            {Object.keys(length).map((option, index) => (
+              <label htmlFor={option} key={option} className="length">
+                <input type="radio" className="length" name="length" id={option} value={index + 1} onChange={handleChange} />
               </label>
             ))}
           </form>
           )}
           {Object.keys(metaData.characteristics).includes('Fit')
           && (
-          <form className="fit-container">
+          <form>
             <div>Fit</div>
-            {Object.entries(fit).map((option, index) => (
-              <label htmlFor={option[0]} key={option[0]} className="fit">
-                <input type="radio" className="fit" name={option[1]} id={option[0]} value={index} />
+            {Object.keys(fit).map((option, index) => (
+              <label htmlFor={option} key={option} className="fit">
+                <input type="radio" className="fit" name="fit" id={option} value={index + 1} onChange={handleChange} />
               </label>
             ))}
           </form>

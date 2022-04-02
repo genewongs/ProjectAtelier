@@ -63,7 +63,7 @@ function Container() {
       </div>
       <div className="review-sorted-by">
         {reviewCount}
-        {reviewCount.length >= 2 ? ' reviews, ' : ' review, '}
+        {reviewCount >= 2 ? ' reviews, ' : ' review, '}
         sorted by
         {' '}
         <select className="sort-selector" onChange={(e) => setSort(e.target.value)}>
