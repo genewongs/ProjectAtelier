@@ -1,7 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
+import Container from './components/Container.jsx';
+import RelatedProductsContext, { RelatedProducts } from './utils/RelatedProductsContext.jsx';
 
 export default function RI() {
   return (
-    <div>Hello we`&apos;`re inside Related Items</div>
+    // Change name when 'your cart' implementation
+    <RelatedProducts>
+      <Container />
+    </RelatedProducts>
   );
 }
