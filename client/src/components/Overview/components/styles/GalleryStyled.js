@@ -3,6 +3,7 @@ import styled from 'styled-components';
 export const GalleryStyled = styled.div`
   display: flex;
   flex-grow: 1;
+  max-width: 1200px;
   background-color: white;
 `;
 
@@ -23,6 +24,7 @@ export const ThumbnailsStyled = styled.div`
 
 export const ThumbnailsImageStyled = styled.div`
   display: flex;
+  flex: 1;
   border: 1px solid black;
   width: 90px;
   height: 90px;

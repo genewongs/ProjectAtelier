@@ -8,11 +8,17 @@ import {
   ThumbnailsImageStyled,
 } from './styles/GalleryStyled.js';
 
-function Gallery({ style }) {
+function Gallery({ style, handleExpand }) {
   const [img, setImg] = useState(0);
+  const [expanded, setExpand] = useState(false);
 
-  function click(photo, index) {
+  function navigateImage(photo, index) {
     setImg(index)
+  }
+
+  function expand() {
+    console.log('click');
+    setExpand(!expanded);
   }
 
   return (
@@ -24,7 +30,7 @@ function Gallery({ style }) {
             key={index}
             img={photo.thumbnail_url}
             onClick={() => {
-              click(photo, index)
+              navigateImage(photo, index);
             }}
           />
         ))}
@@ -43,7 +49,7 @@ function Gallery({ style }) {
 
         <GalleryInnerCenterStyled />
 
-        <GalleryInnerRightStyled>
+        <GalleryInnerRightStyled onClick={handleExpand}>
           <FontAwesomeIcon
             className={img === style.photos.length - 1 ? 'disable button' : 'button'}
             icon={faCircleChevronRight}

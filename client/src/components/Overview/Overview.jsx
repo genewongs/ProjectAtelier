@@ -17,7 +17,7 @@ export default function Overview() {
   const [product, setProduct] = useState(null);
   const [currentStyle, setCurrentStyle] = useState(null);
   const [index, setIndex] = useState(0);
-  const [displayStyle, setDisplayStyle] = useState([]);
+  const [expanded, setExpanded] = useState(false);
 
   useEffect(() => {
     fetchStyles('65631')
@@ -53,13 +53,19 @@ export default function Overview() {
     setIndex(index);
   }
 
+  function handleExpand() {
+    console.log('hi')
+    setExpanded(!expanded);
+  }
+
   return (
     <LordContainer>
       <LogoStyle>
         <img src="./dist/images/BACKLASH_LOGO.png" />
       </LogoStyle>
       <Flex>
-        {currentStyle && <Gallery style={currentStyle} />}
+        {currentStyle && <Gallery style={currentStyle} handleExpand={handleExpand} />}
+        {!expanded && (
         <RightFlex>
           {style && product && (
           <StyleSelector
@@ -72,6 +78,7 @@ export default function Overview() {
           />
           )}
         </RightFlex>
+        )}
       </Flex>
       {product && <ProdDescription product={product} />}
     </LordContainer>
