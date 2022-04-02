@@ -3,6 +3,7 @@ import React, {
 } from 'react';
 import axios from 'axios';
 import ReviewStoreContext from '../utils/ReviewContext.jsx';
+import StarRating from './StarRating.jsx';
 import ReviewList from './ReviewList.jsx';
 import AddReview from './AddReview.jsx';
 
@@ -14,47 +15,55 @@ function Container() {
   const [sort, setSort] = useState('relevant');
 
   function getReviews() {
-    axios.get('api', { params: { path: `reviews?count=${count}&sort=${sort}&product_id=${id}` } })
-      .then((response) => {
-        setReviewData(response.data.results);
-        if (reviewCount && count >= reviewCount) {
-          setLimitHit(true);
-        } else {
-          setLimitHit(false);
-        }
-      })
-      .catch((err) => console.error(err));
+    return new Promise((resolve, reject) => {
+      axios.get('api', { params: { path: `reviews?count=${count}&sort=${sort}&product_id=${id}` } })
+        .then((response) => resolve(response.data))
+        .catch((err) => reject(err));
+    });
   }
 
   function getMetaData() {
-    axios.get('api', { params: { path: `reviews/meta?product_id=${id}` } })
-      .then((response) => setMetaData(response.data))
-      .catch((err) => console.log(err));
-  }
-
-  function getMaxReviewCount() {
-    axios.get('api', { params: { path: `reviews?count=99999&product_id=${id}` } })
-      .then((response) => setReviewCount(response.data.results.length))
-      .catch((err) => console.error(err));
+    return new Promise((resolve, reject) => {
+      axios.get('api', { params: { path: `reviews/meta?product_id=${id}` } })
+        .then((response) => resolve(response.data))
+        .catch((err) => reject(err));
+    });
   }
 
   const incrementCount = useCallback(() => setCount((prevCount) => prevCount + 2), []);
 
   useEffect(() => {
-    getMaxReviewCount();
-    getReviews();
-    getMetaData();
+    Promise.all([getReviews(), getMetaData()])
+      .then(async (results) => {
+        setReviewData(results[0]);
+        setMetaData(results[1]);
+        setReviewCount(Object.values(results[1].ratings)
+          .reduce((sum, num) => Number(sum) + Number(num), 0));
+      })
+      .catch((err) => new Error(err));
   }, []);
 
   useEffect(() => {
-    getReviews();
-  }, [count, sort]);
+    getReviews()
+      .then((response) => setReviewData(response))
+      .then(() => {
+        if (count >= reviewCount) {
+          setLimitHit(true);
+        } else {
+          setLimitHit(false);
+        }
+      })
+      .catch((err) => new Error(err));
+  }, [count, reviewCount, sort]);
 
   return (
     <div className="container">
+      <div className="rating-container">
+        <StarRating />
+      </div>
       <div className="review-sorted-by">
         {reviewCount}
-        {reviewCount.length >= 2 ? ' reviews, ' : ' review, '}
+        {reviewCount >= 2 ? ' reviews, ' : ' review, '}
         sorted by
         {' '}
         <select className="sort-selector" onChange={(e) => setSort(e.target.value)}>
@@ -74,7 +83,7 @@ function Container() {
             More Reviews
           </button>
         )}
-      <AddReview id={id} />
+      <AddReview />
     </div>
   );
 }
