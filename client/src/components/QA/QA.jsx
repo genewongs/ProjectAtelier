@@ -2,15 +2,14 @@ import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 // eslint-disable-next-line import/extensions
 import QuestionList from './components/QuestionList.jsx';
-
-// require('dotenv').config();
-
-// const id = process.env.id;
+// eslint-disable-next-line import/extensions
+import NewQuestion from './components/NewQuestion.jsx';
 
 export default function QA() {
   const [questionData, setQuestionData] = useState([]);
   const [allQuestionData, setAllQuestionData] = useState([]);
   const [count, setCount] = useState(2);
+  const [show, setShow] = useState(false);
 
   const id = '65631';
 
@@ -52,6 +51,18 @@ export default function QA() {
       <input type="text" placeholder="Have a question? Search for answers…" onChange={(event) => filterQuestionsWithSearch(event.target.value)} />
       <QuestionList questions={questionData} />
       <input type="submit" value="More Answered Questions" onClick={() => incrementQuestionCount()} />
+      <br />
+      <br />
+      <div>
+        <button
+          type="button"
+          onClick={() => setShow(true)}
+        >
+          Add A New Question +
+        </button>
+        <br />
+      </div>
+      <NewQuestion id={id} show={show} />
     </div>
   );
 }

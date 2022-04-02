@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
+// eslint-disable-next-line import/extensions
+import NewAnswer from './NewAnswer.jsx';
 
 // eslint-disable-next-line import/extensions
 import AnswerList from './AnswerList.jsx';
@@ -7,6 +9,7 @@ import AnswerList from './AnswerList.jsx';
 export default function QuestionListEntry({ question }) {
   const [answerData, setAnswerData] = useState([]);
   const [count, setCount] = useState(2);
+  const [show, setShow] = useState(false);
 
   function getAnswers() {
     return axios.get('/api', { params: { path: `qa/questions/${question.question_id}/answers?count=${count}` } })
@@ -37,8 +40,14 @@ export default function QuestionListEntry({ question }) {
         >
           Load More Answers
         </button>
+        <button
+          type="button"
+          onClick={() => setShow(true)}
+        >
+          Submit A New Answer
+        </button>
       </ul>
-
+      <NewAnswer show={show} questionID={question.question_id} />
     </div>
   );
 }
