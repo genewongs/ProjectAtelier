@@ -9,10 +9,10 @@ import RR from './components/RR/RR.jsx';
 function App() {
   return (
     <div className="app-container">
-      <Overview />
+      {/* <Overview /> */}
       <RI />
-      <QA />
-      <RR />
+      {/* <QA />
+      <RR /> */}
     </div>
   );
 }

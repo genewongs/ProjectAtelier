@@ -1,3 +1,5 @@
+/* eslint-disable react/no-array-index-key */
+/* eslint-disable import/extensions */
 import React from 'react';
 import RelatedProductsContext from '../utils/RelatedProductsContext.jsx';
 import RelatedProductsEntry from './RelatedProductsEntry.jsx';
