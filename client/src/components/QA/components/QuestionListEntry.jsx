@@ -17,6 +17,10 @@ export default function QuestionListEntry({ question }) {
       .catch((err) => err);
   }
 
+  function closeModal() {
+    setShow(false);
+  }
+
   const incrementCount = useCallback(() => setCount((prevCount) => prevCount + 2), []);
 
   useEffect(() => {
@@ -47,7 +51,7 @@ export default function QuestionListEntry({ question }) {
           Submit A New Answer
         </button>
       </ul>
-      <NewAnswer show={show} questionID={question.question_id} />
+      <NewAnswer show={show} questionID={question.question_id} closeModal={closeModal} />
     </div>
   );
 }

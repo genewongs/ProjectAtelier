@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-export default function NewAnswer({ show, questionID }) {
+export default function NewAnswer({ show, questionID, closeModal }) {
   const [answerBody, setAnswerBody] = useState([]);
   const [answerAuthorName, setAnswerAuthorName] = useState([]);
   const [answerAuthorEmail, setAnswerAuthorEmail] = useState([]);
@@ -31,7 +31,9 @@ export default function NewAnswer({ show, questionID }) {
     if (answer.body.length < 1 || answer.name.length < 1 || answer.email.length < 1) {
       alert('fix empty field(s)');
     } else {
+      closeModal();
       console.log(answer);
+      // post request goes here
     }
   }
 
@@ -77,6 +79,14 @@ export default function NewAnswer({ show, questionID }) {
           onClick={() => { submitQuestion(); }}
         >
           Submit Answer
+        </button>
+        <br />
+        <br />
+        <button
+          type="button"
+          onClick={() => { closeModal(); }}
+        >
+          Close
         </button>
       </div>
       <br />

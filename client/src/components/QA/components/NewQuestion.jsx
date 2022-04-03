@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-export default function NewQuestion({ id, show, onClose }) {
+export default function NewQuestion({ id, show, closeModal }) {
   if (!show) {
     return null;
   }
@@ -32,8 +32,9 @@ export default function NewQuestion({ id, show, onClose }) {
     if (question.body.length < 1 || question.name.length < 1 || question.email.length < 1) {
       alert('fix empty field(s)');
     } else {
-      onClose();
+      closeModal();
       console.log(question);
+      // post request goes here
     }
   }
 
@@ -75,6 +76,14 @@ export default function NewQuestion({ id, show, onClose }) {
           onClick={() => { submitQuestion(); }}
         >
           Submit Your Question!
+        </button>
+        <br />
+        <br />
+        <button
+          type="button"
+          onClick={() => { closeModal(); }}
+        >
+          Close
         </button>
       </div>
       <br />

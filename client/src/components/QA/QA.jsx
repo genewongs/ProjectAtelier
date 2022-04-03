@@ -13,6 +13,10 @@ export default function QA() {
 
   const id = '65631';
 
+  function closeModal() {
+    setShow(false);
+  }
+
   function getQuestions() {
     return axios.get('/api', { params: { path: `qa/questions?product_id=${id}&count=${count}` } })
       .then((response) => setQuestionData(response.data.results))
@@ -62,7 +66,7 @@ export default function QA() {
         </button>
         <br />
       </div>
-      <NewQuestion id={id} show={show} />
+      <NewQuestion id={id} show={show} closeModal={closeModal} />
     </div>
   );
 }
