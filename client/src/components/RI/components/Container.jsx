@@ -5,8 +5,10 @@ import RelatedProductsList from './RelatedProductsList.jsx';
 
 import { ContainerStyled } from '../styles/ContainerStyled.styled';
 
+import RelatedProductsModal from '../modal/RelatedProductsModal.jsx';
+
 export default function Container() {
-  const { setRelatedData, id } = useContext(RelatedProductsContext);
+  const { modalClicked, setRelatedData, id } = useContext(RelatedProductsContext);
 
   function getRelatedProductInfo(relatedIDArr) {
     Promise.all(
@@ -42,6 +44,9 @@ export default function Container() {
   return (
     <ContainerStyled>
       <RelatedProductsList />
+      { modalClicked && (
+        <RelatedProductsModal />
+      )}
     </ContainerStyled>
   );
 }
