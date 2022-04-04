@@ -21,8 +21,10 @@
   "homepage": "https://github.com/TheCatalinaWineMixer/ProjectAtelier#readme",
   "devDependencies": {
     "@babel/core": "^7.17.8",
+    "@babel/plugin-transform-runtime": "^7.17.0",
     "@babel/preset-env": "^7.16.11",
     "@babel/preset-react": "^7.16.7",
+    "@babel/runtime": "^7.17.8",
     "@testing-library/react": "^12.1.4",
     "babel-loader": "^8.2.4",
     "babel-plugin-styled-components": "^2.0.6",

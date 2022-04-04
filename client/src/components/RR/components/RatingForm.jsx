@@ -1,25 +1,23 @@
 import React from 'react';
 
-function RatingForm() {
+function RatingForm({ handleChange }) {
+  const stars = {
+    'star-e': 'Poor',
+    'star-d': 'Fair',
+    'star-c': 'Average',
+    'star-b': 'Good',
+    'star-a': 'Great',
+  };
+
   return (
-    <div className="form-rating">
-      <form>
-        Rating
-        <label htmlFor="star-a" className="rating">
-          <input type="radio" className="rating" name="Great" id="star-a" value="5" />
-        </label>
-        <label htmlFor="star-b" className="rating">
-          <input type="radio" className="rating" name="Good" id="star-b" value="4" />
-        </label>
-        <label htmlFor="star-c" className="rating">
-          <input type="radio" className="rating" name="Average" id="star-c" value="3" />
-        </label>
-        <label htmlFor="star-d" className="rating">
-          <input type="radio" className="rating" name="Fair" id="star-d" value="2" />
-        </label>
-        <label htmlFor="star-e" className="rating">
-          <input type="radio" className="rating" name="Poor" id="star-e" value="1" />
-        </label>
+    <div className="form-container">
+      <form className="star-rating" name="rating">
+        <div>Rating</div>
+        {Object.keys(stars).map((option, index) => (
+          <label htmlFor={option} key={option} className="rating">
+            <input type="radio" className="rating" name="rating" id={option} value={index + 1} onChange={handleChange} />
+          </label>
+        ))}
       </form>
     </div>
   );
