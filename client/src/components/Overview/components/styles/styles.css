@@ -1,6 +1,5 @@
 * {
-  background-color: rgb(191, 29, 0);
+  background-color: rgb(108, 108, 108);
+  box-shadow: 10px 5px 5px rgba(0, 0, 0, 0.016);
+  text-shadow: 2px 2px rgba(0, 0, 0, 0.077);
 }
-
-on click of a button,
-re-render the quantity to match how many there are.

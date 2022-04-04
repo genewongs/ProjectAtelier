@@ -1,31 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import sampleStyles from './sampleStyles.js';
 import styled from 'styled-components';
+import Socials from './Socials.jsx';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import { SelectorContainer, ImageContainer, BadgeStyled } from './styles/StyledStyleSelector.js';
 import { ProductInfo } from './styles/ProductInfoStyled.js';
 import { SelectSize, SelectQuantity, AddCartButton } from './styles/SelectSizeStyled.js';
 
-function StyleSelector({ styles, product }) {
+function StyleSelector({ styles, product, index, changeGallery, changeStyle }) {
   const [currentSku, setSku] = useState({});
   const [quantityArr, setQuantity] = useState([]);
-  const [selectedSize, setSelectedSize] = useState();
-  const [selectedStyle, setSelectedStyle] = useState();
+  const [selectedSize, setSelectedSize] = useState(0);
+  const [selectedStyle, setSelectedStyle] = useState(null);
+  const [selectIndex, setSelectIndex] = useState(0);
 
-  const prodSkus = styles[0].skus;
+  let prodSkus = styles[index].skus;
 
   useEffect(() => {
     generateOptions(currentSku.quantity)
-  }, [currentSku, selectedStyle])
-
-  function click(product) {
-    console.log(styles, product)
-  }
-
-  function showTarget() {
-    console.log(selected)
-  }
+    setSelectedStyle(Object.keys(styles[0].skus)[0])
+  }, [currentSku]);
 
   function generateOptions(num) {
     let html = [];
@@ -38,26 +33,34 @@ function StyleSelector({ styles, product }) {
   return(
     <SelectorContainer>
       <ProductInfo>
-        <h2> {styles[0].name} </h2>
-        <span> ${styles[0].original_price} </span>
-        <br></br>
+        <i>CATEGORY: {product.category.toUpperCase()} </i>
+        <h2> {product.name} </h2>
+        <span style={{color: styles[index].sale_price ? 'red' : 'black' }}>
+          ${styles[index].sale_price ? `${styles[index].sale_price}` : styles[index].original_price}
+        </span>
+
+        <span style={{textDecoration: 'line-through', display: 'block'}}>
+            {styles[index].sale_price ? `$${styles[index].original_price}` : ''}
+        </span>
       </ProductInfo>
 
       <div>
-        <span>STYLE > </span> SELECTED STYLE
+        <span style={{fontWeight: 'bold'}}>STYLE > </span> {styles[index].name}
       </div> <br></br>
       <ImageContainer>
         {/* <BadgeStyled>
           <FontAwesomeIcon icon={faCheck} />
         </BadgeStyled> */}
-        {styles.map((product) => {
+        {styles.map((product, index) => {
           return <img
-            className={selectedStyle === product.style_id ? 'selectedSize' : ''}
+            className={index === selectIndex ? 'selectedSize' : ''}
             key={product.style_id}
             src={product.photos[0].thumbnail_url}
             onClick={() => {
-              setSelectedStyle(product.style_id)
-              click(product);
+              changeGallery(product);
+              // setSelectedStyle(product.style_id);
+              setSelectIndex(index);
+              changeStyle(product, index);
             }
           }/>
         })}
@@ -76,11 +79,11 @@ function StyleSelector({ styles, product }) {
       </SelectSize>
 
       <SelectQuantity>
-        <select name="hello">
-        <option value="" disabled selected>Select Quantity</option>
+        <select name="selectQuantity">
+        <option value="Select Quantity" disabled>Select Quantity</option>
           {quantityArr.map((line, index) => {
             if(line <= 15) {
-              return <option key={index}>{line}</option>
+              return <option key={index} value={index}>{line}</option>
             }
           })}
           }
