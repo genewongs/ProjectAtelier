@@ -6,7 +6,7 @@ export function ReviewStore({ children }) {
   const [reviews, setReviewData] = useState([]);
   const [metaData, setMetaData] = useState([]);
   // const id = 65640; // infinity stone
-  const id = 65631; // first item
+  const id = 65641; // first item
 
   const store = {
     reviews,

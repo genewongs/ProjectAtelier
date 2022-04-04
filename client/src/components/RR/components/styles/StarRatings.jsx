@@ -15,7 +15,7 @@ Stars.RatingSpan = styled.span`
   font-weight:700;
   padding-right: 5px;
   line-height: 2.0rem;
-  font-familt: Arial;
+  font-family: Arial;
 `;
 
 Stars.BackStarsDiv = styled.div`

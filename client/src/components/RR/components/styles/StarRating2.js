@@ -1,30 +1,37 @@
 import styled from 'styled-components';
 
 const StyledStar = styled.div`
-font-size: 50px;
 
-:root {
-  --star-size: 60px;
-  --star-color: #fff;
-  --star-background: #fc0;
+.average {
+  font-size: 50px;
 }
 
-.stars {
-
+.stars-rating {
+  font-size: 50px;
+  position: relative;
   display: inline-block;
-  font-size: var(--star-size);
-  font-family: Times; // make sure ★ appears correctly
-  line-height: 1;
+  color: transparent;
 
-  &::before {
-    content: '★★★★★';
-    letter-spacing: 3px;
-    background: linear-gradient(90deg, var(--star-background) var(percent), var(--star-color) var(percent));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+  &:before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  content: '★★★★★';
+  color: black;
+  font-size: 50px;
+  }
+
+  &:after {
+  position: absolute;
+  top: 0;
+  left: 0;
+  content: '★★★★★';
+  color: red;
+  overflow: hidden;
+  font-size: 50px;
+  width: ${(props) => props.percent};
   }
 }
-
 `;
 
 export default StyledStar;

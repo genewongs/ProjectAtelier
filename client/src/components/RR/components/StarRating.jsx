@@ -5,8 +5,9 @@ import StarStyled from './styles/StarRating2';
 function StarRating() {
   const { metaData } = useContext(ReviewStoreContext);
   const [average, setAverage] = useState(0);
+  const [percent, setPercent] = useState(0);
 
-  function getAverage() {
+  function getAverageAndPercent() {
     let totalEntries = 0;
     let totalRating = 0;
     Object.entries(metaData.ratings).forEach((rating) => {
@@ -15,22 +16,21 @@ function StarRating() {
     });
 
     setAverage(Math.round((totalRating / totalEntries) * 4) / 4);
+    setPercent((Math.round((totalRating / totalEntries) * 4) / 4) * 20);
   }
 
   useEffect(() => {
     if (metaData.length !== 0) {
-      getAverage();
+      getAverageAndPercent();
     }
   }, [metaData]);
 
-  function percent() {
-    return average * 20;
-  }
-
   return (
-    <StarStyled className="stars" percent={percent()}>
-      ★★★★★
+    <StarStyled percent={`${percent}%`}>
+      <span className="average">{average}</span>
+      <span className="stars-rating">★★★★★</span>
     </StarStyled>
+
   );
 }
 
