@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import React, { useContext, useEffect } from 'react';
 import axios from 'axios';
 import RelatedProductsContext from '../utils/RelatedProductsContext.jsx';
@@ -10,35 +11,29 @@ import RelatedProductsModal from '../modal/RelatedProductsModal.jsx';
 export default function Container() {
   const { modalClicked, setRelatedData, id } = useContext(RelatedProductsContext);
 
-  function getRelatedProductInfo(relatedIDArr) {
-    Promise.all(
-      relatedIDArr.map((relatedID) => new Promise((resolve, reject) => {
-        axios.get('/api', { params: { path: `products/${relatedID}` } })
-          .then((response) => {
-            resolve(response.data);
-          })
-          .catch((error) => {
-            reject(error);
-          });
-      })),
-    )
-      .then((related) => {
-        setRelatedData(related);
-      });
-  }
+  async function getRelatedInfo() {
+    const relatedStyles = await axios.get('/api/products/related/styles', { params: { id } });
+    const relatedInfo = await axios.get('/api/products/related', { params: { id } });
 
-  function getRelatedProductIDs() {
-    axios.get('/api', { params: { path: `products/${id}/related` } })
-      .then((response) => {
-        getRelatedProductInfo(response.data);
-      })
-      .catch((error) => {
-        throw new Error(error);
+    /* Iterate through the related id styles */
+    const relatedStylesInfo = relatedStyles.data.map((currentStyle) => {
+      /* Iterate through the related id information */
+      relatedInfo.data.forEach((currentItem) => {
+        /* Check if id's are the same */
+        if (parseInt(currentStyle.product_id, 10) === currentItem.id) {
+          currentStyle.name = currentItem.name;
+          currentStyle.category = currentItem.category;
+          currentStyle.features = currentItem.features;
+          currentStyle.default_price = currentItem.default_price;
+        }
       });
+      return currentStyle;
+    });
+    setRelatedData(relatedStylesInfo);
   }
 
   useEffect(() => {
-    getRelatedProductIDs();
+    getRelatedInfo();
   }, []);
 
   return (
