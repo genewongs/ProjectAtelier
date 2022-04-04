@@ -1,6 +1,5 @@
 import React from 'react';
-// eslint-disable-next-line import/extensions
-import QuestionListEntry from './QuestionListEntry.jsx';
+import QuestionListEntry from './QuestionListEntry';
 
 function QuestionList({ questions }) {
   return (

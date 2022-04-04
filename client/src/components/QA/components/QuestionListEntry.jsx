@@ -1,10 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
-// eslint-disable-next-line import/extensions
-import NewAnswer from './NewAnswer.jsx';
-
-// eslint-disable-next-line import/extensions
-import AnswerList from './AnswerList.jsx';
+import NewAnswer from './NewAnswer';
+import AnswerList from './AnswerList';
 
 export default function QuestionListEntry({ question }) {
   const [answerData, setAnswerData] = useState([]);

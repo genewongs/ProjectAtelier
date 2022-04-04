@@ -1,6 +1,5 @@
 import React from 'react';
-// eslint-disable-next-line import/extensions
-import AnswerListEntry from './AnswerListEntry.jsx';
+import AnswerListEntry from './AnswerListEntry';
 
 function AnswerList({ answers }) {
   return (

@@ -1,9 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
-// eslint-disable-next-line import/extensions
-import QuestionList from './components/QuestionList.jsx';
-// eslint-disable-next-line import/extensions
-import NewQuestion from './components/NewQuestion.jsx';
+import QuestionList from './components/QuestionList';
+import NewQuestion from './components/NewQuestion';
 
 export default function QA() {
   const [questionData, setQuestionData] = useState([]);
