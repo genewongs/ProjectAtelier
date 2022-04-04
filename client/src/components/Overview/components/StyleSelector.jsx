@@ -80,10 +80,10 @@ function StyleSelector({ styles, product, index, changeGallery, changeStyle }) {
 
       <SelectQuantity>
         <select name="selectQuantity">
-        <option value="" disabled selected>Select Quantity</option>
+        <option value="Select Quantity" disabled>Select Quantity</option>
           {quantityArr.map((line, index) => {
             if(line <= 15) {
-              return <option key={index} value="">{line}</option>
+              return <option key={index} value={index}>{line}</option>
             }
           })}
           }

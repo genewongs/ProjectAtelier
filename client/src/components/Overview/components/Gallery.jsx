@@ -24,20 +24,8 @@ function Gallery({
   }
 
   function expand() {
-    console.log('click');
     setExpand(!expanded);
   }
-
-  // function zoomImage(e) {
-  //   let rect = e.target.getBoundingClientRect();
-  //   console.log('image', rect)
-  //   let xPos = e.clientX - rect.left;
-  //   let yPos = e.clientY - rect.top;
-  //   let xPercent = xPos / (container.clientWidth / 100) + "%";
-  //   let yPercent = yPos / ((container.clientWidth * ratio) / 100) + "%";
-
-  //   console.log(xPos + " : " +  yPos);
-  // }
 
   return (
     <GalleryStyled>

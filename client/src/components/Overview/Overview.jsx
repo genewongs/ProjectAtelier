@@ -54,7 +54,6 @@ export default function Overview() {
   }
 
   function handleExpand() {
-    console.log('hi')
     setExpanded(!expanded);
   }
 
@@ -63,22 +62,22 @@ export default function Overview() {
       <LogoStyle>
         <img src="./dist/images/BACKLASH_LOGO.png" />
       </LogoStyle>
-      <Socials />
       <Flex>
         {currentStyle && <Gallery style={currentStyle} handleExpand={handleExpand} />}
         {!expanded && (
-        <RightFlex>
-          {style && product && (
-          <StyleSelector
-            styles={style}
-            index={index}
-            product={product}
-            fetchStyles={fetchStyles}
-            changeGallery={changeGallery}
-            changeStyle={changeStyle}
-          />
-          )}
-        </RightFlex>
+          <RightFlex>
+            <Socials />
+            {style && product && (
+            <StyleSelector
+              styles={style}
+              index={index}
+              product={product}
+              fetchStyles={fetchStyles}
+              changeGallery={changeGallery}
+              changeStyle={changeStyle}
+            />
+            )}
+          </RightFlex>
         )}
       </Flex>
       {product && <ProdDescription product={product} />}

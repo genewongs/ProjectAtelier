@@ -17,3 +17,32 @@ export const ProductInfo = styled.div`
     padding: 15px 0px 15px 0px;
   }
 `;
+
+export const SocialStyled = styled.div`
+  display: flex;
+  flex-direction: row;
+  margin-left: 40px;
+  justify-content: flex-end;
+  .icons {
+    display: flex;
+    margin-right: 12px;
+    font-size: 1.5em;
+    transition: all ease-in-out 0.03s;
+    &:hover {
+      transform: scale(1.1);
+      transition: all ease-in-out 0.03s;
+      cursor: pointer;
+    }
+  }
+  .fbIcon {
+    color: #4867AA;
+  }
+
+  .twitterIcon {
+    color: #1DA1F2;
+  }
+
+  .pinterestIcon {
+    color: #E60023;
+  }
+`
