@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
-import Review from './Review.jsx';
-import ReviewStoreContext from '../utils/ReviewContext.jsx';
+import Review from './Review';
+import ReviewStoreContext from '../utils/ReviewContext';
 
 export default function ReviewList() {
   const { reviews } = useContext(ReviewStoreContext);

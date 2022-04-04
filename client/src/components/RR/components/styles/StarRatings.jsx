@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import StarIcon from './StarIcon.jsx';
+import StarIcon from './StarIcon';
 // import { StarIcon } from '@heroicons/react/outline';
 
 const Stars = {};

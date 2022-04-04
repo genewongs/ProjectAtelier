@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
-import ReviewStoreContext from '../utils/ReviewContext.jsx';
-import StarRatingStyled from '../styles/StarRatings.jsx';
+import ReviewStoreContext from '../utils/ReviewContext';
+import StarStyled from './styles/StarRating2';
 
 function StarRating() {
   const { metaData } = useContext(ReviewStoreContext);
@@ -23,8 +23,14 @@ function StarRating() {
     }
   }, [metaData]);
 
+  function percent() {
+    return average * 20;
+  }
+
   return (
-    <StarRatingStyled stars={average} />
+    <StarStyled className="stars" percent={percent()}>
+      ★★★★★
+    </StarStyled>
   );
 }
 
