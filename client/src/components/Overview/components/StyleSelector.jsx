@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import sampleStyles from './sampleStyles.js';
 import styled from 'styled-components';
+import Socials from './Socials.jsx';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import { SelectorContainer, ImageContainer, BadgeStyled } from './styles/StyledStyleSelector.js';
@@ -32,7 +33,8 @@ function StyleSelector({ styles, product, index, changeGallery, changeStyle }) {
   return(
     <SelectorContainer>
       <ProductInfo>
-        <h2> {styles[index].name} </h2>
+        <i>CATEGORY: {product.category.toUpperCase()} </i>
+        <h2> {product.name} </h2>
         <span style={{color: styles[index].sale_price ? 'red' : 'black' }}>
           ${styles[index].sale_price ? `${styles[index].sale_price}` : styles[index].original_price}
         </span>
@@ -40,11 +42,10 @@ function StyleSelector({ styles, product, index, changeGallery, changeStyle }) {
         <span style={{textDecoration: 'line-through', display: 'block'}}>
             {styles[index].sale_price ? `$${styles[index].original_price}` : ''}
         </span>
-        <br></br>
       </ProductInfo>
 
       <div>
-        <span style={{fontWeight: 'bold'}}>STYLE > </span> SELECTED STYLE
+        <span style={{fontWeight: 'bold'}}>STYLE > </span> {styles[index].name}
       </div> <br></br>
       <ImageContainer>
         {/* <BadgeStyled>

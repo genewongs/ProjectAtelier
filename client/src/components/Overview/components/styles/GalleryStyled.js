@@ -3,8 +3,13 @@ import styled from 'styled-components';
 export const GalleryStyled = styled.div`
   display: flex;
   flex-grow: 1;
-  max-width: 1200px;
+  max-width: 100%;
   background-color: white;
+  transition: all ease-in-out 0.5s;
+  cursor: zoom-out;
+  .magnify {
+    cursor: zoom-in;
+  }
 `;
 
 export const ThumbnailsStyled = styled.div`

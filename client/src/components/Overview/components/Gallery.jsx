@@ -8,18 +8,36 @@ import {
   ThumbnailsImageStyled,
 } from './styles/GalleryStyled.js';
 
-function Gallery({ style, handleExpand }) {
+function Gallery({
+  style, handleExpand, width,
+  height, magnifierHeight = 400, magnifieWidth = 300, zoomLevel = 2.5,
+}) {
   const [img, setImg] = useState(0);
   const [expanded, setExpand] = useState(false);
+  const [[imgWidth, imgHeight], setSize] = useState([0, 0]);
+  const [showMagnifier, setShowMagnifier] = useState(false);
+  const [[x, y], setXY] = useState([0, 0]);
+  const [preMagnify, setPreMagnify] = useState(true);
 
   function navigateImage(photo, index) {
-    setImg(index)
+    setImg(index);
   }
 
   function expand() {
     console.log('click');
     setExpand(!expanded);
   }
+
+  // function zoomImage(e) {
+  //   let rect = e.target.getBoundingClientRect();
+  //   console.log('image', rect)
+  //   let xPos = e.clientX - rect.left;
+  //   let yPos = e.clientY - rect.top;
+  //   let xPercent = xPos / (container.clientWidth / 100) + "%";
+  //   let yPercent = yPos / ((container.clientWidth * ratio) / 100) + "%";
+
+  //   console.log(xPos + " : " +  yPos);
+  // }
 
   return (
     <GalleryStyled>
@@ -35,13 +53,72 @@ function Gallery({ style, handleExpand }) {
           />
         ))}
       </ThumbnailsStyled>
-      <GalleryInnerStyled img={style.photos[img].url}>
-        <GalleryInnerLeftStyled>
+      <GalleryInnerStyled
+        img={style.photos[img].url}
+        className={preMagnify ? 'magnify' : ''}
+        style={{ position: 'relative', height, width }}
+        onClick={() => {
+          setPreMagnify(!preMagnify);
+        }}
+        onMouseEnter={(e) => {
+          const elem = e.currentTarget;
+          const { width, height } = elem.getBoundingClientRect();
+          setSize([width, height]);
+          setShowMagnifier(true);
+        }}
+        onMouseLeave={() => {
+          setShowMagnifier(false);
+        }}
+        onMouseMove={(e) => {
+          // update cursor position
+          const elem = e.currentTarget;
+          const { top, left } = elem.getBoundingClientRect();
+
+          // calculate cursor position on the image
+          const x = e.pageX - left - window.pageXOffset;
+          const y = e.pageY - top - window.pageYOffset;
+          setXY([x, y]);
+        }}
+      >
+
+        {!preMagnify
+          ? (
+            <div
+              style={{
+                display: showMagnifier ? '' : 'none',
+                position: 'absolute',
+
+                pointerEvents: 'none',
+                height: `${magnifierHeight}px`,
+                width: `${magnifieWidth}px`,
+                // move element center to cursor pos
+                top: `${y - magnifierHeight / 2}px`,
+                left: `${x - magnifieWidth / 2}px`,
+                opacity: '1', // reduce opacity so you can verify position
+                border: '1px solid lightgray',
+                backgroundColor: 'white',
+                backgroundImage: `url('${style.photos[img].url}')`,
+                backgroundRepeat: 'no-repeat',
+
+                // calculate zoomed image size
+                backgroundSize: `${imgWidth * zoomLevel}px ${
+                  imgHeight * zoomLevel
+                }px`,
+
+                // calculate position of zoomed image.
+                backgroundPositionX: `${-x * zoomLevel + magnifieWidth / 2}px`,
+                backgroundPositionY: `${-y * zoomLevel + magnifierHeight / 2}px`,
+              }}
+            />
+          ) : <></>}
+
+        <GalleryInnerLeftStyled onClick={(e) => {e.stopPropagation()}}>
           <FontAwesomeIcon
             className={img === 0 ? 'disable button' : 'button'}
             icon={faCircleChevronLeft}
             size="2x"
-            onClick={() => {
+            onClick={(e) => {
+              e.stopPropagation();
               img > 0 && setImg(img - 1);
             }}
           />
@@ -49,12 +126,16 @@ function Gallery({ style, handleExpand }) {
 
         <GalleryInnerCenterStyled />
 
-        <GalleryInnerRightStyled onClick={handleExpand}>
+        <GalleryInnerRightStyled onClick={(e) => {
+          e.stopPropagation();
+          handleExpand();
+          }}>
           <FontAwesomeIcon
             className={img === style.photos.length - 1 ? 'disable button' : 'button'}
             icon={faCircleChevronRight}
             size="2x"
-            onClick={() => {
+            onClick={(e) => {
+              e.stopPropagation();
               img < style.photos.length - 1 && setImg(img + 1);
             }}
           />

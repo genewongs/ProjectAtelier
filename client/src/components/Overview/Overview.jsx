@@ -3,12 +3,12 @@ import sampleStyles from './components/sampleStyles.js';
 import sampleProduct from './components/sampleProduct.js';
 import StyleSelector from './components/StyleSelector.jsx';
 import ProdDescription from './components/ProdDescription.jsx';
+import Socials from './components/Socials.jsx';
 import { Flex } from './components/styles/OverviewContainerStyled.js';
 import { LordContainer } from './components/styles/LordContainerStyled.js';
 import { RightFlex } from './components/styles/ProductInfoStyled.js';
 import Gallery from './components/Gallery.jsx';
 import { LogoStyle } from './components/styles/LogoStyled.js';
-import AddToCart from './components/AddToCart.jsx';
 
 const axios = require('axios');
 
@@ -63,6 +63,7 @@ export default function Overview() {
       <LogoStyle>
         <img src="./dist/images/BACKLASH_LOGO.png" />
       </LogoStyle>
+      <Socials />
       <Flex>
         {currentStyle && <Gallery style={currentStyle} handleExpand={handleExpand} />}
         {!expanded && (
