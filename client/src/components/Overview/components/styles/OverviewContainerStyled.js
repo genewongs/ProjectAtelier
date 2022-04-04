@@ -6,5 +6,4 @@ export const Flex = styled.div`
   width: 80%;
   justify-self: center;
   align-self: center;
-  border: 5px solid orange;
 `;
