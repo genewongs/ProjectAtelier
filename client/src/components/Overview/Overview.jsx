@@ -3,26 +3,35 @@ import sampleStyles from './components/sampleStyles.js';
 import sampleProduct from './components/sampleProduct.js';
 import StyleSelector from './components/StyleSelector.jsx';
 import ProdDescription from './components/ProdDescription.jsx';
+import Socials from './components/Socials.jsx';
 import { Flex } from './components/styles/OverviewContainerStyled.js';
 import { LordContainer } from './components/styles/LordContainerStyled.js';
 import { RightFlex } from './components/styles/ProductInfoStyled.js';
 import Gallery from './components/Gallery.jsx';
 import { LogoStyle } from './components/styles/LogoStyled.js';
-import AddToCart from './components/AddToCart.jsx';
 
 const axios = require('axios');
 
 export default function Overview() {
   const [style, setStyle] = useState(null);
-  const [displayStyle, setDisplayStyle] = useState([]);
-  const [loaded, setLoaded] = useState(false);
+  const [product, setProduct] = useState(null);
+  const [currentStyle, setCurrentStyle] = useState(null);
+  const [index, setIndex] = useState(0);
+  const [expanded, setExpanded] = useState(false);
 
   useEffect(() => {
     fetchStyles('65631')
       .then((res) => {
         if (res.status === 200) {
           setStyle(res.data.results);
-          setLoaded(true);
+          setCurrentStyle(res.data.results[0]);
+        }
+      })
+      .catch((res) => res.sendStatus(500));
+    fetchProduct('65631')
+      .then((res) => {
+        if (res.status === 200) {
+          setProduct(res.data);
         }
       })
       .catch((res) => res.sendStatus(500));
@@ -32,8 +41,20 @@ export default function Overview() {
     return axios.get('api', { params: { path: `products/${id}/styles` } });
   }
 
-  function changeStyle(object) {
-    setStyle(object);
+  function fetchProduct(id) {
+    return axios.get('api', { params: { path: `products/${id}` } });
+  }
+
+  function changeGallery(object) {
+    setCurrentStyle(object);
+  }
+
+  function changeStyle(object, index) {
+    setIndex(index);
+  }
+
+  function handleExpand() {
+    setExpanded(!expanded);
   }
 
   return (
@@ -42,18 +63,24 @@ export default function Overview() {
         <img src="./dist/images/BACKLASH_LOGO.png" />
       </LogoStyle>
       <Flex>
-        {style && <Gallery styles={style} />}
-        <RightFlex>
-          {style && (
-          <StyleSelector
-            styles={style}
-            product={sampleProduct}
-            fetchStyles={fetchStyles}
-          />
-          )}
-        </RightFlex>
+        {currentStyle && <Gallery style={currentStyle} handleExpand={handleExpand} />}
+        {!expanded && (
+          <RightFlex>
+            <Socials />
+            {style && product && (
+            <StyleSelector
+              styles={style}
+              index={index}
+              product={product}
+              fetchStyles={fetchStyles}
+              changeGallery={changeGallery}
+              changeStyle={changeStyle}
+            />
+            )}
+          </RightFlex>
+        )}
       </Flex>
-      <ProdDescription product={sampleProduct} />
+      {product && <ProdDescription product={product} />}
     </LordContainer>
   );
 }
