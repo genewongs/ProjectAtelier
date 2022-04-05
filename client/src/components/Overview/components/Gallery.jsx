@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleChevronLeft, faCircleChevronRight } from '@fortawesome/free-solid-svg-icons';
+import { ArrowsExpandIcon } from '@heroicons/react/outline';
 import {
   GalleryStyled, GalleryInnerStyled,
   GalleryInnerLeftStyled, GalleryInnerCenterStyled,
@@ -13,7 +14,6 @@ function Gallery({
   height, magnifierHeight = 400, magnifieWidth = 300, zoomLevel = 2.5,
 }) {
   const [img, setImg] = useState(0);
-  const [expanded, setExpand] = useState(false);
   const [[imgWidth, imgHeight], setSize] = useState([0, 0]);
   const [showMagnifier, setShowMagnifier] = useState(false);
   const [[x, y], setXY] = useState([0, 0]);
@@ -21,10 +21,6 @@ function Gallery({
 
   function navigateImage(photo, index) {
     setImg(index);
-  }
-
-  function expand() {
-    setExpand(!expanded);
   }
 
   return (
@@ -82,7 +78,7 @@ function Gallery({
                 // move element center to cursor pos
                 top: `${y - magnifierHeight / 2}px`,
                 left: `${x - magnifieWidth / 2}px`,
-                opacity: '1', // reduce opacity so you can verify position
+                opacity: '1',
                 border: '1px solid lightgray',
                 backgroundColor: 'white',
                 backgroundImage: `url('${style.photos[img].url}')`,
@@ -98,9 +94,9 @@ function Gallery({
                 backgroundPositionY: `${-y * zoomLevel + magnifierHeight / 2}px`,
               }}
             />
-          ) : <></>}
+          ) : <> </>}
 
-        <GalleryInnerLeftStyled onClick={(e) => {e.stopPropagation()}}>
+        <GalleryInnerLeftStyled onClick={(e) => { e.stopPropagation(); }}>
           <FontAwesomeIcon
             className={img === 0 ? 'disable button' : 'button'}
             icon={faCircleChevronLeft}
@@ -117,9 +113,11 @@ function Gallery({
         <GalleryInnerRightStyled onClick={(e) => {
           e.stopPropagation();
           handleExpand();
-          }}>
+        }}
+        >
+          <ArrowsExpandIcon className="expandIcon" />
           <FontAwesomeIcon
-            className={img === style.photos.length - 1 ? 'disable button' : 'button'}
+            className={img === style.photos.length - 1 ? 'disable button2' : 'button2'}
             icon={faCircleChevronRight}
             size="2x"
             onClick={(e) => {

@@ -10,7 +10,7 @@ import { SelectSize, SelectQuantity, AddCartButton, ErrorMsgStyled } from './sty
 
 function StyleSelector({ styles, product, index, changeGallery, changeStyle, addItem }) {
   const [currentSku, setSku] = useState({});
-  const [quantityArr, setQuantityArr] = useState([]);
+  const [quantityNum, setQuantityNum] = useState(0);
   const [quantity, setQuantity] = useState('Select Quantity');
   const [selectedSize, setSelectedSize] = useState(0);
   const [selectedStyle, setSelectedStyle] = useState(null);
@@ -20,17 +20,9 @@ function StyleSelector({ styles, product, index, changeGallery, changeStyle, add
   let prodSkus = styles[index].skus;
 
   useEffect(() => {
-    generateOptions(currentSku.quantity || 1)
+    setQuantityNum(currentSku.quantity || 1);
     setSelectedStyle(Object.keys(styles[0].skus)[0])
-  }, [currentSku]);
-
-  function generateOptions(num) {
-    let html = [];
-    for(let i = 1; i <= num; i++) {
-      html.push(i);
-    }
-    setQuantityArr(html);
-  }
+  }, [currentSku, selectedSize]);
 
   return(
     <SelectorContainer>
@@ -61,6 +53,7 @@ function StyleSelector({ styles, product, index, changeGallery, changeStyle, add
             onClick={() => {
               changeGallery(product);
               setSelectIndex(index);
+              setSku([]);
               changeStyle(product, index);
             }
           }/>
@@ -86,12 +79,9 @@ function StyleSelector({ styles, product, index, changeGallery, changeStyle, add
       <SelectQuantity>
         <select name="selectQuantity" value={quantity} onChange={(e) => setQuantity(e.target.value)}>
         <option value="Select Quantity" disabled>Select Quantity</option>
-          {quantityArr.map((line, index) => {
-            if(line <= 15) {
-              return <option key={index} value={index + 1}>{line}</option>
-            }
+          {[...Array(Math.min(quantityNum, 15)).keys()].map(num => {
+            return <option key={num} value={num + 1}>{num + 1}</option>
           })}
-          }
         </select>
       </SelectQuantity>
 
@@ -99,7 +89,7 @@ function StyleSelector({ styles, product, index, changeGallery, changeStyle, add
         <button onClick={(selectedSize !== 0 && quantity > 0) ? () => {addItem(selectedSize, quantity)} : () => {
           setError(true);
           setTimeout(() => {setError(false)}, 3000);
-        }}>{quantityArr.length === 0 ? 'OUT OF STOCK' : 'ADD TO CART'}</button>
+        }}>{quantityNum.length === 0 ? 'OUT OF STOCK' : 'ADD TO CART'}</button>
       </AddCartButton>
     </SelectorContainer>
   )

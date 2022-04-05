@@ -23,7 +23,7 @@ function Socials() {
         icon={faTwitter}
         className="twitterIcon icons"
         onClick={() => {
-          const Shareurl = `https://twitter.com/intent/tweet?url=${url}&text=${text}&via=${user_id}&hashtags=${hash_tags}`;
+          const Shareurl = `https://twitter.com/intent/tweet?url=${url}`;
           window.open(Shareurl, 'NewWindow', params);
         }}
       />
