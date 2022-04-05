@@ -6,7 +6,7 @@ function Modal({ show, children, toggleModal }) {
   return (
     <div className={showHideClassName}>
       <div className="modal-container" aria-hidden="true" onClick={toggleModal}>
-        <div className="modal-content" aria-hidden="true" onClick={(e) => { e.stopPropagation() }}>
+        <div className="modal-content" aria-hidden="true" onClick={(e) => { e.stopPropagation(); }}>
           {children}
         </div>
       </div>

@@ -2,25 +2,26 @@ import React, {
   useState, useCallback, useEffect, useContext,
 } from 'react';
 import axios from 'axios';
-import Modal from './Modal.jsx';
-import ModalStyled from '../styles/Modal.js';
-import RatingForm from './RatingForm.jsx';
-import CharacteristicsForm from './CharacteristicsForm.jsx';
-import ReviewStoreContext from '../utils/ReviewContext.jsx';
+import Modal from './Modal';
+import ModalStyled from './styles/Modal';
+import RatingForm from './RatingForm';
+import CharacteristicsForm from './CharacteristicsForm';
+import ReviewStoreContext from '../utils/ReviewContext';
 
 function AddReview() {
-  const { id } = useContext(ReviewStoreContext);
+  const { id, metaData } = useContext(ReviewStoreContext);
   const [modalState, setModalState] = useState(false);
   const [productName, setProductName] = useState('');
+  const [photos, setPhotos] = useState([]);
   const [formData, setFormData] = useState({
     product_id: id,
     rating: null,
     summary: '',
     body: '',
-    recommend: true,
+    recommend: null,
     name: '',
     email: '',
-    photos: [],
+    photos,
     characteristics: {},
   });
   const query = {
@@ -32,30 +33,52 @@ function AddReview() {
     setFormData((prevForm) => ({ ...prevForm, [e.target.id]: e.target.value }));
   }
 
+  function handleRecommended(e) {
+    let bool = false;
+    if (e.target.id === 'rec-true') {
+      bool = true;
+    }
+    setFormData(((prevForm) => ({ ...prevForm, [e.target.name]: bool })));
+  }
+
   function handleRating(e) {
     setFormData((prevForm) => ({ ...prevForm, [e.target.name]: e.target.value }));
   }
 
-  function handleCharacteristic(e) {
-    console.log(e.target.name, e.target.value);
+  function handlePhoto(e) {
+    setPhotos((prevPhotos) => ({ ...prevPhotos }));
   }
 
-  const handleRatingChange = useCallback((e) => handleRating(e), []);
+  function handleCharacteristic(e) {
+    setFormData((prevForm) => ({
+      ...prevForm,
+      characteristics: {
+        ...formData.characteristics,
+        [metaData.characteristics[e.target.className].id]: e.target.value,
+      },
+    }));
+  }
 
-  const handleCharacteristicChange = useCallback((e) => handleCharacteristic(e), []);
+  const handleRatingChange = useCallback((e) => handleRating(e), [formData]);
+
+  const handleCharacteristicChange = useCallback(
+    (e) => handleCharacteristic(e),
+    [metaData, formData],
+  );
 
   const toggleModal = useCallback(() => setModalState((prevState) => !prevState), []);
 
   function getProductName() {
     axios.get('/api', { params: { path: `products/${id}` } })
-      .then((response) => (setProductName(response.data.name)));
+      .then((response) => (setProductName(response.data.name)))
+      .catch((err) => new Error(err));
   }
 
   function postToServer(e) {
     e.preventDefault();
     axios.post('/api', { query })
       .then((response) => console.log(response))
-      .catch((err) => console.error(err));
+      .catch((err) => new Error(err));
   }
 
   useEffect(() => {
@@ -103,10 +126,20 @@ function AddReview() {
             />
             <br />
             <span>Do you reccomend this product? </span>
-            <select className="rating-selector" id="recommend" onChange={(e) => handleChange(e)}>
-              <option value="true">Yes</option>
-              <option value="false">No</option>
-            </select>
+            <form className="rating-selector" id="recommend">
+              <input
+                type="radio"
+                id="rec-true"
+                name="recommend"
+                onChange={(e) => handleRecommended(e)}
+              />
+              <input
+                type="radio"
+                id="rec-false"
+                name="recommend"
+                onChange={(e) => handleRecommended(e)}
+              />
+            </form>
             <div>Name: </div>
             <input
               type="text"
