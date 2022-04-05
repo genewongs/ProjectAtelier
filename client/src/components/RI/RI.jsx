@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
-import Container from './components/Container.jsx';
-import RelatedProductsContext, { RelatedProducts } from './utils/RelatedProductsContext.jsx';
+/* eslint-disable import/extensions */
+import React from 'react';
+import Container from './components/Container';
+import { RelatedProducts } from './utils/RelatedProductsContext';
 
 export default function RI() {
   return (

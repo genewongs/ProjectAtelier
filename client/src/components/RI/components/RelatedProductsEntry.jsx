@@ -1,12 +1,20 @@
-import React from 'react';
-import { Card } from '../styles/Card.styled';
+import React, { useContext } from 'react';
+import RelatedProductsContext from '../utils/RelatedProductsContext';
+import Card from './Card';
 
 export default function RelatedProductsEntry({ singleRelatedData }) {
+  const myContext = useContext(RelatedProductsContext);
   return (
-    <Card>
-      <p className="category">{singleRelatedData.category}</p>
-      <p className="name">{singleRelatedData.name}</p>
-      <p className="price">{singleRelatedData.default_price}</p>
-    </Card>
+    <Card
+      url={singleRelatedData.results[0].photos[0].url || 'https://shenandoahcountyva.us/bos/wp-content/uploads/sites/4/2018/01/picture-not-available-clipart-12.jpg'}
+      name={singleRelatedData.name}
+      category={singleRelatedData.category}
+      price={`$${Math.trunc(singleRelatedData.default_price)}`}
+      id={singleRelatedData.product_id}
+      modalOptions={() => {
+        myContext.setClickedRelatedData(singleRelatedData);
+        myContext.toggleModal();
+      }}
+    />
   );
 }

@@ -1,47 +1,58 @@
-import React, { useState, useContext, useEffect } from 'react';
+/* eslint-disable no-param-reassign */
+import React, { useContext, useEffect } from 'react';
 import axios from 'axios';
-import RelatedProductsContext from '../utils/RelatedProductsContext.jsx';
-import RelatedProductsList from './RelatedProductsList.jsx';
+import RelatedProductsContext from '../utils/RelatedProductsContext';
+import RelatedProductsList from './RelatedProductsList';
+import Compare from './Compare.jsx';
 
 import { ContainerStyled } from '../styles/ContainerStyled.styled';
 
 export default function Container() {
-  const { setRelatedData, id } = useContext(RelatedProductsContext);
+  const {
+    modalClicked, setRelatedData, setProductData, id,
+  } = useContext(RelatedProductsContext);
 
-  function getRelatedProductInfo(relatedIDArr) {
-    Promise.all(
-      relatedIDArr.map((relatedID) => new Promise((resolve, reject) => {
-        axios.get('/api', { params: { path: `products/${relatedID}` } })
-          .then((response) => {
-            resolve(response.data);
-          })
-          .catch((error) => {
-            reject(error);
-          });
-      })),
-    )
-      .then((related) => {
-        setRelatedData(related);
-      });
+  async function getProductInfo() {
+    const productIDInfo = await axios.get('/api/product', { params: { id } });
+    const productIDStyles = await axios.get('/api/product/styles', { params: { id } });
+
+    const lazyMerge = { ...productIDInfo.data, ...productIDStyles.data };
+
+    setProductData(lazyMerge);
   }
 
-  function getRelatedProductIDs() {
-    axios.get('/api', { params: { path: `products/${id}/related` } })
-      .then((response) => {
-        getRelatedProductInfo(response.data);
-      })
-      .catch((error) => {
-        throw new Error(error);
+  async function getRelatedInfo() {
+    const relatedInfo = await axios.get('/api/products/related', { params: { id } });
+    const relatedStyles = await axios.get('/api/products/related/styles', { params: { id } });
+
+    /* Iterate through the related id styles */
+    const relatedStylesInfo = relatedStyles.data.map((currentStyle) => {
+      /* Iterate through the related id information */
+      relatedInfo.data.forEach((currentItem) => {
+        /* Check if id's are the same */
+        if (parseInt(currentStyle.product_id, 10) === currentItem.id) {
+          currentStyle.name = currentItem.name;
+          currentStyle.category = currentItem.category;
+          currentStyle.features = currentItem.features;
+          currentStyle.default_price = currentItem.default_price;
+        }
       });
+      return currentStyle;
+    });
+    setRelatedData(relatedStylesInfo);
   }
 
   useEffect(() => {
-    getRelatedProductIDs();
+    getRelatedInfo();
+    getProductInfo();
   }, []);
 
   return (
     <ContainerStyled>
       <RelatedProductsList />
+      { modalClicked && (
+        <Compare />
+      )}
     </ContainerStyled>
   );
 }
