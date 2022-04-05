@@ -3,7 +3,19 @@ import styled from 'styled-components';
 
 export const ModalWrapper = styled.div`
   position: fixed;
-  margin: auto;
-  border: solid gray 1px;
+  left: 525;
+  top: 570;
+  right: 525;
+  bottom: 570;
+  border: 1px solid;
+  background-color: white;
   display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const LeftFeatures = styled.div`
+  font-size: 15px;
+  text-align: center;
+  color: grey;
 `;

@@ -3,20 +3,22 @@ import React, { useContext, useEffect } from 'react';
 import axios from 'axios';
 import RelatedProductsContext from '../utils/RelatedProductsContext';
 import RelatedProductsList from './RelatedProductsList';
+import Compare from './Compare.jsx';
 
 import { ContainerStyled } from '../styles/ContainerStyled.styled';
 
 export default function Container() {
   const {
-    modalClicked, setRelatedData, setProductInfo, setProductStyle, id,
+    modalClicked, setRelatedData, setProductData, id,
   } = useContext(RelatedProductsContext);
 
   async function getProductInfo() {
     const productIDInfo = await axios.get('/api/product', { params: { id } });
     const productIDStyles = await axios.get('/api/product/styles', { params: { id } });
 
-    setProductInfo(productIDInfo.data);
-    setProductStyle(productIDStyles.data);
+    const lazyMerge = { ...productIDInfo.data, ...productIDStyles.data };
+
+    setProductData(lazyMerge);
   }
 
   async function getRelatedInfo() {
@@ -49,9 +51,7 @@ export default function Container() {
     <ContainerStyled>
       <RelatedProductsList />
       { modalClicked && (
-        <div>
-          Checking MODAL
-        </div>
+        <Compare />
       )}
     </ContainerStyled>
   );

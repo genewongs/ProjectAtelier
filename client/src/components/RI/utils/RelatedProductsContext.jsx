@@ -4,10 +4,10 @@ import React, { useState, createContext, useCallback } from 'react';
 const RelatedProductsContext = createContext();
 
 export function RelatedProducts({ children }) {
-  /* Get the related data information/style */
+  /* Get the related and product data information/style */
   const [relatedData, setRelatedData] = useState([]);
-  const [productInfo, setProductInfo] = useState([]);
-  const [productStyle, setProductStyle] = useState([]);
+  const [productData, setProductData] = useState([]);
+  /* For the card that has been clicked */
   const [clickedRelatedData, setClickedRelatedData] = useState([]);
   const [modalClicked, setModalClicked] = useState(false);
 
@@ -17,10 +17,8 @@ export function RelatedProducts({ children }) {
   const store = {
     relatedData,
     setRelatedData,
-    productInfo,
-    setProductInfo,
-    productStyle,
-    setProductStyle,
+    productData,
+    setProductData,
     modalClicked,
     setModalClicked,
     clickedRelatedData,

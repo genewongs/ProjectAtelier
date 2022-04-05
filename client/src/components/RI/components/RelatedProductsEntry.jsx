@@ -11,7 +11,10 @@ export default function RelatedProductsEntry({ singleRelatedData }) {
       category={singleRelatedData.category}
       price={`$${Math.trunc(singleRelatedData.default_price)}`}
       id={singleRelatedData.product_id}
-      getRelatedData={() => { myContext.setClickedRelatedData(singleRelatedData); }}
+      modalOptions={() => {
+        myContext.setClickedRelatedData(singleRelatedData);
+        myContext.toggleModal();
+      }}
     />
   );
 }
