@@ -8,7 +8,7 @@ export default function Compare() {
     <div>
       <ModalWrapper>
         Comparing
-        <LeftFeatures>
+        <Left>
           {
             myContext.clickedRelatedData.features.map((currentFeature) => (
               <p>
@@ -18,7 +18,7 @@ export default function Compare() {
               </p>
             ))
           }
-        </LeftFeatures>
+        </Left>
       </ModalWrapper>
     </div>
   );

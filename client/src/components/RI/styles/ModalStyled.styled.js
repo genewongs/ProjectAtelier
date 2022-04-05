@@ -14,7 +14,7 @@ export const ModalWrapper = styled.div`
   justify-content: center;
 `;
 
-export const LeftFeatures = styled.div`
+export const Left = styled.div`
   font-size: 15px;
   text-align: center;
   color: grey;
