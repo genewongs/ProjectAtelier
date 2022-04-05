@@ -13,17 +13,22 @@ export const GalleryStyled = styled.div`
 `;
 
 export const ThumbnailsStyled = styled.div`
+  cursor: default;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   min-width: 130px;
-  height: 800px;
+  max-height: 800px;
   background-color: white;
   transition: all ease-in-out 0.05s;
+  overflow: auto;
   .selected {
     border-bottom: 6px solid red;
     transition: all ease-in-out 0.05s;
+  }
+  .overflow {
+
   }
 `;
 
@@ -31,8 +36,9 @@ export const ThumbnailsImageStyled = styled.div`
   display: flex;
   flex: 1;
   border: 1px solid black;
-  width: 90px;
-  height: 90px;
+  min-width: 90px;
+  min-height: 90px;
+  max-height: 90px;
   margin: 10px 0px;
   background-image: url(${(props) => props.img || ''});
   background-position: center;
@@ -67,15 +73,15 @@ export const GalleryInnerLeftStyled = styled.div`
   justify-content: center;
   color: white;
   background-color: rgba(0, 0, 0, 0.105);
-  transition: all ease-in-out 0.03s;
-  &:hover {
-    cursor: pointer;
-    font-size: 1.1em;
-    transition: all ease-in-out 0.03s;
-  }
+  transition: all ease-in-out 0.1s;
   .button {
     border-radius: 50%;
     border: 1.5px solid rgb(75, 75, 75, 0.95);
+    &:hover {
+      color: red;
+      transition: all ease-in-out 0.1s;
+      border: 1.5px solid black;
+  }
   }
   .disable {
     border: none;
@@ -89,25 +95,45 @@ export const GalleryInnerCenterStyled = styled.div`
 `;
 
 export const GalleryInnerRightStyled = styled.div`
-  display: flex;
+  display: grid;
   flex: 8%;
   height: 100%;
-  align-items: center;
+  align-items: start;
   justify-content: center;
   color: white;
   background-color: rgba(0, 0, 0, 0.105);
   transition: all ease-in-out 0.03s;
   &:hover {
-    cursor: pointer;
-    font-size: 1.1em;
     transition: all ease-in-out 0.03s;
   }
   .button {
     border-radius: 50%;
     border: 1.5px solid rgb(75, 75, 75, 0.95);
   }
+  .button2 {
+    border-radius: 50%;
+    border: 1.5px solid rgb(75, 75, 75, 0.95);
+    margin-bottom: 45px;
+    &:hover {
+      color: red;
+      transition: all ease-in-out 0.1s;
+      border: 1.5px solid black;
+    }
+  }
   .disable {
     border: none;
     opacity: 0;
+  }
+  .expandIcon {
+    position: relative;
+    font-size: 2em;
+    margin-top: 5px;
+    max-height: 40px;
+    color: white;
+    transition: all ease-in-out 0.1s;
+    &:hover {
+      color: red;
+      transition: all ease-in-out 0.1s;
+    }
   }
 `;
