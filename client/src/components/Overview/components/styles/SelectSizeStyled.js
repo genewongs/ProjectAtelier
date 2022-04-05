@@ -33,19 +33,28 @@ export const SelectQuantity = styled.div`
 
 export const AddCartButton = styled.div`
   padding: 20px 0px;
+  display: flex;
+  justify-content: center;
   > button {
     color: white;
-    width: 100%;
-    height: 40px;
+    width: 75%;
+    height: 45px;
     border: none;
-    background-color: #f70000;
+    background-color: black;
     transition: all ease-in-out 0.3s;
+    border-radius: 10px;
 
     &:hover {
-      /* border: 1px solid black; */
       background-color: #df0000;
       cursor: pointer;
       transition: all ease-in-out 0.3s;
     }
   }
+`;
+
+export const ErrorMsgStyled = styled.div`
+  visibility: hidden;
+  margin-top: 20px;
+  text-align: center;
+  color: red;
 `;

@@ -1,5 +1,5 @@
 import React from 'react';
-import { ProdDescriptionStyled } from './styles/ProdDescriptionStyled.js';
+import { ProdDescriptionStyled } from './styles/ProdDescriptionStyled';
 
 function ProdDescription({ product }) {
   return (

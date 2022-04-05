@@ -8,6 +8,9 @@ export const SelectorContainer = styled.div`
     font-weight: bold;
     font-size: 2em;
   }
+  .danger {
+    visibility: visible;
+  }
 `;
 
 export const ImageContainer = styled.div`

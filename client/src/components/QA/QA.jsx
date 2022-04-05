@@ -1,18 +1,25 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
-// eslint-disable-next-line import/extensions
-import QuestionList from './components/QuestionList.jsx';
-
-// require('dotenv').config();
-
-// const id = process.env.id;
+import QuestionList from './components/QuestionList';
+import NewQuestion from './components/NewQuestion';
 
 export default function QA() {
   const [questionData, setQuestionData] = useState([]);
   const [allQuestionData, setAllQuestionData] = useState([]);
   const [count, setCount] = useState(2);
+  const [show, setShow] = useState(false);
+  const [limitHit, setLimitHit] = useState(false);
 
-  const id = '65631';
+  const id = 65631;
+  let startingLimit = 5;
+
+  if (allQuestionData.length > startingLimit) {
+    startingLimit = allQuestionData.length;
+  }
+
+  function closeModal() {
+    setShow(false);
+  }
 
   function getQuestions() {
     return axios.get('/api', { params: { path: `qa/questions?product_id=${id}&count=${count}` } })
@@ -21,7 +28,7 @@ export default function QA() {
   }
 
   function getAllQuestions() {
-    return axios.get('/api', { params: { path: `qa/questions?product_id=${id}` } })
+    return axios.get('/api', { params: { path: `qa/questions?product_id=${id}&count=9999` } })
       .then((response) => setAllQuestionData(response.data.results))
       .catch((err) => err);
   }
@@ -43,15 +50,44 @@ export default function QA() {
   const incrementQuestionCount = useCallback(() => setCount((prevCount) => prevCount + 2), []);
 
   useEffect(() => {
-    getQuestions();
     getAllQuestions();
+    getQuestions()
+      .then(() => {
+        if (count >= startingLimit) {
+          setLimitHit(true);
+        } else {
+          setLimitHit(false);
+        }
+      });
   }, [count]);
 
   return (
     <div>
       <input type="text" placeholder="Have a question? Search for answers…" onChange={(event) => filterQuestionsWithSearch(event.target.value)} />
-      <QuestionList questions={questionData} />
-      <input type="submit" value="More Answered Questions" onClick={() => incrementQuestionCount()} />
+      <QuestionList questions={questionData} getQuestions={getQuestions} />
+      <br />
+      <div>
+        {limitHit ? null : (
+          <button
+            type="button"
+            onClick={() => incrementQuestionCount()}
+          >
+            More Answered Questions
+          </button>
+        )}
+        <br />
+      </div>
+      <br />
+      <div>
+        <button
+          type="button"
+          onClick={() => setShow(true)}
+        >
+          Add A New Question +
+        </button>
+        <br />
+      </div>
+      <NewQuestion id={id} show={show} closeModal={closeModal} getQuestions={getQuestions} />
     </div>
   );
 }
