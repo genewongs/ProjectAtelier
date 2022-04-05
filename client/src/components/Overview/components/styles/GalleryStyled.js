@@ -13,17 +13,22 @@ export const GalleryStyled = styled.div`
 `;
 
 export const ThumbnailsStyled = styled.div`
+  cursor: default;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   min-width: 130px;
-  height: 800px;
+  max-height: 800px;
   background-color: white;
   transition: all ease-in-out 0.05s;
+  overflow: auto;
   .selected {
     border-bottom: 6px solid red;
     transition: all ease-in-out 0.05s;
+  }
+  .overflow {
+
   }
 `;
 
@@ -31,8 +36,9 @@ export const ThumbnailsImageStyled = styled.div`
   display: flex;
   flex: 1;
   border: 1px solid black;
-  width: 90px;
-  height: 90px;
+  min-width: 90px;
+  min-height: 90px;
+  max-height: 90px;
   margin: 10px 0px;
   background-image: url(${(props) => props.img || ''});
   background-position: center;

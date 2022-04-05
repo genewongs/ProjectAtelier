@@ -1,24 +1,26 @@
 import React, { useState, useEffect } from 'react';
-import sampleStyles from './sampleStyles.js';
+import sampleStyles from './sampleStyles';
 import styled from 'styled-components';
-import Socials from './Socials.jsx';
+import Socials from './Socials';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
-import { SelectorContainer, ImageContainer, BadgeStyled } from './styles/StyledStyleSelector.js';
-import { ProductInfo } from './styles/ProductInfoStyled.js';
-import { SelectSize, SelectQuantity, AddCartButton } from './styles/SelectSizeStyled.js';
+import { SelectorContainer, ImageContainer, BadgeStyled } from './styles/StyledStyleSelector';
+import { ProductInfo } from './styles/ProductInfoStyled';
+import { SelectSize, SelectQuantity, AddCartButton, ErrorMsgStyled } from './styles/SelectSizeStyled';
 
-function StyleSelector({ styles, product, index, changeGallery, changeStyle }) {
+function StyleSelector({ styles, product, index, changeGallery, changeStyle, addItem }) {
   const [currentSku, setSku] = useState({});
-  const [quantityArr, setQuantity] = useState([]);
+  const [quantityArr, setQuantityArr] = useState([]);
+  const [quantity, setQuantity] = useState('Select Quantity');
   const [selectedSize, setSelectedSize] = useState(0);
   const [selectedStyle, setSelectedStyle] = useState(null);
   const [selectIndex, setSelectIndex] = useState(0);
+  const [error, setError] = useState(false);
 
   let prodSkus = styles[index].skus;
 
   useEffect(() => {
-    generateOptions(currentSku.quantity)
+    generateOptions(currentSku.quantity || 1)
     setSelectedStyle(Object.keys(styles[0].skus)[0])
   }, [currentSku]);
 
@@ -27,7 +29,7 @@ function StyleSelector({ styles, product, index, changeGallery, changeStyle }) {
     for(let i = 1; i <= num; i++) {
       html.push(i);
     }
-    setQuantity(html);
+    setQuantityArr(html);
   }
 
   return(
@@ -58,7 +60,6 @@ function StyleSelector({ styles, product, index, changeGallery, changeStyle }) {
             src={product.photos[0].thumbnail_url}
             onClick={() => {
               changeGallery(product);
-              // setSelectedStyle(product.style_id);
               setSelectIndex(index);
               changeStyle(product, index);
             }
@@ -78,12 +79,16 @@ function StyleSelector({ styles, product, index, changeGallery, changeStyle }) {
         })}
       </SelectSize>
 
+      <ErrorMsgStyled className={error ? 'danger' : ''}>
+        Please select a size and quantity before adding to cart.
+      </ErrorMsgStyled>
+
       <SelectQuantity>
-        <select name="selectQuantity">
+        <select name="selectQuantity" value={quantity} onChange={(e) => setQuantity(e.target.value)}>
         <option value="Select Quantity" disabled>Select Quantity</option>
           {quantityArr.map((line, index) => {
             if(line <= 15) {
-              return <option key={index} value={index}>{line}</option>
+              return <option key={index} value={index + 1}>{line}</option>
             }
           })}
           }
@@ -91,15 +96,13 @@ function StyleSelector({ styles, product, index, changeGallery, changeStyle }) {
       </SelectQuantity>
 
       <AddCartButton>
-        <button>ADD TO CART</button>
+        <button onClick={(selectedSize !== 0 && quantity > 0) ? () => {addItem(selectedSize, quantity)} : () => {
+          setError(true);
+          setTimeout(() => {setError(false)}, 3000);
+        }}>{quantityArr.length === 0 ? 'OUT OF STOCK' : 'ADD TO CART'}</button>
       </AddCartButton>
     </SelectorContainer>
   )
 }
 
 export default StyleSelector;
-
-//when i click a style button
-//the goal is to apply a style to that circle
-
-//

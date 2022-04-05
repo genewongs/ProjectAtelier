@@ -1,7 +1,7 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTwitter, faFacebook, faPinterest } from '@fortawesome/free-brands-svg-icons';
-import { SocialStyled } from './styles/ProductInfoStyled.js';
+import { SocialStyled } from './styles/ProductInfoStyled';
 
 function Socials() {
   const url = 'http://localhost:8008';

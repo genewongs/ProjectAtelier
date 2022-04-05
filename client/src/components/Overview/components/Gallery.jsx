@@ -6,7 +6,7 @@ import {
   GalleryInnerLeftStyled, GalleryInnerCenterStyled,
   GalleryInnerRightStyled, ThumbnailsStyled,
   ThumbnailsImageStyled,
-} from './styles/GalleryStyled.js';
+} from './styles/GalleryStyled';
 
 function Gallery({
   style, handleExpand, width,
@@ -32,7 +32,7 @@ function Gallery({
       <ThumbnailsStyled>
         {style.photos.map((photo, index) => (
           <ThumbnailsImageStyled
-            className={img === index ? 'selected' : ''}
+            className={img === index ? 'selected' : 'overflow'}
             key={index}
             img={photo.thumbnail_url}
             onClick={() => {

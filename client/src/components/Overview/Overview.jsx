@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import sampleStyles from './components/sampleStyles.js';
-import sampleProduct from './components/sampleProduct.js';
-import StyleSelector from './components/StyleSelector.jsx';
-import ProdDescription from './components/ProdDescription.jsx';
-import Socials from './components/Socials.jsx';
-import { Flex } from './components/styles/OverviewContainerStyled.js';
-import { LordContainer } from './components/styles/LordContainerStyled.js';
-import { RightFlex } from './components/styles/ProductInfoStyled.js';
-import Gallery from './components/Gallery.jsx';
-import { LogoStyle } from './components/styles/LogoStyled.js';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { ShoppingBagIcon, SearchIcon } from '@heroicons/react/outline';
+import StyleSelector from './components/StyleSelector';
+import ProdDescription from './components/ProdDescription';
+import Socials from './components/Socials';
+import { Flex } from './components/styles/OverviewContainerStyled';
+import { LordContainer } from './components/styles/LordContainerStyled';
+import { RightFlex } from './components/styles/ProductInfoStyled';
+import Gallery from './components/Gallery';
+import { NavBar, NavButtonsStyled, CartBadgeStyled } from './components/styles/NavBarStyled';
 
 const axios = require('axios');
 
@@ -18,9 +18,11 @@ export default function Overview() {
   const [currentStyle, setCurrentStyle] = useState(null);
   const [index, setIndex] = useState(0);
   const [expanded, setExpanded] = useState(false);
+  const [cart, setCart] = useState([]);
+  const productId = '65635';
 
   useEffect(() => {
-    fetchStyles('65631')
+    fetchStyles(productId)
       .then((res) => {
         if (res.status === 200) {
           setStyle(res.data.results);
@@ -28,10 +30,17 @@ export default function Overview() {
         }
       })
       .catch((res) => res.sendStatus(500));
-    fetchProduct('65631')
+    fetchProduct(productId)
       .then((res) => {
         if (res.status === 200) {
           setProduct(res.data);
+        }
+      })
+      .catch((res) => res.sendStatus(500));
+    fetchCart()
+      .then((res) => {
+        if (res.status === 200) {
+          setCart(res.data);
         }
       })
       .catch((res) => res.sendStatus(500));
@@ -43,6 +52,10 @@ export default function Overview() {
 
   function fetchProduct(id) {
     return axios.get('api', { params: { path: `products/${id}` } });
+  }
+
+  function fetchCart() {
+    return axios.get('api', { params: { path: 'cart' } });
   }
 
   function changeGallery(object) {
@@ -57,11 +70,32 @@ export default function Overview() {
     setExpanded(!expanded);
   }
 
+  function addItem(skuId, quantity) {
+    const data = { sku_id: skuId, count: quantity };
+    const query = { path: 'cart', query: data };
+    axios.post('api', query)
+      .then(res => {
+        if(res.status === 201) {
+          fetchCart()
+            .then(res => {setCart(res.data)})
+            .catch(err => console.log(err));
+        };
+      })
+      .catch(err => console.log(err));
+  }
+
   return (
     <LordContainer>
-      <LogoStyle>
+      <NavBar>
         <img src="./dist/images/BACKLASH_LOGO.png" />
-      </LogoStyle>
+        <NavButtonsStyled>
+          <SearchIcon className="icon" />
+          <ShoppingBagIcon className="icon" />
+          <CartBadgeStyled>
+            <span>{cart.length}</span>
+          </CartBadgeStyled>
+        </NavButtonsStyled>
+      </NavBar>
       <Flex>
         {currentStyle && <Gallery style={currentStyle} handleExpand={handleExpand} />}
         {!expanded && (
@@ -75,6 +109,7 @@ export default function Overview() {
               fetchStyles={fetchStyles}
               changeGallery={changeGallery}
               changeStyle={changeStyle}
+              addItem={addItem}
             />
             )}
           </RightFlex>
