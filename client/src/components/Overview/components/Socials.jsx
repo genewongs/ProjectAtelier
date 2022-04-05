@@ -1,7 +1,7 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTwitter, faFacebook, faPinterest } from '@fortawesome/free-brands-svg-icons';
-import { SocialStyled } from './styles/ProductInfoStyled.js';
+import { SocialStyled } from './styles/ProductInfoStyled';
 
 function Socials() {
   const url = 'http://localhost:8008';
@@ -23,7 +23,7 @@ function Socials() {
         icon={faTwitter}
         className="twitterIcon icons"
         onClick={() => {
-          const Shareurl = `https://twitter.com/intent/tweet?url=${url}&text=${text}&via=${user_id}&hashtags=${hash_tags}`;
+          const Shareurl = `https://twitter.com/intent/tweet?url=${url}`;
           window.open(Shareurl, 'NewWindow', params);
         }}
       />

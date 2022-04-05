@@ -45,4 +45,4 @@ export const SocialStyled = styled.div`
   .pinterestIcon {
     color: #E60023;
   }
-`
+`;
