@@ -135,6 +135,8 @@ app.get('/api/products/related', (req, res) => {
           res.send(error);
         });
     });
+});
+
 app.put('/api', (req, res) => {
   const options = {
     url: `https://app-hrsei-api.herokuapp.com/api/fec2/rfp/${req.body.path}`,
