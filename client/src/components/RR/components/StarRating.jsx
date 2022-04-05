@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
 import ReviewStoreContext from '../utils/ReviewContext';
-import StarStyled from './styles/StarRating2';
+import StarStyled from './styles/StyledStarRating';
 
 function StarRating() {
   const { metaData } = useContext(ReviewStoreContext);
@@ -26,11 +26,10 @@ function StarRating() {
   }, [metaData]);
 
   return (
-    <StarStyled percent={`${percent}%`}>
+    <StarStyled percent={`${percent}%`} fontSize={Number(50)}>
       <span className="average">{average}</span>
       <span className="stars-rating">★★★★★</span>
     </StarStyled>
-
   );
 }
 

@@ -7,7 +7,7 @@ const StyledStar = styled.div`
 }
 
 .stars-rating {
-  font-size: 50px;
+  font-size: ${(props) => props.fontSize};
   position: relative;
   display: inline-block;
   color: transparent;
@@ -18,7 +18,7 @@ const StyledStar = styled.div`
   left: 0;
   content: '★★★★★';
   color: black;
-  font-size: 50px;
+  font-size: ${(props) => props.fontSize};
   }
 
   &:after {
@@ -26,9 +26,9 @@ const StyledStar = styled.div`
   top: 0;
   left: 0;
   content: '★★★★★';
-  color: red;
+  color: #f2b03c;
   overflow: hidden;
-  font-size: 50px;
+  font-size: ${(props) => props.fontSize};
   width: ${(props) => props.percent};
   }
 }

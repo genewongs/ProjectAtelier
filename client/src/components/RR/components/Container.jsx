@@ -34,7 +34,7 @@ function Container() {
 
   useEffect(() => {
     Promise.all([getReviews(), getMetaData()])
-      .then(async (results) => {
+      .then((results) => {
         setReviewData(results[0]);
         setMetaData(results[1]);
         setReviewCount(Object.values(results[1].ratings)

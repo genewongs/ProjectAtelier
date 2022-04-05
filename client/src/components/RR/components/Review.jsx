@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import moment from 'moment';
+import StyledStars from './styles/StyledStarRating';
+import ReviewPhotos from './ReviewPhotos';
 
 export default function Review({ review }) {
   const [loadMore, setLoadMore] = useState(false);
@@ -12,9 +14,9 @@ export default function Review({ review }) {
   return (
     <div className="review">
       <div className="review-stars">
-        Stars:
-        {' '}
-        {review.rating}
+        <StyledStars percent={`${(review.rating * 20)}%`} fontSize="20px">
+          <span className="stars-rating">★★★★★</span>
+        </StyledStars>
       </div>
       <div className="review-name">
         {review.reviewer_name}
@@ -24,6 +26,7 @@ export default function Review({ review }) {
       <div className="review-summary">{review.summary}</div>
       <div className="review-body">{loadMore ? review.body : `${first250}...` }</div>
       { loadMore ? null : <button type="button" onClick={handleClick}>Show More</button> }
+      <ReviewPhotos photoUrls={review.photos} />
       <br />
     </div>
   );
