@@ -34,3 +34,16 @@ app.post('/api', (req, res) => {
   axios.post(options.url, req.body.query, { headers: options.headers })
     .then((reponse) => res.status(201).end(reponse.data));
 });
+
+app.put('/api', (req, res) => {
+  const options = {
+    url: `https://app-hrsei-api.herokuapp.com/api/fec2/rfp/${req.body.path}`,
+    headers: {
+      Authorization: process.env.APIKEY,
+    },
+  };
+
+  axios.put(options.url, {}, { headers: options.headers })
+    .then(res.sendStatus(204));
+  // .catch(res.sendStatus(500));
+});

@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-export default function NewAnswer({ show, questionID, closeModal }) {
+export default function NewAnswer({
+  show, questionID, closeModal, getAnswers,
+}) {
   const [answerBody, setAnswerBody] = useState([]);
   const [answerAuthorName, setAnswerAuthorName] = useState([]);
   const [answerAuthorEmail, setAnswerAuthorEmail] = useState([]);
@@ -28,12 +30,19 @@ export default function NewAnswer({ show, questionID, closeModal }) {
       name: answerAuthorName,
       email: answerAuthorEmail,
     };
+    const query = {
+      path: `qa/questions/${questionID}/answers`,
+      query: answer,
+    };
     if (answer.body.length < 1 || answer.name.length < 1 || answer.email.length < 1) {
       alert('fix empty field(s)');
     } else {
       closeModal();
       console.log(answer);
-      // post request goes here
+      axios.post('/api', query)
+        .then((response) => getAnswers())
+        .catch((err) => console.error(err));
+      console.log(answer);
     }
   }
 

@@ -29,12 +29,18 @@ export default function NewQuestion({ id, show, closeModal }) {
       email: questionAuthorEmail,
       product_id: id,
     };
+    const query = {
+      path: 'qa/questions',
+      query: question,
+    };
     if (question.body.length < 1 || question.name.length < 1 || question.email.length < 1) {
       alert('fix empty field(s)');
     } else {
       closeModal();
       console.log(question);
-      // post request goes here
+      axios.post('/api', query)
+        .then((response) => console.log(response))
+        .catch((err) => console.error(err));
     }
   }
 

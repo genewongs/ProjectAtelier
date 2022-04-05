@@ -8,8 +8,14 @@ export default function QA() {
   const [allQuestionData, setAllQuestionData] = useState([]);
   const [count, setCount] = useState(2);
   const [show, setShow] = useState(false);
+  const [limitHit, setLimitHit] = useState(false);
 
-  const id = '65631';
+  const id = 65631;
+  let startingLimit = 5;
+
+  if (allQuestionData.length > startingLimit) {
+    startingLimit = allQuestionData.length;
+  }
 
   function closeModal() {
     setShow(false);
@@ -44,16 +50,33 @@ export default function QA() {
   const incrementQuestionCount = useCallback(() => setCount((prevCount) => prevCount + 2), []);
 
   useEffect(() => {
-    getQuestions();
     getAllQuestions();
+    getQuestions()
+      .then(() => {
+        if (count >= startingLimit) {
+          setLimitHit(true);
+        } else {
+          setLimitHit(false);
+        }
+      });
   }, [count]);
 
   return (
     <div>
       <input type="text" placeholder="Have a question? Search for answers…" onChange={(event) => filterQuestionsWithSearch(event.target.value)} />
-      <QuestionList questions={questionData} />
-      <input type="submit" value="More Answered Questions" onClick={() => incrementQuestionCount()} />
+      <QuestionList questions={questionData} getQuestions={getQuestions} />
       <br />
+      <div>
+        {limitHit ? null : (
+          <button
+            type="button"
+            onClick={() => incrementQuestionCount()}
+          >
+            More Answered Questions
+          </button>
+        )}
+        <br />
+      </div>
       <br />
       <div>
         <button
@@ -64,7 +87,7 @@ export default function QA() {
         </button>
         <br />
       </div>
-      <NewQuestion id={id} show={show} closeModal={closeModal} />
+      <NewQuestion id={id} show={show} closeModal={closeModal} getQuestions={getQuestions} />
     </div>
   );
 }
