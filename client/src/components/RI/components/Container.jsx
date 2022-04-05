@@ -7,11 +7,21 @@ import RelatedProductsList from './RelatedProductsList';
 import { ContainerStyled } from '../styles/ContainerStyled.styled';
 
 export default function Container() {
-  const { setRelatedData, id } = useContext(RelatedProductsContext);
+  const {
+    modalClicked, setRelatedData, setProductInfo, setProductStyle, id,
+  } = useContext(RelatedProductsContext);
+
+  async function getProductInfo() {
+    const productIDInfo = await axios.get('/api/product', { params: { id } });
+    const productIDStyles = await axios.get('/api/product/styles', { params: { id } });
+
+    setProductInfo(productIDInfo.data);
+    setProductStyle(productIDStyles.data);
+  }
 
   async function getRelatedInfo() {
-    const relatedStyles = await axios.get('/api/products/related/styles', { params: { id } });
     const relatedInfo = await axios.get('/api/products/related', { params: { id } });
+    const relatedStyles = await axios.get('/api/products/related/styles', { params: { id } });
 
     /* Iterate through the related id styles */
     const relatedStylesInfo = relatedStyles.data.map((currentStyle) => {
@@ -32,11 +42,17 @@ export default function Container() {
 
   useEffect(() => {
     getRelatedInfo();
+    getProductInfo();
   }, []);
 
   return (
     <ContainerStyled>
       <RelatedProductsList />
+      { modalClicked && (
+        <div>
+          Checking MODAL
+        </div>
+      )}
     </ContainerStyled>
   );
 }

@@ -35,6 +35,36 @@ app.post('/api', (req, res) => {
     .then((reponse) => res.status(201).end(reponse.data));
 });
 
+app.get('/api/product/', (req, res) => {
+  const { id } = req.query;
+  axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/rfp/products/${id}/`, {
+    headers: {
+      Authorization: process.env.APIKEY,
+    },
+  })
+    .catch((error) => {
+      res.send(error);
+    })
+    .then((response) => {
+      res.send(response.data);
+    });
+});
+
+app.get('/api/product/styles', (req, res) => {
+  const { id } = req.query;
+  axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/rfp/products/${id}/styles`, {
+    headers: {
+      Authorization: process.env.APIKEY,
+    },
+  })
+    .catch((error) => {
+      res.send(error);
+    })
+    .then((response) => {
+      res.send(response.data);
+    });
+});
+
 /*
   Route to collect the current product id's relative id styles
   Postman example: products/[iterate through related id]/styles
