@@ -1,15 +1,13 @@
 /* eslint-disable no-param-reassign */
 import React, { useContext, useEffect } from 'react';
 import axios from 'axios';
-import RelatedProductsContext from '../utils/RelatedProductsContext.jsx';
-import RelatedProductsList from './RelatedProductsList.jsx';
+import RelatedProductsContext from '../utils/RelatedProductsContext';
+import RelatedProductsList from './RelatedProductsList';
 
 import { ContainerStyled } from '../styles/ContainerStyled.styled';
 
-import RelatedProductsModal from '../modal/RelatedProductsModal.jsx';
-
 export default function Container() {
-  const { modalClicked, setRelatedData, id } = useContext(RelatedProductsContext);
+  const { setRelatedData, id } = useContext(RelatedProductsContext);
 
   async function getRelatedInfo() {
     const relatedStyles = await axios.get('/api/products/related/styles', { params: { id } });
@@ -39,9 +37,6 @@ export default function Container() {
   return (
     <ContainerStyled>
       <RelatedProductsList />
-      { modalClicked && (
-        <RelatedProductsModal />
-      )}
     </ContainerStyled>
   );
 }
