@@ -2,10 +2,10 @@ import React, {
   useState, useContext, useEffect, useCallback,
 } from 'react';
 import axios from 'axios';
-import ReviewStoreContext from '../utils/ReviewContext.jsx';
-import StarRating from './StarRating.jsx';
-import ReviewList from './ReviewList.jsx';
-import AddReview from './AddReview.jsx';
+import ReviewStoreContext from '../utils/ReviewContext';
+import StarRating from './StarRating';
+import ReviewList from './ReviewList';
+import AddReview from './AddReview';
 
 function Container() {
   const { id, setReviewData, setMetaData } = useContext(ReviewStoreContext);
@@ -34,7 +34,7 @@ function Container() {
 
   useEffect(() => {
     Promise.all([getReviews(), getMetaData()])
-      .then(async (results) => {
+      .then((results) => {
         setReviewData(results[0]);
         setMetaData(results[1]);
         setReviewCount(Object.values(results[1].ratings)
