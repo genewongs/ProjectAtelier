@@ -1,12 +1,11 @@
 import React from 'react';
-// eslint-disable-next-line import/extensions
-import QuestionListEntry from './QuestionListEntry.jsx';
+import QuestionListEntry from './QuestionListEntry';
 
-function QuestionList({ questions }) {
+function QuestionList({ questions, getQuestions }) {
   return (
     <div>
       {/* eslint-disable-next-line max-len */}
-      {questions.map((question) => <QuestionListEntry question={question} key={question.question_id} />)}
+      {questions.map((question) => <QuestionListEntry question={question} key={question.question_id} getQuestions={getQuestions} />)}
     </div>
   );
 }
