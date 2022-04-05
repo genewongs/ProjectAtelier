@@ -33,6 +33,26 @@ const ModalStyled = styled.div`
   border-radius: 10px;
 }
 
+.star-container{
+  display: flex;
+  flex-directin: row;
+
+  button {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+  }
+
+  .on {
+    color: #000;
+  }
+
+  .off {
+    color: #ccc;
+  }
+}
+
 .modal-close{
   width: 10%;
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import StarIcon from './StarIcon.jsx';
+import StarIcon from './StarIcon';
 // import { StarIcon } from '@heroicons/react/outline';
 
 const Stars = {};
@@ -15,7 +15,7 @@ Stars.RatingSpan = styled.span`
   font-weight:700;
   padding-right: 5px;
   line-height: 2.0rem;
-  font-familt: Arial;
+  font-family: Arial;
 `;
 
 Stars.BackStarsDiv = styled.div`

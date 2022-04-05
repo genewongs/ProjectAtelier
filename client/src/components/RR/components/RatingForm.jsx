@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 function RatingForm({ handleChange }) {
+  const [selected, setSelected] = useState('');
+  const [rating, setRating] = useState(-1);
   const stars = {
     'star-e': 'Poor',
     'star-d': 'Fair',
@@ -9,15 +11,34 @@ function RatingForm({ handleChange }) {
     'star-a': 'Great',
   };
 
+  function handleDisplay(e) {
+    setSelected(e.target.id);
+  }
+
   return (
-    <div className="form-container">
-      <form className="star-rating" name="rating">
-        <div>Rating</div>
-        {Object.keys(stars).map((option, index) => (
-          <label htmlFor={option} key={option} className="rating">
-            <input type="radio" className="rating" name="rating" id={option} value={index + 1} onChange={handleChange} />
-          </label>
-        ))}
+    <div className="star-container">
+      <form onChange={handleDisplay}>
+        {Object.keys(stars).map((option, index) => {
+          const val = index + 1;
+          return (
+            <button
+              type="button"
+              name="rating"
+              key={option}
+              id={option}
+              className={index <= rating ? 'on' : 'off'}
+              onClick={(e) => {
+                setRating(index);
+                handleDisplay(e);
+                handleChange(e);
+              }}
+              value={val}
+            >
+              ★
+            </button>
+          );
+        })}
+        <span>{selected ? stars[selected] : null}</span>
       </form>
     </div>
   );
