@@ -44,6 +44,11 @@ app.put('/api', (req, res) => {
   };
 
   axios.put(options.url, {}, { headers: options.headers })
+<<<<<<< HEAD
     .then(res.sendStatus(204));
   // .catch(res.sendStatus(500));
+=======
+    .then(res.sendStatus(204))
+    .catch(res.sendStatus(500));
+>>>>>>> 76ef0665e9464c4f03b5b2a4e53de89a3a65f04f
 });

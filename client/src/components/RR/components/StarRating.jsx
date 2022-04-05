@@ -1,12 +1,13 @@
 import React, { useState, useContext, useEffect } from 'react';
-import ReviewStoreContext from '../utils/ReviewContext.jsx';
-import StarRatingStyled from '../styles/StarRatings.jsx';
+import ReviewStoreContext from '../utils/ReviewContext';
+import StarStyled from './styles/StyledStarRating';
 
 function StarRating() {
   const { metaData } = useContext(ReviewStoreContext);
   const [average, setAverage] = useState(0);
+  const [percent, setPercent] = useState(0);
 
-  function getAverage() {
+  function getAverageAndPercent() {
     let totalEntries = 0;
     let totalRating = 0;
     Object.entries(metaData.ratings).forEach((rating) => {
@@ -15,16 +16,20 @@ function StarRating() {
     });
 
     setAverage(Math.round((totalRating / totalEntries) * 4) / 4);
+    setPercent((Math.round((totalRating / totalEntries) * 4) / 4) * 20);
   }
 
   useEffect(() => {
     if (metaData.length !== 0) {
-      getAverage();
+      getAverageAndPercent();
     }
   }, [metaData]);
 
   return (
-    <StarRatingStyled stars={average} />
+    <StarStyled percent={`${percent}%`} fontSize={Number(50)}>
+      <span className="average">{average}</span>
+      <span className="stars-rating">★★★★★</span>
+    </StarStyled>
   );
 }
 
