@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import QuestionList from './components/QuestionList';
 import NewQuestion from './components/NewQuestion';
+import StyledSearchBar from './components/styles/StyledSearchBar';
 
 export default function QA() {
   const [questionData, setQuestionData] = useState([]);
@@ -64,7 +65,9 @@ export default function QA() {
   return (
 
     <div data-testid="questionList">
-      <input type="text" placeholder="Have a question? Search for answers…" onChange={(event) => filterQuestionsWithSearch(event.target.value)} />
+      <StyledSearchBar>
+        <input type="text" placeholder="Have a question? Search for answers…" size="60" onChange={(event) => filterQuestionsWithSearch(event.target.value)} />
+      </StyledSearchBar>
       <QuestionList questions={questionData} getQuestions={getQuestions} />
       <br />
       <div>
