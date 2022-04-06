@@ -1,15 +1,17 @@
 import React from 'react';
-import { CardWrapper, CardImage, CardName } from '../styles/CardStyled.styled';
+import {
+  CardWrapper, CardCategory, CardImage, CardName, CardPrice,
+} from '../styles/CardStyled.styled';
 
 export default function Card({
-  name, url, modalOptions,
+  url, name, category, price, modalOptions,
 }) {
   return (
-    <CardWrapper
-      onClick={modalOptions}
-    >
+    <CardWrapper onClick={modalOptions}>
+      <CardCategory>{category}</CardCategory>
       <CardImage photo={url} />
       <CardName>{name}</CardName>
+      <CardPrice>{price}</CardPrice>
     </CardWrapper>
   );
 }

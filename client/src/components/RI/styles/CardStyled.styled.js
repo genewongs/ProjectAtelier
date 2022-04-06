@@ -7,7 +7,6 @@ export const CardWrapper = styled.div`
   height: 335px;
   width: 225px;
   border: 1px solid;
-  /* background: white; */
   margin: 0px 12px;
 `;
 
@@ -16,9 +15,25 @@ export const CardImage = styled.div`
 `;
 
 export const CardName = styled.p`
-  flex-wrap: wrap;
-  display: flex;
+  /* flex-wrap: wrap; */
+  /* display: flex; */
   font-weight: bold;
+  font-size: 17px;
+  position: absolute;
+  padding-left: 15px;
+`;
+
+export const CardCategory = styled.p`
+  /* flex-wrap: wrap;
+  display: flex; */
+  font-size: 17px;
+  position: absolute;
+  padding-left: 15px;
+`;
+
+export const CardPrice = styled.p`
+  /* flex-wrap: wrap;
+  display: flex; */
   font-size: 17px;
   position: absolute;
   padding-left: 15px;

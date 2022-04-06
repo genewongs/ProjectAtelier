@@ -4,12 +4,11 @@ import axios from 'axios';
 import RelatedProductsContext from '../utils/RelatedProductsContext';
 import RelatedProductsList from './RelatedProductsList';
 import Compare from './Compare.jsx';
-
 import { ContainerStyled } from '../styles/ContainerStyled.styled';
 
 export default function Container() {
   const {
-    modalClicked, setRelatedData, setProductData, id,
+    toggleModal, modalClicked, clickedRelatedData, setRelatedData, productData, setProductData, id,
   } = useContext(RelatedProductsContext);
 
   async function getProductInfo() {
@@ -51,8 +50,18 @@ export default function Container() {
     <ContainerStyled>
       <RelatedProductsList />
       { modalClicked && (
-        <Compare />
+        <Compare
+          productData={productData}
+          clickedRelatedData={clickedRelatedData}
+          toggleModal={toggleModal}
+          modalClicked={modalClicked}
+        />
       )}
     </ContainerStyled>
   );
 }
+
+/*
+  function disableScroll() { document.body.style.overflow = 'hidden'; }
+  function enableScroll() { document.body.style.overflow = 'initial'; }
+*/

@@ -9,10 +9,11 @@ export function RelatedProducts({ children }) {
   const [productData, setProductData] = useState([]);
   /* For the card that has been clicked */
   const [clickedRelatedData, setClickedRelatedData] = useState([]);
+  /* Check if modal has beem clicked */
   const [modalClicked, setModalClicked] = useState(false);
-
   const toggleModal = useCallback(() => setModalClicked((prevState) => !prevState), []);
-  const id = 65631;
+
+  const id = 65635;
 
   const store = {
     relatedData,
