@@ -1,12 +1,11 @@
 import styled from 'styled-components';
 
 const ReviewListStyled = styled.div`
-  margin: 10px auto;
   min-height: 400px;
   max-height: 90vh;
   width: 700px;
   overflow: auto;
-  border: 2px solid black;
+  margin: 10px;
   padding: 10px;
 
   &::-webkit-scrollbar {
@@ -27,8 +26,8 @@ const ReviewListStyled = styled.div`
     width: 90%;
     height: 90%;
     height: auto;
-    border: 2px solid black;
-    margin: 10px auto;
+    border-bottom: 2px solid black;
+    margin: 10px;
     padding: 10px;
   }
 
@@ -54,6 +53,10 @@ const ReviewListStyled = styled.div`
 
   .review-name {
     font-size: 15px;
+
+    .review-date {
+      font-size: 13px;
+    }
   }
 
   .review-response {

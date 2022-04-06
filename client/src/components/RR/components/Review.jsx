@@ -43,7 +43,7 @@ export default function Review({ review, setCurrDisplay, setExpanded }) {
       <div className="review-name">
         {review.reviewer_name}
         {'\n'}
-        {moment(review.date).format('LL')}
+        <span className="review-date">{moment(review.date).format('LL')}</span>
       </div>
       <div className="review-response">
         {review.response}
@@ -55,6 +55,7 @@ export default function Review({ review, setCurrDisplay, setExpanded }) {
         (
         {review.helpfulness}
         )
+        |
         <button type="button">Report</button>
       </div>
     </div>

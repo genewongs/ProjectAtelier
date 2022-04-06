@@ -13,7 +13,7 @@ export default function ReviewList() {
   const toggleModal = useCallback(() => setExpanded((prev) => !prev));
 
   return (
-    <div className="reviewlist-container">
+    <>
       <ReviewListStyled>
         {reviews.results
         && (
@@ -37,6 +37,6 @@ export default function ReviewList() {
           <img src={currDisplay} alt="bigboi" />
         </Modal>
       </ModalStyled>
-    </div>
+    </>
   );
 }

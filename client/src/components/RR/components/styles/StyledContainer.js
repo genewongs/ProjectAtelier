@@ -2,38 +2,59 @@ import styled from 'styled-components';
 
 const ContainerStyled = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   font-family: Helvetica;
+  gap: 20px;
   font-size: 20px;
 
-  .sort-selector {
-    font-size: 19px;
-    border: 0px;
-    outline: 0px;
-    text-decoration: underline;
+  .review-left-container {
+    display:flex;
+    flex-direction: column;
+    border: 2px solid black;
+    padding: 5px;
   }
 
-  .review-buttons-container {
+  .review-right-container {
     display: flex;
-    justify-content: left;
-    align-items: left;
-    gap: 10px;
+    flex-direction: column;
+    align-items: flex-start;
+    border: 2px solid black;
+    padding: 10px;
 
-    > button {
-      height: 45px;
-      width: 150px;
+    .sort-selector {
+      font-size: 19px;
       border: 0px;
       outline: 0px;
-      background: black;
-      font-size: 15px;
-      color: white;
-      border-radius: 10px;
-      transition: 0.3s;
+
+      text-decoration: underline;
 
       &:hover {
-        background: red;
+        color: red;
+      }
+    }
+
+    .review-buttons-container {
+      display: flex;
+      justify-content: left;
+      align-items: left;
+      gap: 10px;
+
+      > button {
+        height: 45px;
+        width: 150px;
+        border: 0px;
+        outline: 0px;
+        background: black;
+        font-size: 15px;
+        color: white;
+        border-radius: 10px;
+        transition: 0.3s;
+
+        &:hover {
+          background: red;
+        }
       }
     }
   }

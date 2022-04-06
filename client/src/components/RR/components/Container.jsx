@@ -62,40 +62,42 @@ function Container() {
 
   return (
     <ContainerStyled>
-      <div className="rating-container">
+      <div className="review-left-container">
         <StarRating />
       </div>
-      <div className="review-sorted-by">
-        {reviewCount}
-        {reviewCount >= 2 ? ' reviews, ' : ' review, '}
-        sorted by
-        {' '}
-        <select className="sort-selector" onChange={(e) => setSort(e.target.value)}>
-          <option value="relevance">Relevance</option>
-          <option value="newest">Newest</option>
-          <option value="helpful">Helpfulness</option>
-        </select>
-      </div>
-      <ReviewList />
-      <div className="review-buttons-container">
-        {limitHit ? null
-          : (
-            <button
-              type="button"
-              className="more-reviews-button"
-              onClick={incrementCount}
-            >
-              More Reviews
-            </button>
-          )}
-        <button
-          type="button"
-          className="add-review-button"
-          onClick={toggleModal}
-        >
-          Add Review
-        </button>
-        <AddReview modalState={modalState} toggleModal={toggleModal} />
+      <div className="review-right-container">
+        <div className="review-sorted-by">
+          {reviewCount}
+          {reviewCount >= 2 ? ' reviews, ' : ' review, '}
+          sorted by
+          {' '}
+          <select className="sort-selector" onChange={(e) => setSort(e.target.value)}>
+            <option value="relevance">Relevance</option>
+            <option value="newest">Newest</option>
+            <option value="helpful">Helpfulness</option>
+          </select>
+        </div>
+        <ReviewList />
+        <div className="review-buttons-container">
+          {limitHit ? null
+            : (
+              <button
+                type="button"
+                className="more-reviews-button"
+                onClick={incrementCount}
+              >
+                More Reviews
+              </button>
+            )}
+          <button
+            type="button"
+            className="add-review-button"
+            onClick={toggleModal}
+          >
+            Add Review +
+          </button>
+          <AddReview modalState={modalState} toggleModal={toggleModal} />
+        </div>
       </div>
     </ContainerStyled>
   );
