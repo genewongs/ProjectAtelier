@@ -3,6 +3,7 @@ module.exports = {
     browser: true,
     es2021: true,
     node: true,
+    "jest/globals": true,
   },
   extends: [
     'plugin:react/recommended',
@@ -15,7 +16,8 @@ module.exports = {
     ecmaVersion: 'latest',
   },
   plugins: [
-    'react',
+    "react",
+    "jest",
   ],
   rules: {
     'react/prop-types': 'off',

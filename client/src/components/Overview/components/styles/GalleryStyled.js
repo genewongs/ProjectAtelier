@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const GalleryStyled = styled.div`
+export const GalleryStyled = styled.div.attrs({ 'data-testid': 'carousel'})`
   display: flex;
   flex-grow: 1;
   max-width: 100%;
@@ -9,6 +9,56 @@ export const GalleryStyled = styled.div`
   cursor: zoom-out;
   .magnify {
     cursor: zoom-in;
+  }
+`;
+
+export const ThumbnailsLeft = styled.div`
+  display: flex;
+  flex: 8%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  color: gray;
+  transition: all ease-in-out 0.1s;
+  .upButton {
+    &:hover {
+      color: black;
+      transition: all ease-in-out 0.1s;
+      cursor: pointer;
+  }
+  }
+  .disable {
+    cursor: default;
+    color: rgb(0 0 0 / 20%);
+    &:hover {
+      color: rgb(0 0 0 / 20%);
+      cursor: default;
+    }
+  }
+`;
+
+export const ThumbnailsRight = styled.div`
+  display: flex;
+  flex: 8%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  color: gray;
+  transition: all ease-in-out 0.1s;
+  .downButton {
+    &:hover {
+      color: black;
+      transition: all ease-in-out 0.1s;
+      cursor: pointer;
+    }
+  }
+  .disable {
+    cursor: default;
+    color: rgb(0 0 0 / 20%);
+    &:hover {
+      color: rgb(0 0 0 / 20%);
+      cursor: default;
+    }
   }
 `;
 
@@ -22,13 +72,9 @@ export const ThumbnailsStyled = styled.div`
   max-height: 800px;
   background-color: white;
   transition: all ease-in-out 0.05s;
-  overflow: auto;
   .selected {
     border-bottom: 6px solid red;
     transition: all ease-in-out 0.05s;
-  }
-  .overflow {
-
   }
 `;
 
@@ -36,9 +82,9 @@ export const ThumbnailsImageStyled = styled.div`
   display: flex;
   flex: 1;
   border: 1px solid black;
-  min-width: 90px;
-  min-height: 90px;
-  max-height: 90px;
+  min-width: 75px;
+  min-height: 75px;
+  max-height: 75px;
   margin: 10px 0px;
   background-image: url(${(props) => props.img || ''});
   background-position: center;
@@ -51,17 +97,18 @@ export const ThumbnailsImageStyled = styled.div`
     cursor: pointer;
     transition: all ease-in-out 0.03s;
     transform: scale(0.96);
+    cursor: pointer;
   }
 `;
 
 export const GalleryInnerStyled = styled.div`
-  height: 100%;
+  max-height: 900px;
   width: 100%;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
   object-fit: cover;
-  background-image: url(${(props) => props.img || ''});
+  background-image: url(${(props) => props.img || '/dist/images/NPA.jpeg'});
   display: flex;
 `;
 
@@ -75,17 +122,19 @@ export const GalleryInnerLeftStyled = styled.div`
   background-color: rgba(0, 0, 0, 0.105);
   transition: all ease-in-out 0.1s;
   .button {
-    border-radius: 50%;
-    border: 1.5px solid rgb(75, 75, 75, 0.95);
     &:hover {
       color: red;
       transition: all ease-in-out 0.1s;
-      border: 1.5px solid black;
-  }
+      cursor: pointer;
+    }
   }
   .disable {
-    border: none;
-    opacity: 0;
+    cursor: default;
+    color: rgb(0 0 0 / 37%);
+    &:hover {
+      color: rgb(0 0 0 / 37%);
+      cursor: default;
+    }
   }
 `;
 
@@ -106,29 +155,29 @@ export const GalleryInnerRightStyled = styled.div`
   &:hover {
     transition: all ease-in-out 0.03s;
   }
-  .button {
-    border-radius: 50%;
-    border: 1.5px solid rgb(75, 75, 75, 0.95);
-  }
   .button2 {
-    border-radius: 50%;
-    border: 1.5px solid rgb(75, 75, 75, 0.95);
     margin-bottom: 45px;
+    margin-left: 8px;
     &:hover {
       color: red;
       transition: all ease-in-out 0.1s;
-      border: 1.5px solid black;
+      cursor: pointer;
     }
   }
   .disable {
-    border: none;
-    opacity: 0;
+    cursor: default;
+    color: rgb(0 0 0 / 37%);
+    &:hover {
+      color: rgb(0 0 0 / 37%);
+      cursor: default;
+    }
   }
   .expandIcon {
     position: relative;
     font-size: 2em;
     margin-top: 5px;
     max-height: 40px;
+    min-width: 40px;
     color: white;
     transition: all ease-in-out 0.1s;
     &:hover {

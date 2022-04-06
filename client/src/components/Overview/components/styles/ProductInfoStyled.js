@@ -16,6 +16,10 @@ export const ProductInfo = styled.div`
     margin: 0px;
     padding: 15px 0px 15px 0px;
   }
+  .category {
+    font-size: .8em;
+    color: gray;
+  }
 `;
 
 export const SocialStyled = styled.div`
