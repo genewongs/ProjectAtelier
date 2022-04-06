@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import moment from 'moment';
+import axios from 'axios';
 import StyledStars from './styles/StyledStarRating';
 import ReviewPhotos from './ReviewPhotos';
 
@@ -12,6 +13,17 @@ export default function Review({ review, setCurrDisplay, setExpanded }) {
     setLoadMore((prev) => (!prev));
   }
 
+  function handleVote() {
+    if (!voted) {
+      axios.put('/api', {
+        path: `reviews/${review.review_id}/helpful`,
+      })
+        // eslint-disable-next-line no-param-reassign
+        .then(review.helpfulness += 1)
+        .catch((err) => new Error(err));
+    }
+  }
+
   return (
     <div className="review">
       <div className="review-stars">
@@ -21,8 +33,8 @@ export default function Review({ review, setCurrDisplay, setExpanded }) {
       </div>
       <div className="review-summary"><b>{review.summary}</b></div>
       <div className="review-body">
-        {loadMore ? review.body : `${first250}...` }
-        { loadMore
+        {loadMore ? review.body : `${first250}` }
+        { first250 === review.body
           ? null
           : (
             <button
@@ -30,7 +42,7 @@ export default function Review({ review, setCurrDisplay, setExpanded }) {
               className="show-more-button"
               onClick={handleClick}
             >
-              Show more
+              ...Show more
             </button>
           ) }
       </div>
@@ -45,13 +57,21 @@ export default function Review({ review, setCurrDisplay, setExpanded }) {
         {'\n'}
         <span className="review-date">{moment(review.date).format('LL')}</span>
       </div>
-      <div className="review-response">
-        {review.response}
-      </div>
+      {review.response
+        ? (
+          <div className="review-response">
+            <span>
+              <b>Response from seller: </b>
+              <br />
+              <span>{review.response}</span>
+            </span>
+          </div>
+        )
+        : null}
       <div className="review-helpful">
         Was this review helpful?
         {' '}
-        <button type="button" disable={voted} onClick={() => setVoted(true)}>Yes</button>
+        <button type="button" disable={voted ? 'true' : ''} onClick={() => { setVoted(true); handleVote(); }}>Yes</button>
         (
         {review.helpfulness}
         )

@@ -8,6 +8,8 @@ const ContainerStyled = styled.div`
   font-family: Helvetica;
   gap: 20px;
   font-size: 20px;
+  margin: 10px;
+  padding: 5px;
 
   .review-left-container {
     display:flex;

@@ -61,6 +61,10 @@ const ReviewListStyled = styled.div`
 
   .review-response {
     background: rgba(187,187,187,0.4);
+    padding: 5px;
+    width: 500px;
+    font-size: 15px;
+    overflow: auto;
   }
 
   .review-helpful {
