@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const NavBar = styled.div`
+export const NavBar = styled.div.attrs({ "data-testid": 'navbar'})`
   display: flex;
   height: 50px;
   width: 100%;
