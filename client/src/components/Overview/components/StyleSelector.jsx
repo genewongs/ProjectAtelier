@@ -16,6 +16,7 @@ function StyleSelector({ styles, product, index, changeGallery, changeStyle, add
   const [selectedStyle, setSelectedStyle] = useState(null);
   const [selectIndex, setSelectIndex] = useState(0);
   const [error, setError] = useState(false);
+  const [hasBeenSelected, setHasBeenSelected] = useState(false);
 
   let prodSkus = styles[index].skus;
 
@@ -55,6 +56,7 @@ function StyleSelector({ styles, product, index, changeGallery, changeStyle, add
               setSelectIndex(index);
               setSku([]);
               changeStyle(product, index);
+              setHasBeenSelected(false);
             }
           }/>
         })}
@@ -66,6 +68,7 @@ function StyleSelector({ styles, product, index, changeGallery, changeStyle, add
             <button className={sku === selectedSize ? 'selected' : ''} key={id} onClick={(e) => {
               setSelectedSize(sku);
               setSku(prodSkus[sku]);
+              setHasBeenSelected(true);
             }
           }> {prodSkus[sku].size} </button>
           )
@@ -89,7 +92,7 @@ function StyleSelector({ styles, product, index, changeGallery, changeStyle, add
         <button onClick={(selectedSize !== 0 && quantity > 0) ? () => {addItem(selectedSize, quantity)} : () => {
           setError(true);
           setTimeout(() => {setError(false)}, 3000);
-        }}>{quantityNum === 0 && selectedSize !== 0 ? 'OUT OF STOCK' : 'ADD TO CART'}</button>
+        }}>{quantityNum === 0 && selectedSize !== 0 && hasBeenSelected ? 'OUT OF STOCK' : 'ADD TO CART'}</button>
       </AddCartButton>
     </SelectorContainer>
   )

@@ -19,7 +19,7 @@ export default function Overview() {
   const [index, setIndex] = useState(0);
   const [expanded, setExpanded] = useState(false);
   const [cart, setCart] = useState([]);
-  const productId = '65631';
+  const productId = '65635';
 
   useEffect(() => {
     fetchStyles(productId)
