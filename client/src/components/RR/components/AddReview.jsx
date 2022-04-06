@@ -8,9 +8,8 @@ import RatingForm from './RatingForm';
 import CharacteristicsForm from './CharacteristicsForm';
 import ReviewStoreContext from '../utils/ReviewContext';
 
-function AddReview() {
+function AddReview({ modalState, toggleModal }) {
   const { id, metaData } = useContext(ReviewStoreContext);
-  const [modalState, setModalState] = useState(false);
   const [productName, setProductName] = useState('');
   const [photos, setPhotos] = useState([]);
   const [formData, setFormData] = useState({
@@ -66,8 +65,6 @@ function AddReview() {
     [metaData, formData],
   );
 
-  const toggleModal = useCallback(() => setModalState((prevState) => !prevState), []);
-
   function getProductName() {
     axios.get('/api', { params: { path: `products/${id}` } })
       .then((response) => (setProductName(response.data.name)))
@@ -87,13 +84,6 @@ function AddReview() {
 
   return (
     <div>
-      <button
-        type="button"
-        className="add-review-button"
-        onClick={toggleModal}
-      >
-        Add Review
-      </button>
       <br />
       <ModalStyled>
         <Modal className="add-form" show={modalState} toggleModal={toggleModal}>

@@ -28,6 +28,7 @@ function StarRating() {
   return (
     <StarStyled percent={`${percent}%`} fontSize={Number(50)}>
       <span className="average">{average}</span>
+      <span>{'  '}</span>
       <span className="stars-rating">★★★★★</span>
     </StarStyled>
   );

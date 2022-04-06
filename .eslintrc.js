@@ -16,8 +16,8 @@ module.exports = {
     ecmaVersion: 'latest',
   },
   plugins: [
-    "react",
-    "jest",
+    'react',
+    'jest',
   ],
   rules: {
     'react/prop-types': 'off',
