@@ -9,6 +9,8 @@ function ThumbnailsGallery({ style, img, navigateImage }) {
   const [display, setDisplay] = useState(0);
   const { length } = style.photos;
 
+  console.log(display)
+
   const nextSlide = () => {
     if (display !== length - 7) {
       setDisplay(display === length - 7 ? 0 : display + 1);

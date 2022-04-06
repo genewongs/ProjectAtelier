@@ -43,9 +43,6 @@ function StyleSelector({ styles, product, index, changeGallery, changeStyle, add
         <span style={{fontWeight: 'bold'}}>STYLE > </span> {styles[index].name}
       </div> <br></br>
       <ImageContainer>
-        {/* <BadgeStyled>
-          <FontAwesomeIcon icon={faCheck} />
-        </BadgeStyled> */}
         {styles.map((product, index) => {
           return <img
             className={index === selectIndex ? 'selectedSize' : ''}
