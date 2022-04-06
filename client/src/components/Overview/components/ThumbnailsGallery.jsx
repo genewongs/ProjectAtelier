@@ -6,18 +6,18 @@ import {
 } from './styles/GalleryStyled';
 
 function ThumbnailsGallery({ style, img, navigateImage }) {
-  const [current, setCurrent] = useState(0);
+  const [display, setDisplay] = useState(0);
   const { length } = style.photos;
 
   const nextSlide = () => {
-    if (current !== length - 7) {
-      setCurrent(current === length - 7 ? 0 : current + 1);
+    if (display !== length - 7) {
+      setDisplay(display === length - 7 ? 0 : display + 1);
     }
   };
 
   const prevSlide = () => {
-    if (current !== 0) {
-      setCurrent(current === 0 ? length - 7 : current - 1);
+    if (display !== 0) {
+      setDisplay(display === 0 ? length - 7 : display - 1);
     }
   };
 
@@ -26,7 +26,8 @@ function ThumbnailsGallery({ style, img, navigateImage }) {
 
       <ThumbnailsLeft>
         <FontAwesomeIcon
-          className={current === 0 ? 'upButton disable' : 'upButton'}
+          style={{display: length <= 7 ? 'none' : ''}}
+          className={display === 0 ? 'upButton disable' : 'upButton'}
           icon={faChevronUp}
           size="2x"
           onClick={() => {
@@ -36,12 +37,12 @@ function ThumbnailsGallery({ style, img, navigateImage }) {
       </ThumbnailsLeft>
 
       {style.photos.map((photo, index) => (
-        (index < current + 7 && index > current - 1)
+        (index < display + 7 && index > display - 1)
           ? (
             <ThumbnailsImageStyled
               className={img === index ? 'selected' : ''}
               key={index}
-              img={photo.thumbnail_url}
+              img={photo.thumbnail_url || '/dist/images/NPA.jpeg'}
               onClick={() => {
                 navigateImage(photo, index);
               }}
@@ -51,7 +52,8 @@ function ThumbnailsGallery({ style, img, navigateImage }) {
 
       <ThumbnailsRight>
         <FontAwesomeIcon
-          className={current === length - 7 ? 'downButton disable' : 'downButton'}
+          style={{display: length <= 7 ? 'none' : ''}}
+          className={display === length - 7 ? 'downButton disable' : 'downButton'}
           icon={faChevronDown}
           size="2x"
           onClick={() => {
@@ -59,6 +61,7 @@ function ThumbnailsGallery({ style, img, navigateImage }) {
           }}
         />
       </ThumbnailsRight>
+
     </ThumbnailsStyled>
   );
 }

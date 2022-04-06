@@ -5,9 +5,7 @@ import { ArrowsExpandIcon } from '@heroicons/react/outline';
 import {
   GalleryStyled, GalleryInnerStyled,
   GalleryInnerLeftStyled, GalleryInnerCenterStyled,
-  GalleryInnerRightStyled, ThumbnailsStyled,
-  ThumbnailsImageStyled, ThumbnailsLeft,
-  ThumbnailsRight
+  GalleryInnerRightStyled
 } from './styles/GalleryStyled';
 import ThumbnailsGallery from './ThumbnailsGallery';
 
@@ -105,10 +103,9 @@ function Gallery({
 
         <GalleryInnerRightStyled onClick={(e) => {
           e.stopPropagation();
-          handleExpand();
         }}
         >
-          <ArrowsExpandIcon className="expandIcon" />
+          <ArrowsExpandIcon className="expandIcon" onClick={handleExpand} />
           <FontAwesomeIcon
             className={img === style.photos.length - 1 ? 'disable button2' : 'button2'}
             icon={faChevronRight}

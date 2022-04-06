@@ -82,9 +82,9 @@ export const ThumbnailsImageStyled = styled.div`
   display: flex;
   flex: 1;
   border: 1px solid black;
-  min-width: 90px;
-  min-height: 90px;
-  max-height: 90px;
+  min-width: 75px;
+  min-height: 75px;
+  max-height: 75px;
   margin: 10px 0px;
   background-image: url(${(props) => props.img || ''});
   background-position: center;
@@ -102,13 +102,13 @@ export const ThumbnailsImageStyled = styled.div`
 `;
 
 export const GalleryInnerStyled = styled.div`
-  height: 100%;
+  max-height: 900px;
   width: 100%;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
   object-fit: cover;
-  background-image: url(${(props) => props.img || ''});
+  background-image: url(${(props) => props.img || '/dist/images/NPA.jpeg'});
   display: flex;
 `;
 

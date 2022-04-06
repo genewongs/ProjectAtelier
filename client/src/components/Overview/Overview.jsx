@@ -19,7 +19,7 @@ export default function Overview() {
   const [index, setIndex] = useState(0);
   const [expanded, setExpanded] = useState(false);
   const [cart, setCart] = useState([]);
-  const productId = '65635';
+  const productId = '65631';
 
   useEffect(() => {
     fetchStyles(productId)
@@ -87,7 +87,7 @@ export default function Overview() {
   return (
     <LordContainer>
       <NavBar>
-        <img src="./dist/images/BACKLASH_LOGO.png" />
+        <img src="./dist/images/BACKLASH_LOGO_sml.png" />
         <NavButtonsStyled>
           <SearchIcon className="icon" />
           <ShoppingBagIcon className="icon" />
