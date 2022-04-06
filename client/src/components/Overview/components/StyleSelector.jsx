@@ -20,14 +20,14 @@ function StyleSelector({ styles, product, index, changeGallery, changeStyle, add
   let prodSkus = styles[index].skus;
 
   useEffect(() => {
-    setQuantityNum(currentSku.quantity || 1);
+    setQuantityNum(currentSku.quantity || 0);
     setSelectedStyle(Object.keys(styles[0].skus)[0])
   }, [currentSku, selectedSize]);
 
   return(
     <SelectorContainer>
       <ProductInfo>
-        <i>CATEGORY: {product.category.toUpperCase()} </i>
+        <span className="category"> <i>CATEGORY: {product.category.toUpperCase()} </i> </span>
         <h2> {product.name} </h2>
         <span style={{color: styles[index].sale_price ? 'red' : 'black' }}>
           ${styles[index].sale_price ? `${styles[index].sale_price}` : styles[index].original_price}
@@ -49,7 +49,7 @@ function StyleSelector({ styles, product, index, changeGallery, changeStyle, add
           return <img
             className={index === selectIndex ? 'selectedSize' : ''}
             key={product.style_id}
-            src={product.photos[0].thumbnail_url}
+            src={product.photos[0].thumbnail_url || '/dist/images/NPA.jpeg'}
             onClick={() => {
               changeGallery(product);
               setSelectIndex(index);
@@ -85,11 +85,11 @@ function StyleSelector({ styles, product, index, changeGallery, changeStyle, add
         </select>
       </SelectQuantity>
 
-      <AddCartButton>
+      <AddCartButton data-testid="addCart">
         <button onClick={(selectedSize !== 0 && quantity > 0) ? () => {addItem(selectedSize, quantity)} : () => {
           setError(true);
           setTimeout(() => {setError(false)}, 3000);
-        }}>{quantityNum.length === 0 ? 'OUT OF STOCK' : 'ADD TO CART'}</button>
+        }}>{quantityNum === 0 && selectedSize !== 0 ? 'OUT OF STOCK' : 'ADD TO CART'}</button>
       </AddCartButton>
     </SelectorContainer>
   )

@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import GlobalStyle from './globalStyles';
 
 import Overview from './components/Overview/Overview';
 import RI from './components/RI/RI';
@@ -8,12 +9,13 @@ import RR from './components/RR/RR';
 
 function App() {
   return (
-    <div className="app-container">
-      <Overview />
-      <RI />
-      <QA />
-      <RR />
-    </div>
+      <div className="app-container">
+        <GlobalStyle />
+        <Overview />
+        <RI />
+        <QA />
+        <RR />
+      </div>
   );
 }
 
