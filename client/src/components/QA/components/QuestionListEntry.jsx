@@ -92,12 +92,6 @@ export default function QuestionListEntry({ question, getQuestions }) {
             <br />
           </div>
         </div>
-        {/* <button
-          type="button"
-          onClick={incrementCount}
-        >
-          Load More Answers
-        </button> */}
         <button
           type="button"
           onClick={() => setShow(true)}

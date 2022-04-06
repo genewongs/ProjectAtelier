@@ -1,9 +1,13 @@
 import styled from 'styled-components';
 
-const StyledStar = styled.div`
+const StyledStar = styled.div.attrs({ 'data-testid': 'StyledStar' })`
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+  align-items: center;
 
 .average {
-  font-size: 50px;
+  font-size: 60px;
 }
 
 .stars-rating {

@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import QuestionList from './components/QuestionList';
 import NewQuestion from './components/NewQuestion';
+import StyledSearchBar from './components/styles/StyledSearchBar';
 
 export default function QA() {
   const [questionData, setQuestionData] = useState([]);
@@ -10,7 +11,7 @@ export default function QA() {
   const [show, setShow] = useState(false);
   const [limitHit, setLimitHit] = useState(false);
 
-  const id = 65631;
+  const id = 65654;
   let startingLimit = 5;
 
   if (allQuestionData.length > startingLimit) {
@@ -62,8 +63,11 @@ export default function QA() {
   }, [count]);
 
   return (
-    <div>
-      <input type="text" placeholder="Have a question? Search for answers…" onChange={(event) => filterQuestionsWithSearch(event.target.value)} />
+
+    <div data-testid="questionList">
+      <StyledSearchBar>
+        <input type="text" placeholder="Have a question? Search for answers…" size="60" onChange={(event) => filterQuestionsWithSearch(event.target.value)} />
+      </StyledSearchBar>
       <QuestionList questions={questionData} getQuestions={getQuestions} />
       <br />
       <div>
