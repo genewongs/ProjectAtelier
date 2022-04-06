@@ -1,12 +1,15 @@
 import React from 'react';
 import QuestionListEntry from './QuestionListEntry';
+import QuestionListStyled from './styles/StyledQuestionList';
 
 function QuestionList({ questions, getQuestions }) {
   return (
-    <div>
-      {/* eslint-disable-next-line max-len */}
-      {questions.map((question) => <QuestionListEntry question={question} key={question.question_id} getQuestions={getQuestions} />)}
-    </div>
+    <QuestionListStyled>
+      <div>
+        {/* eslint-disable-next-line max-len */}
+        {questions.map((question) => <QuestionListEntry question={question} key={question.question_id} getQuestions={getQuestions} />)}
+      </div>
+    </QuestionListStyled>
   );
 }
 
