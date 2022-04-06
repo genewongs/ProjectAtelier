@@ -3,8 +3,9 @@ import moment from 'moment';
 import StyledStars from './styles/StyledStarRating';
 import ReviewPhotos from './ReviewPhotos';
 
-export default function Review({ review }) {
+export default function Review({ review, setCurrDisplay, setExpanded }) {
   const [loadMore, setLoadMore] = useState(false);
+  const [voted, setVoted] = useState(false);
   const first250 = review.body.slice(0, 250);
 
   function handleClick() {
@@ -18,16 +19,44 @@ export default function Review({ review }) {
           <span className="stars-rating">★★★★★</span>
         </StyledStars>
       </div>
+      <div className="review-summary"><b>{review.summary}</b></div>
+      <div className="review-body">
+        {loadMore ? review.body : `${first250}...` }
+        { loadMore
+          ? null
+          : (
+            <button
+              type="button"
+              className="show-more-button"
+              onClick={handleClick}
+            >
+              Show more
+            </button>
+          ) }
+      </div>
+      <ReviewPhotos
+        photoUrls={review.photos}
+        setCurrDisplay={setCurrDisplay}
+        setExpanded={setExpanded}
+      />
+      <div className="review-recommend">{review.recommend && '✓ I recommend this product'}</div>
       <div className="review-name">
         {review.reviewer_name}
         {'\n'}
         {moment(review.date).format('LL')}
       </div>
-      <div className="review-summary">{review.summary}</div>
-      <div className="review-body">{loadMore ? review.body : `${first250}...` }</div>
-      { loadMore ? null : <button type="button" onClick={handleClick}>Show More</button> }
-      <ReviewPhotos photoUrls={review.photos} />
-      <br />
+      <div className="review-response">
+        {review.response}
+      </div>
+      <div className="review-helpful">
+        Was this review helpful?
+        {' '}
+        <button type="button" disable={voted} onClick={() => setVoted(true)}>Yes</button>
+        (
+        {review.helpfulness}
+        )
+        <button type="button">Report</button>
+      </div>
     </div>
   );
 }

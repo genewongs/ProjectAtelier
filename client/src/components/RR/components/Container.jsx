@@ -6,12 +6,14 @@ import ReviewStoreContext from '../utils/ReviewContext';
 import StarRating from './StarRating';
 import ReviewList from './ReviewList';
 import AddReview from './AddReview';
+import ContainerStyled from './styles/StyledContainer';
 
 function Container() {
   const { id, setReviewData, setMetaData } = useContext(ReviewStoreContext);
   const [count, setCount] = useState(2);
   const [reviewCount, setReviewCount] = useState(0);
   const [limitHit, setLimitHit] = useState(false);
+  const [modalState, setModalState] = useState(false);
   const [sort, setSort] = useState('relevant');
 
   function getReviews() {
@@ -31,6 +33,8 @@ function Container() {
   }
 
   const incrementCount = useCallback(() => setCount((prevCount) => prevCount + 2), []);
+
+  const toggleModal = useCallback(() => setModalState((prevState) => !prevState), []);
 
   useEffect(() => {
     Promise.all([getReviews(), getMetaData()])
@@ -57,7 +61,7 @@ function Container() {
   }, [count, reviewCount, sort]);
 
   return (
-    <div className="container">
+    <ContainerStyled>
       <div className="rating-container">
         <StarRating />
       </div>
@@ -73,18 +77,27 @@ function Container() {
         </select>
       </div>
       <ReviewList />
-      {limitHit ? null
-        : (
-          <button
-            type="button"
-            className="reviews-button"
-            onClick={incrementCount}
-          >
-            More Reviews
-          </button>
-        )}
-      <AddReview />
-    </div>
+      <div className="review-buttons-container">
+        {limitHit ? null
+          : (
+            <button
+              type="button"
+              className="more-reviews-button"
+              onClick={incrementCount}
+            >
+              More Reviews
+            </button>
+          )}
+        <button
+          type="button"
+          className="add-review-button"
+          onClick={toggleModal}
+        >
+          Add Review
+        </button>
+        <AddReview modalState={modalState} toggleModal={toggleModal} />
+      </div>
+    </ContainerStyled>
   );
 }
 

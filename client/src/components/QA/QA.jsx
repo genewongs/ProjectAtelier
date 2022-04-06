@@ -62,7 +62,7 @@ export default function QA() {
   }, [count]);
 
   return (
-    <div>
+    <div data-testid="questionList">
       <input type="text" placeholder="Have a question? Search for answers…" onChange={(event) => filterQuestionsWithSearch(event.target.value)} />
       <QuestionList questions={questionData} getQuestions={getQuestions} />
       <br />

@@ -1,13 +1,80 @@
 import styled from 'styled-components';
 
 const ReviewListStyled = styled.div`
-  width: 300px;
-  margin: 0 auto;
-  height: 500px;
+  margin: 10px auto;
+  min-height: 400px;
+  max-height: 90vh;
   width: 700px;
   overflow: auto;
-  border: 2px;
-  border-color: black;
+  border: 2px solid black;
+  padding: 10px;
+
+  &::-webkit-scrollbar {
+    background-color: transparent;
+    width: 5px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: transparent;
+  }
+
+  &:hover {
+    &::-webkit-scrollbar-thumb {
+    background-color: rgba(221, 54, 54, 0.5);
+    }
+  }
+
+  .review {
+    width: 90%;
+    height: 90%;
+    height: auto;
+    border: 2px solid black;
+    margin: 10px auto;
+    padding: 10px;
+  }
+
+  .review-body {
+    font-size: 17px;
+
+    .show-more-button {
+      font-size: 17px;
+      border: 0px;
+      outline: 0px;
+      text-decoration: underline;
+      background: transparent;
+
+      &:hover {
+        color: red;
+      }
+    }
+  }
+
+  .review-recommend {
+    font-size: 15px;
+  }
+
+  .review-name {
+    font-size: 15px;
+  }
+
+  .review-response {
+    background: rgba(187,187,187,0.4);
+  }
+
+  .review-helpful {
+    font-size: 14px;
+
+    button {
+      font-size: 13px;
+      border: 0px;
+      outline: 0px;
+      text-decoration: underline;
+      background: transparent;
+
+      &:hover {
+        color: red;
+      }
+    }
+  }
 `;
 
 export default ReviewListStyled;
