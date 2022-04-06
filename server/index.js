@@ -146,6 +146,6 @@ app.put('/api', (req, res) => {
   };
 
   axios.put(options.url, {}, { headers: options.headers })
-    .then(res.sendStatus(204))
-    .catch(res.sendStatus(500));
+    .then(res.end())
+    .catch((err) => new Error(err));
 });

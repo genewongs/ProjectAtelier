@@ -7,7 +7,7 @@ const StyledPhotos = styled.div`
 
   > input {
     position: relative;
-    width: 100px;
+    width: 125px;
     height: 100px;
     border: 1px solid rgba(0, 0, 0, 0);
     border-radius: 5%;

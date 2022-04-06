@@ -6,12 +6,14 @@ import ReviewStoreContext from '../utils/ReviewContext';
 import StarRating from './StarRating';
 import ReviewList from './ReviewList';
 import AddReview from './AddReview';
+import ContainerStyled from './styles/StyledContainer';
 
 function Container() {
   const { id, setReviewData, setMetaData } = useContext(ReviewStoreContext);
   const [count, setCount] = useState(2);
   const [reviewCount, setReviewCount] = useState(0);
   const [limitHit, setLimitHit] = useState(false);
+  const [modalState, setModalState] = useState(false);
   const [sort, setSort] = useState('relevant');
 
   function getReviews() {
@@ -31,6 +33,8 @@ function Container() {
   }
 
   const incrementCount = useCallback(() => setCount((prevCount) => prevCount + 2), []);
+
+  const toggleModal = useCallback(() => setModalState((prevState) => !prevState), []);
 
   useEffect(() => {
     Promise.all([getReviews(), getMetaData()])
@@ -57,34 +61,45 @@ function Container() {
   }, [count, reviewCount, sort]);
 
   return (
-    <div className="container">
-      <div className="rating-container">
+    <ContainerStyled>
+      <div className="review-left-container">
         <StarRating />
       </div>
-      <div className="review-sorted-by">
-        {reviewCount}
-        {reviewCount >= 2 ? ' reviews, ' : ' review, '}
-        sorted by
-        {' '}
-        <select className="sort-selector" onChange={(e) => setSort(e.target.value)}>
-          <option value="relevance">Relevance</option>
-          <option value="newest">Newest</option>
-          <option value="helpful">Helpfulness</option>
-        </select>
-      </div>
-      <ReviewList />
-      {limitHit ? null
-        : (
+      <div className="review-right-container">
+        <div className="review-sorted-by">
+          {reviewCount}
+          {reviewCount >= 2 ? ' reviews, ' : ' review, '}
+          sorted by
+          {' '}
+          <select className="sort-selector" onChange={(e) => setSort(e.target.value)}>
+            <option value="relevance">Relevance</option>
+            <option value="newest">Newest</option>
+            <option value="helpful">Helpfulness</option>
+          </select>
+        </div>
+        <ReviewList />
+        <div className="review-buttons-container">
+          {limitHit ? null
+            : (
+              <button
+                type="button"
+                className="more-reviews-button"
+                onClick={incrementCount}
+              >
+                More Reviews
+              </button>
+            )}
           <button
             type="button"
-            className="reviews-button"
-            onClick={incrementCount}
+            className="add-review-button"
+            onClick={toggleModal}
           >
-            More Reviews
+            Add Review +
           </button>
-        )}
-      <AddReview />
-    </div>
+          <AddReview modalState={modalState} toggleModal={toggleModal} />
+        </div>
+      </div>
+    </ContainerStyled>
   );
 }
 

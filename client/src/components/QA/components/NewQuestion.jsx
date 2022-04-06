@@ -94,5 +94,6 @@ export default function NewQuestion({ id, show, closeModal }) {
       </div>
       <br />
     </div>
+
   );
 }
