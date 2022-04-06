@@ -3,6 +3,7 @@ import React, { useContext, useEffect } from 'react';
 import axios from 'axios';
 import RelatedProductsContext from '../utils/RelatedProductsContext';
 import RelatedProductsList from './RelatedProductsList';
+import YourOutfitList from './YourOutfitList';
 import Compare from './Compare.jsx';
 import { ContainerStyled } from '../styles/ContainerStyled.styled';
 
@@ -57,6 +58,7 @@ export default function Container() {
           modalClicked={modalClicked}
         />
       )}
+      <YourOutfitList />
     </ContainerStyled>
   );
 }
