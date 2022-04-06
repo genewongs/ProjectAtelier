@@ -85,7 +85,7 @@ function StyleSelector({ styles, product, index, changeGallery, changeStyle, add
         </select>
       </SelectQuantity>
 
-      <AddCartButton>
+      <AddCartButton data-testid="addCart">
         <button onClick={(selectedSize !== 0 && quantity > 0) ? () => {addItem(selectedSize, quantity)} : () => {
           setError(true);
           setTimeout(() => {setError(false)}, 3000);

@@ -115,7 +115,7 @@ export default function Overview() {
           </RightFlex>
         )}
       </Flex>
-      {product && <ProdDescription product={product} />}
+      {product && <ProdDescription data-testid="productInfo" product={product} />}
     </LordContainer>
   );
 }

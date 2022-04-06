@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircleChevronLeft, faCircleChevronRight } from '@fortawesome/free-solid-svg-icons';
+import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { ArrowsExpandIcon } from '@heroicons/react/outline';
 import {
   GalleryStyled, GalleryInnerStyled,
   GalleryInnerLeftStyled, GalleryInnerCenterStyled,
   GalleryInnerRightStyled, ThumbnailsStyled,
-  ThumbnailsImageStyled,
+  ThumbnailsImageStyled, ThumbnailsLeft,
+  ThumbnailsRight
 } from './styles/GalleryStyled';
+import ThumbnailsGallery from './ThumbnailsGallery';
 
 function Gallery({
   style, handleExpand, width,
@@ -25,18 +27,9 @@ function Gallery({
 
   return (
     <GalleryStyled>
-      <ThumbnailsStyled>
-        {style.photos.map((photo, index) => (
-          <ThumbnailsImageStyled
-            className={img === index ? 'selected' : 'overflow'}
-            key={index}
-            img={photo.thumbnail_url}
-            onClick={() => {
-              navigateImage(photo, index);
-            }}
-          />
-        ))}
-      </ThumbnailsStyled>
+
+      <ThumbnailsGallery style={style} img={img} navigateImage={navigateImage} />
+
       <GalleryInnerStyled
         img={style.photos[img].url}
         className={preMagnify ? 'magnify' : ''}
@@ -99,7 +92,7 @@ function Gallery({
         <GalleryInnerLeftStyled onClick={(e) => { e.stopPropagation(); }}>
           <FontAwesomeIcon
             className={img === 0 ? 'disable button' : 'button'}
-            icon={faCircleChevronLeft}
+            icon={faChevronLeft}
             size="2x"
             onClick={(e) => {
               e.stopPropagation();
@@ -118,7 +111,7 @@ function Gallery({
           <ArrowsExpandIcon className="expandIcon" />
           <FontAwesomeIcon
             className={img === style.photos.length - 1 ? 'disable button2' : 'button2'}
-            icon={faCircleChevronRight}
+            icon={faChevronRight}
             size="2x"
             onClick={(e) => {
               e.stopPropagation();
