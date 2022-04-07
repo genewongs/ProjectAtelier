@@ -41,6 +41,16 @@ function Container() {
     });
   }
 
+  function sortByStars() {
+    if (sortBy.length === 0) {
+      setFilterState(false);
+    } else {
+      setFiltered([]);
+      setFilterState(true);
+      setFiltered(reviews.filter((review) => sortBy.includes(review.rating)));
+    }
+  }
+
   const handleSortBy = useCallback((e) => {
     e.preventDefault();
     const clickedStar = Number(e.target.id);
@@ -50,19 +60,6 @@ function Container() {
       setSortBy((prev) => [...prev, clickedStar]);
     }
   }, [sortBy]);
-
-  function sortByStars() {
-    if (sortBy.length === 0) {
-      setFiltered(reviews);
-      setFilterState(false);
-    } else {
-      setFiltered([]);
-      setFilterState(true);
-      sortBy.forEach((key) => {
-        setFiltered((prev) => prev.concat(reviews.filter((review) => review.rating === key)));
-      });
-    }
-  }
 
   const incrementCount = useCallback(() => setCount((prevCount) => prevCount + 2), []);
 
@@ -82,6 +79,7 @@ function Container() {
   useEffect(() => {
     getReviews()
       .then((response) => { setReviewData(response.results); })
+      .then(sortByStars())
       .then(() => {
         if (count >= reviewCount) {
           setLimitHit(true);
@@ -89,7 +87,6 @@ function Container() {
           setLimitHit(false);
         }
       })
-      .then(sortByStars())
       .catch((err) => new Error(err));
   }, [count, reviewCount, sort, sortBy]);
 
