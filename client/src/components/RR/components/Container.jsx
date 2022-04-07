@@ -4,17 +4,30 @@ import React, {
 import axios from 'axios';
 import ReviewStoreContext from '../utils/ReviewContext';
 import StarRating from './StarRating';
+import RatingBreakdownFilter from './RatingBreakdownFilter';
+import RatingBreakdownFactor from './RatingBreakdownFactor';
+import ReviewSortSelector from './ReviewSortSelector';
 import ReviewList from './ReviewList';
+import ReviewListButtons from './ReviewListButtons';
 import AddReview from './AddReview';
 import ContainerStyled from './styles/StyledContainer';
 
 function Container() {
-  const { id, setReviewData, setMetaData } = useContext(ReviewStoreContext);
+  const {
+    id, reviews, setReviewData, setMetaData,
+  } = useContext(ReviewStoreContext);
   const [count, setCount] = useState(2);
   const [reviewCount, setReviewCount] = useState(0);
   const [limitHit, setLimitHit] = useState(false);
   const [modalState, setModalState] = useState(false);
   const [sort, setSort] = useState('relevant');
+  const [sortBy, setSortBy] = useState({
+    5: false,
+    4: false,
+    3: false,
+    2: false,
+    1: false,
+  });
 
   function getReviews() {
     return new Promise((resolve, reject) => {
@@ -32,6 +45,26 @@ function Container() {
     });
   }
 
+  const handleSortBy = useCallback((e) => {
+    e.preventDefault();
+    setSortBy((prev) => ({ ...prev, [e.target.id]: !sortBy[e.target.id] }));
+  }, [sortBy]);
+
+  const sortByStars = useCallback(() => {
+    if (Object.values(sortBy).filter((val) => val === true).length === 0) {
+      return reviews;
+    }
+
+    const filtered = [];
+    Object.keys(sortBy).forEach((key) => {
+      if (sortBy[key] === true) {
+        filtered.concat(reviews.filter((review) => review.rating === Number(key)));
+      }
+    });
+    console.log(filtered);
+    return filtered;
+  }, [reviews]);
+
   const incrementCount = useCallback(() => setCount((prevCount) => prevCount + 2), []);
 
   const toggleModal = useCallback(() => setModalState((prevState) => !prevState), []);
@@ -39,7 +72,7 @@ function Container() {
   useEffect(() => {
     Promise.all([getReviews(), getMetaData()])
       .then((results) => {
-        setReviewData(results[0]);
+        setReviewData(results[0].results);
         setMetaData(results[1]);
         setReviewCount(Object.values(results[1].ratings)
           .reduce((sum, num) => Number(sum) + Number(num), 0));
@@ -49,7 +82,7 @@ function Container() {
 
   useEffect(() => {
     getReviews()
-      .then((response) => setReviewData(response))
+      .then((response) => { setReviewData(response.results); })
       .then(() => {
         if (count >= reviewCount) {
           setLimitHit(true);
@@ -57,6 +90,7 @@ function Container() {
           setLimitHit(false);
         }
       })
+      .then(sortByStars())
       .catch((err) => new Error(err));
   }, [count, reviewCount, sort]);
 
@@ -64,40 +98,18 @@ function Container() {
     <ContainerStyled>
       <div className="review-left-container">
         <StarRating />
+        <RatingBreakdownFilter handleSortBy={handleSortBy} />
+        <RatingBreakdownFactor />
       </div>
       <div className="review-right-container">
-        <div className="review-sorted-by">
-          {reviewCount}
-          {reviewCount >= 2 ? ' reviews, ' : ' review, '}
-          sorted by
-          {' '}
-          <select className="sort-selector" onChange={(e) => setSort(e.target.value)}>
-            <option value="relevance">Relevance</option>
-            <option value="newest">Newest</option>
-            <option value="helpful">Helpfulness</option>
-          </select>
-        </div>
-        <ReviewList />
-        <div className="review-buttons-container">
-          {limitHit ? null
-            : (
-              <button
-                type="button"
-                className="more-reviews-button"
-                onClick={incrementCount}
-              >
-                More Reviews
-              </button>
-            )}
-          <button
-            type="button"
-            className="add-review-button"
-            onClick={toggleModal}
-          >
-            Add Review +
-          </button>
-          <AddReview modalState={modalState} toggleModal={toggleModal} />
-        </div>
+        <ReviewSortSelector reviewCount={reviewCount} setSort={setSort} />
+        <ReviewList reviews={sortByStars()} />
+        <ReviewListButtons
+          limitHit={limitHit}
+          incrementCount={incrementCount}
+          toggleModal={toggleModal}
+        />
+        <AddReview modalState={modalState} toggleModal={toggleModal} />
       </div>
     </ContainerStyled>
   );

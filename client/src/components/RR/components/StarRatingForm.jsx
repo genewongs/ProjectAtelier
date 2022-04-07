@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 
 function RatingForm({ handleChange }) {
   const [selected, setSelected] = useState('');
-  const [rating, setRating] = useState(-1);
+  const [hover, setHover] = useState(0);
+  const [rating, setRating] = useState(0);
   const stars = {
     'star-e': 'Poor',
     'star-d': 'Fair',
@@ -16,8 +17,8 @@ function RatingForm({ handleChange }) {
   }
 
   return (
-    <div className="star-container">
-      <form onChange={handleDisplay}>
+    <div className="star-rating">
+      <form>
         {Object.keys(stars).map((option, index) => {
           const val = index + 1;
           return (
@@ -26,19 +27,21 @@ function RatingForm({ handleChange }) {
               name="rating"
               key={option}
               id={option}
-              className={index <= rating ? 'on' : 'off'}
+              className={val <= (hover || rating) ? 'on' : 'off'}
               onClick={(e) => {
-                setRating(index);
+                setRating(val);
                 handleDisplay(e);
                 handleChange(e);
               }}
+              onMouseEnter={() => setHover(val)}
+              onMouseLeave={() => setHover(rating)}
               value={val}
             >
               ★
             </button>
           );
         })}
-        <span>{selected ? stars[selected] : null}</span>
+        <div>{selected ? stars[selected] : null}</div>
       </form>
     </div>
   );

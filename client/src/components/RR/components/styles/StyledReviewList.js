@@ -4,7 +4,7 @@ const ReviewListStyled = styled.div`
   min-height: 400px;
   max-height: 90vh;
   width: 700px;
-  overflow: auto;
+  overflow: scroll;
   margin: 10px;
   padding: 10px;
 
@@ -18,7 +18,8 @@ const ReviewListStyled = styled.div`
 
   &:hover {
     &::-webkit-scrollbar-thumb {
-    background-color: rgba(221, 54, 54, 0.5);
+      /* background-color: rgba(221, 54, 54, 0.5); */
+      background-color: transparent;
     }
   }
 

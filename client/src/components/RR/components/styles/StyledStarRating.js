@@ -30,7 +30,8 @@ const StyledStar = styled.div.attrs({ 'data-testid': 'StyledStar' })`
   top: 0;
   left: 0;
   content: '★★★★★';
-  color: #f2b03c;
+  /* color: #f2b03c; */
+  color: red;
   overflow: hidden;
   font-size: ${(props) => props.fontSize};
   width: ${(props) => props.percent};

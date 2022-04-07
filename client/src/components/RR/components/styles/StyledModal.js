@@ -1,16 +1,15 @@
 import styled from 'styled-components';
 
 const ModalStyled = styled.div`
-
-.modal-block{
+.modal-block {
   display: block;
 }
 
-.modal-none{
+.modal-none {
   display: none;
 }
 
-.modal-container{
+.modal-container {
   position: fixed;
   overflow: auto;
   left: 0;
@@ -29,37 +28,6 @@ const ModalStyled = styled.div`
   }
   &::-webkit-scrollbar-thumb {
     background-color: transparent;
-  }
-}
-
-.form-container{
-  background-color: rgba(255, 255, 255, 1);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 20px;
-  border: 10px;
-  border-radius: 10px;
-  overflow: auto;
-}
-
-.star-container{
-  display: flex;
-  flex-directin: row;
-
-  button {
-    background-color: transparent;
-    border: none;
-    outline: none;
-    cursor: pointer;
-  }
-
-  .on {
-    color: #000;
-  }
-
-  .off {
-    color: #ccc;
   }
 }
 

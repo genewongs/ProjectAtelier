@@ -63,7 +63,7 @@ function CharacteristicsForm({ handleChange }) {
     <div>
       {metaData.characteristics
         && (
-        <div className="form-container">
+        <div className="characteristics-form">
           <span>Characteristics</span>
           {Object.keys(metaData.characteristics).includes('Size') && (
           <form className="Size" onChange={handleDisplay}>

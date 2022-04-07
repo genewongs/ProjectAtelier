@@ -7,6 +7,7 @@ import ReviewPhotos from './ReviewPhotos';
 export default function Review({ review, setCurrDisplay, setExpanded }) {
   const [loadMore, setLoadMore] = useState(false);
   const [voted, setVoted] = useState(false);
+  const [reported, setReported] = useState(false);
   const first250 = review.body.slice(0, 250);
 
   function handleClick() {
@@ -20,6 +21,15 @@ export default function Review({ review, setCurrDisplay, setExpanded }) {
       })
         // eslint-disable-next-line no-param-reassign
         .then(review.helpfulness += 1)
+        .catch((err) => new Error(err));
+    }
+  }
+
+  function handleReport() {
+    if (!reported) {
+      axios.put('/api', {
+        path: `reviews/${review.review_id}/report`,
+      })
         .catch((err) => new Error(err));
     }
   }
@@ -76,7 +86,7 @@ export default function Review({ review, setCurrDisplay, setExpanded }) {
         {review.helpfulness}
         )
         |
-        <button type="button">Report</button>
+        <button type="button" disable={reported ? 'true' : ''} onClick={() => { setReported(true); handleReport(); }}>Report</button>
       </div>
     </div>
   );
