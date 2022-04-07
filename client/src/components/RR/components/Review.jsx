@@ -44,7 +44,7 @@ export default function Review({ review, setCurrDisplay, setExpanded }) {
       <div className="review-summary"><b>{review.summary}</b></div>
       <div className="review-body">
         {loadMore ? review.body : `${first250}` }
-        { first250 === review.body
+        { (first250 === review.body || loadMore)
           ? null
           : (
             <button

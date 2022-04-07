@@ -2,7 +2,7 @@ import React, { useContext, useState, useEffect } from 'react';
 import ReviewStoreContext from '../utils/ReviewContext';
 import StyledRatingBreakdownFilter from './styles/StyledRatingBreakdownFilter';
 
-function RatingBreakdownFilter({ sortByStars, handleSortBy }) {
+function RatingBreakdownFilter({ handleSortBy }) {
   const { metaData } = useContext(ReviewStoreContext);
   const [ratingsPercents, setRatingsPercents] = useState({
     5: 0,

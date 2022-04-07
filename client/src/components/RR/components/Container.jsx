@@ -21,13 +21,9 @@ function Container() {
   const [limitHit, setLimitHit] = useState(false);
   const [modalState, setModalState] = useState(false);
   const [sort, setSort] = useState('relevant');
-  const [sortBy, setSortBy] = useState({
-    5: false,
-    4: false,
-    3: false,
-    2: false,
-    1: false,
-  });
+  const [filtered, setFiltered] = useState([]);
+  const [filterState, setFilterState] = useState(false);
+  const [sortBy, setSortBy] = useState([]);
 
   function getReviews() {
     return new Promise((resolve, reject) => {
@@ -47,23 +43,26 @@ function Container() {
 
   const handleSortBy = useCallback((e) => {
     e.preventDefault();
-    setSortBy((prev) => ({ ...prev, [e.target.id]: !sortBy[e.target.id] }));
+    const clickedStar = Number(e.target.id);
+    if (sortBy.includes(clickedStar)) {
+      setSortBy((prev) => prev.filter((num) => num !== clickedStar));
+    } else {
+      setSortBy((prev) => [...prev, clickedStar]);
+    }
   }, [sortBy]);
 
-  const sortByStars = useCallback(() => {
-    if (Object.values(sortBy).filter((val) => val === true).length === 0) {
-      return reviews;
+  function sortByStars() {
+    if (sortBy.length === 0) {
+      setFiltered(reviews);
+      setFilterState(false);
+    } else {
+      setFiltered([]);
+      setFilterState(true);
+      sortBy.forEach((key) => {
+        setFiltered((prev) => prev.concat(reviews.filter((review) => review.rating === key)));
+      });
     }
-
-    const filtered = [];
-    Object.keys(sortBy).forEach((key) => {
-      if (sortBy[key] === true) {
-        filtered.concat(reviews.filter((review) => review.rating === Number(key)));
-      }
-    });
-    console.log(filtered);
-    return filtered;
-  }, [reviews]);
+  }
 
   const incrementCount = useCallback(() => setCount((prevCount) => prevCount + 2), []);
 
@@ -92,18 +91,18 @@ function Container() {
       })
       .then(sortByStars())
       .catch((err) => new Error(err));
-  }, [count, reviewCount, sort]);
+  }, [count, reviewCount, sort, sortBy]);
 
   return (
     <ContainerStyled>
       <div className="review-left-container">
         <StarRating />
-        <RatingBreakdownFilter handleSortBy={handleSortBy} />
+        <RatingBreakdownFilter handleSortBy={handleSortBy} sortBy={sortBy} />
         <RatingBreakdownFactor />
       </div>
       <div className="review-right-container">
         <ReviewSortSelector reviewCount={reviewCount} setSort={setSort} />
-        <ReviewList reviews={sortByStars()} />
+        <ReviewList reviews={filterState ? filtered : reviews} />
         <ReviewListButtons
           limitHit={limitHit}
           incrementCount={incrementCount}
