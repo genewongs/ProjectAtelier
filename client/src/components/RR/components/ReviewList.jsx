@@ -1,12 +1,10 @@
-import React, { useState, useContext, useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 import Review from './Review';
-import ReviewStoreContext from '../utils/ReviewContext';
 import ReviewListStyled from './styles/StyledReviewList';
 import ModalStyled from './styles/StyledModal';
 import Modal from './Modal';
 
 export default function ReviewList({ reviews }) {
-  // const { reviews } = useContext(ReviewStoreContext);
   const [expanded, setExpanded] = useState(false);
   const [currDisplay, setCurrDisplay] = useState('');
 

@@ -61,6 +61,8 @@ function Container() {
     }
   }, [sortBy]);
 
+  const clearFilters = useCallback(() => setSortBy([]), []);
+
   const incrementCount = useCallback(() => setCount((prevCount) => prevCount + 2), []);
 
   const toggleModal = useCallback(() => setModalState((prevState) => !prevState), []);
@@ -78,7 +80,7 @@ function Container() {
 
   useEffect(() => {
     getReviews()
-      .then((response) => { setReviewData(response.results); })
+      .then(async (response) => { await setReviewData(response.results); })
       .then(sortByStars())
       .then(() => {
         if (count >= reviewCount) {
@@ -94,7 +96,11 @@ function Container() {
     <ContainerStyled>
       <div className="review-left-container">
         <StarRating />
-        <RatingBreakdownFilter handleSortBy={handleSortBy} sortBy={sortBy} />
+        <RatingBreakdownFilter
+          handleSortBy={handleSortBy}
+          sortBy={sortBy}
+          clearFilters={clearFilters}
+        />
         <RatingBreakdownFactor />
       </div>
       <div className="review-right-container">
