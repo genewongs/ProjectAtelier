@@ -1,9 +1,9 @@
 import React from 'react';
 import {
   CardWrapper, CardCategory, CardImage, CardName, CardPrice,
-} from '../styles/CardStyled.styled';
+} from '../styles/RelatedProductsCardStyled.styled';
 
-export default function Card({
+export default function RelatedProductsCard({
   url, name, category, price, modalOptions,
 }) {
   return (

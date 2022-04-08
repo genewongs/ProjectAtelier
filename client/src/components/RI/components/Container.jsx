@@ -5,11 +5,20 @@ import RelatedProductsContext from '../utils/RelatedProductsContext';
 import RelatedProductsList from './RelatedProductsList';
 import YourOutfitList from './YourOutfitList';
 import Compare from './Compare.jsx';
-import { ContainerStyled } from '../styles/ContainerStyled.styled';
+import { RelatedProductsStyled } from '../styles/RelatedProductsStyled.styled';
+import { YourOutfitStyled } from '../styles/YourOutfitStyled.styled';
 
 export default function Container() {
   const {
-    toggleModal, modalClicked, clickedRelatedData, setRelatedData, productData, setProductData, id,
+    toggleModal,
+    localStorageOutfits,
+    setLocalStorageOutfits,
+    modalClicked,
+    clickedRelatedData,
+    setRelatedData,
+    productData,
+    setProductData,
+    id,
   } = useContext(RelatedProductsContext);
 
   async function getProductInfo() {
@@ -48,22 +57,25 @@ export default function Container() {
   }, []);
 
   return (
-    <ContainerStyled>
-      <RelatedProductsList />
-      { modalClicked && (
+    <>
+      <RelatedProductsStyled>
+        <RelatedProductsList />
+        { modalClicked && (
         <Compare
           productData={productData}
           clickedRelatedData={clickedRelatedData}
           toggleModal={toggleModal}
           modalClicked={modalClicked}
         />
-      )}
-      <YourOutfitList />
-    </ContainerStyled>
+        )}
+      </RelatedProductsStyled>
+      <YourOutfitStyled>
+        <YourOutfitList
+          productData={productData}
+          localStorageOutfits={localStorageOutfits}
+          setLocalStorageOutfits={setLocalStorageOutfits}
+        />
+      </YourOutfitStyled>
+    </>
   );
 }
-
-/*
-  function disableScroll() { document.body.style.overflow = 'hidden'; }
-  function enableScroll() { document.body.style.overflow = 'initial'; }
-*/
