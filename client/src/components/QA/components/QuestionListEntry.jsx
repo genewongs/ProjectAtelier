@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import NewAnswer from './NewAnswer';
 import AnswerList from './AnswerList';
+import ButtonStyle from './styles/StyledButtons';
 
 export default function QuestionListEntry({ question, getQuestions }) {
   const [answerData, setAnswerData] = useState([]);
@@ -64,43 +65,61 @@ export default function QuestionListEntry({ question, getQuestions }) {
 
   return (
     <div>
-      <ul>
-        <li>{question.question_body}</li>
-        <span>
-          Helpful?
-          <button type="submit" onClick={incrementHelpful}>
-            Yes
-          </button>
-          {question.question_helpfulness}
-        </span>
-        <span>
-          <button type="submit" onClick={reportQuestion}>
-            Report
-          </button>
-        </span>
+      <div>
         <div>
-          <AnswerList answers={answerData} getAnswers={getAnswers} />
+
+          <ButtonStyle>
+            <b>Q: </b>
+            {' '}
+            {' '}
+            {question.question_body}
+            <span className="all-question-buttons">
+              {' '}
+              Helpful?
+              {' '}
+              {' '}
+              <button type="submit" onClick={incrementHelpful} className="helpful-question-button">
+                Yes
+              </button>
+              (
+              {question.question_helpfulness}
+              )
+              |
+              <button
+                type="button"
+                onClick={() => setShow(true)}
+                className="add-answer-button"
+              >
+                Add Answer
+              </button>
+              {/* eslint-disable-next-line max-len */}
+              <NewAnswer show={show} questionID={question.question_id} closeModal={closeModal} getAnswers={getAnswers} />
+              |
+              <button type="submit" onClick={reportQuestion} className="report-question-button">
+                Report This Question
+              </button>
+            </span>
+          </ButtonStyle>
+          <br />
+        </div>
+      </div>
+      <div>
+        <AnswerList answers={answerData} getAnswers={getAnswers} />
+        <ButtonStyle>
           <div>
             {limitHit ? null : (
               <button
                 type="button"
                 onClick={incrementCount}
+                className="load-more-answer-button"
               >
-                Load More Answers
+                <b>LOAD MORE ANSWERS</b>
               </button>
             )}
             <br />
           </div>
-        </div>
-        <button
-          type="button"
-          onClick={() => setShow(true)}
-        >
-          Submit A New Answer
-        </button>
-      </ul>
-      {/* eslint-disable-next-line max-len */}
-      <NewAnswer show={show} questionID={question.question_id} closeModal={closeModal} getAnswers={getAnswers} />
+        </ButtonStyle>
+      </div>
     </div>
   );
 }

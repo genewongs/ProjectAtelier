@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import StyledModalContainer from './styles/StyledModalContainer';
+import StyledModal from './styles/StyledModal';
 
 export default function NewQuestion({ id, show, closeModal }) {
   if (!show) {
@@ -45,54 +47,59 @@ export default function NewQuestion({ id, show, closeModal }) {
   }
 
   return (
+
     <div>
-      <h2>Ask Your Question Here:</h2>
-      <span>Your Question: * </span>
-      <br />
-      <textarea
-        id="newQuestion"
-        rows="4"
-        cols="50"
-        onChange={(event) => { getBody(event.target.value); }}
-      />
-      <br />
-      <br />
-      <span>What is your nickname? * </span>
-      <br />
-      <input
-        type="text"
-        id="nickname"
-        placeholder="Example: jackson11!"
-        onChange={(event) => { getAuthorName(event.target.value); }}
-      />
-      <br />
-      <br />
-      <span>What is your email? * </span>
-      <br />
-      <input
-        type="text"
-        id="email"
-        placeholder="Example: jackson11@email.com"
-        onChange={(event) => { getEmail(event.target.value); }}
-      />
-      <div>
-        <br />
-        <button
-          type="button"
-          onClick={() => { submitQuestion(); }}
-        >
-          Submit Your Question!
-        </button>
-        <br />
-        <br />
-        <button
-          type="button"
-          onClick={() => { closeModal(); }}
-        >
-          Close
-        </button>
-      </div>
-      <br />
+      <StyledModalContainer>
+        <StyledModal>
+          <h2>Ask Your Question Here:</h2>
+          <span>Your Question: * </span>
+          <br />
+          <textarea
+            id="newQuestion"
+            rows="4"
+            cols="50"
+            onChange={(event) => { getBody(event.target.value); }}
+          />
+          <br />
+          <br />
+          <span>What is your nickname? * </span>
+          <br />
+          <input
+            type="text"
+            id="nickname"
+            placeholder="Example: jackson11!"
+            onChange={(event) => { getAuthorName(event.target.value); }}
+          />
+          <br />
+          <br />
+          <span>What is your email? * </span>
+          <br />
+          <input
+            type="text"
+            id="email"
+            placeholder="Example: jackson11@email.com"
+            onChange={(event) => { getEmail(event.target.value); }}
+          />
+          <div>
+            <br />
+            <button
+              type="button"
+              onClick={() => { submitQuestion(); }}
+            >
+              Submit Your Question!
+            </button>
+            <br />
+            <br />
+            <button
+              type="button"
+              onClick={() => { closeModal(); }}
+            >
+              Close
+            </button>
+          </div>
+          <br />
+        </StyledModal>
+      </StyledModalContainer>
     </div>
 
   );

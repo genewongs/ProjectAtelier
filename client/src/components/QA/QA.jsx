@@ -3,6 +3,8 @@ import axios from 'axios';
 import QuestionList from './components/QuestionList';
 import NewQuestion from './components/NewQuestion';
 import StyledSearchBar from './components/styles/StyledSearchBar';
+// import ButtonStyle from './components/styles/StyledButtons';
+import QuestionListStyled from './components/styles/StyledQuestionList';
 
 export default function QA() {
   const [questionData, setQuestionData] = useState([]);
@@ -64,34 +66,39 @@ export default function QA() {
 
   return (
 
-    <div data-testid="questionList">
-      <StyledSearchBar>
-        <input type="text" placeholder="Have a question? Search for answers…" size="60" onChange={(event) => filterQuestionsWithSearch(event.target.value)} />
-      </StyledSearchBar>
-      <QuestionList questions={questionData} getQuestions={getQuestions} />
-      <br />
-      <div>
-        {limitHit ? null : (
+    <div className="questionList" data-testid="questionList">
+      <QuestionListStyled>
+        <h2>QUESTIONS AND ANSWERS</h2>
+        <StyledSearchBar>
+          <input type="text" placeholder="Have a question? Search for answers…" size="60" onChange={(event) => filterQuestionsWithSearch(event.target.value)} />
+        </StyledSearchBar>
+        <QuestionList questions={questionData} getQuestions={getQuestions} />
+        <div>
+          {limitHit ? null : (
+            <button
+              className="more-questions"
+              type="button"
+              onClick={() => incrementQuestionCount()}
+            >
+              More Answered Questions
+            </button>
+          )}
+          <br />
+
+        </div>
+        <br />
+        <div>
           <button
+            className="add-question"
             type="button"
-            onClick={() => incrementQuestionCount()}
+            onClick={() => setShow(true)}
           >
-            More Answered Questions
+            Add A New Question +
           </button>
-        )}
-        <br />
-      </div>
-      <br />
-      <div>
-        <button
-          type="button"
-          onClick={() => setShow(true)}
-        >
-          Add A New Question +
-        </button>
-        <br />
-      </div>
-      <NewQuestion id={id} show={show} closeModal={closeModal} getQuestions={getQuestions} />
+          <br />
+        </div>
+        <NewQuestion id={id} show={show} closeModal={closeModal} getQuestions={getQuestions} />
+      </QuestionListStyled>
     </div>
   );
 }

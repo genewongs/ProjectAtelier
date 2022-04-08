@@ -1,13 +1,12 @@
 import styled from 'styled-components';
 
 const QuestionListStyled = styled.div`
-  width: 300px;
-  margin: 0 auto;
-  height: 500px;
-  width: 700px;
-  overflow: auto;
-  border: 2px;
-  border-color: black;
+min-height: 325px;
+max-height: 90vh;
+overflow: auto;
+width: 1100px;
+margin: 0 auto;
+padding: 10px;
 `;
 
 export default QuestionListStyled;
