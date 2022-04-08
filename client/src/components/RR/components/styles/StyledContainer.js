@@ -15,6 +15,7 @@ const ContainerStyled = styled.div`
     display:flex;
     flex-direction: column;
     border: 2px solid black;
+    width: 500px;
     padding: 5px;
   }
 
@@ -29,7 +30,6 @@ const ContainerStyled = styled.div`
       font-size: 19px;
       border: 0px;
       outline: 0px;
-
       text-decoration: underline;
 
       &:hover {
