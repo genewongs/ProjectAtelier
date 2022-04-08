@@ -15,7 +15,7 @@ function StarRating() {
       totalEntries += Number(rating[1]);
     });
 
-    setAverage(Math.round((totalRating / totalEntries) * 4) / 4);
+    setAverage(Math.round((totalRating / totalEntries) * 10) / 10);
     setPercent((Math.round((totalRating / totalEntries) * 4) / 4) * 20);
   }
 
@@ -26,7 +26,7 @@ function StarRating() {
   }, [metaData]);
 
   return (
-    <StarStyled percent={`${percent}%`} fontSize={Number(50)}>
+    <StarStyled percent={`${percent}%`} fontSize={Number(35)}>
       <span className="average">{average}</span>
       <span>{'  '}</span>
       <span className="stars-rating">★★★★★</span>

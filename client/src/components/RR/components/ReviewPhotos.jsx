@@ -12,6 +12,7 @@ function ReviewPhotos({ photoUrls, setCurrDisplay, setExpanded }) {
       <StyledPhoto>
         {photoUrls.map((photo) => (
           <input
+            key={photo.url}
             type="image"
             id="image"
             alt="thumbie"

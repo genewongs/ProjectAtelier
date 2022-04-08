@@ -9,13 +9,13 @@ import RR from './components/RR/RR';
 
 function App() {
   return (
-      <div className="app-container">
-        <GlobalStyle />
-        <Overview />
-        <RI />
-        <QA />
-        <RR />
-      </div>
+    <div className="app-container">
+      <GlobalStyle />
+      <Overview />
+      <RI />
+      <QA />
+      <RR />
+    </div>
   );
 }
 
