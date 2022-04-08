@@ -10,7 +10,7 @@ function RatingBreakdownFactor() {
       {metaData.characteristics
       && (
         Object.keys(metaData.characteristics).map((key) => (
-          <div className="breakdown-container">
+          <div key={key} className="breakdown-container">
             <div className="key-container">
               {key}
               {' '}

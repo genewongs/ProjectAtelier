@@ -83,15 +83,16 @@ function CharacteristicsForm({ handleChange }) {
           {Object.keys(metaData.characteristics).includes('Width')
           && (
           <form className="Width" onChange={handleDisplay}>
-            <div className="characteristic-container">Width</div>
-            <div className="selected">{ selected.width ? width[selected.width] : 'none selected'}</div>
-            <div className="input-container">
-              {Object.keys(width).map((option, index) => (
-                <label htmlFor={option} key={option} className="Width">
-                  <input type="radio" className="Width" name="width" id={option} value={index + 1} onChange={handleChange} />
-                </label>
-              ))}
-
+            <div className="characteristic-container">
+              Width
+              <div className="selected">{ selected.width ? width[selected.width] : 'none selected'}</div>
+              <div className="input-container">
+                {Object.keys(width).map((option, index) => (
+                  <label htmlFor={option} key={option} className="Width">
+                    <input type="radio" className="Width" name="width" id={option} value={index + 1} onChange={handleChange} />
+                  </label>
+                ))}
+              </div>
             </div>
           </form>
           )}

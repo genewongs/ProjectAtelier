@@ -5,6 +5,7 @@ import axios from 'axios';
 import Modal from './Modal';
 import ModalStyled from './styles/StyledModal';
 import AddReviewStyled from './styles/AddReviewStyled';
+import AddPhotos from './AddPhotos';
 import StarRatingForm from './StarRatingForm';
 import CharacteristicsForm from './CharacteristicsForm';
 import ReviewStoreContext from '../utils/ReviewContext';
@@ -12,7 +13,7 @@ import ReviewStoreContext from '../utils/ReviewContext';
 function AddReview({ modalState, toggleModal }) {
   const { id, metaData } = useContext(ReviewStoreContext);
   const [productName, setProductName] = useState('');
-  const [photos, setPhotos] = useState([]);
+  const [photoModalState, setPhotoModalState] = useState(false);
   const [formData, setFormData] = useState({
     product_id: id,
     rating: null,
@@ -21,7 +22,7 @@ function AddReview({ modalState, toggleModal }) {
     recommend: null,
     name: '',
     email: '',
-    photos,
+    photos: [],
     characteristics: {},
   });
   const query = {
@@ -42,24 +43,22 @@ function AddReview({ modalState, toggleModal }) {
   }
 
   function handleRating(e) {
-    setFormData((prevForm) => ({ ...prevForm, [e.target.name]: e.target.value }));
+    setFormData((prevForm) => ({ ...prevForm, [e.target.name]: Number(e.target.value) }));
   }
-
-  // function handlePhoto(e) {
-  //   setPhotos((prevPhotos) => ({ ...prevPhotos }));
-  // }
 
   function handleCharacteristic(e) {
     setFormData((prevForm) => ({
       ...prevForm,
       characteristics: {
         ...formData.characteristics,
-        [metaData.characteristics[e.target.className].id]: e.target.value,
+        [metaData.characteristics[e.target.className].id]: Number(e.target.value),
       },
     }));
   }
 
   const handleRatingChange = useCallback((e) => handleRating(e), [formData]);
+
+  const togglePhotoModal = useCallback(() => setPhotoModalState((prev) => !prev), []);
 
   const handleCharacteristicChange = useCallback(
     (e) => handleCharacteristic(e),
@@ -72,11 +71,12 @@ function AddReview({ modalState, toggleModal }) {
       .catch((err) => new Error(err));
   }
 
-  // function postToServer(e) {
-  //   e.preventDefault();
-  //   axios.post('/api', { query })
-  //     .catch((err) => new Error(err));
-  // }
+  function postToServer(e) {
+    e.preventDefault();
+    axios.post('/api', query)
+      .catch((err) => new Error(err));
+    toggleModal();
+  }
 
   useEffect(() => {
     getProductName();
@@ -159,8 +159,21 @@ function AddReview({ modalState, toggleModal }) {
                 />
                 <div className="caution-text">For authentication reasons, you will not be emailed</div>
               </div>
-              <button type="button" className="add-photos-button" id="photos">Add Photos</button>
-              <br />
+              <button
+                type="button"
+                className="add-photos-button"
+                id="photos"
+                onClick={togglePhotoModal}
+              >
+                Add Photos
+              </button>
+              <Modal show={photoModalState} toggleModal={togglePhotoModal}>
+                <AddPhotos setFormData={setFormData} toggleModal={togglePhotoModal} />
+              </Modal>
+              <div className="photos-container">
+                {formData.photos && formData.photos.map((image) => <img key={image} src={image} alt="" />)}
+              </div>
+              <button type="button" onClick={postToServer}>Add Review</button>
               <button
                 type="button"
                 className="modal-close"
