@@ -1,6 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const axios = require('axios');
+const path = require('path');
 
 const app = express();
 
@@ -105,6 +106,7 @@ app.get('/api/products/related/styles', (req, res) => {
   Route to collect the current product id's relative id information
   Postman example: products/[iterate through related id]
 */
+
 app.get('/api/products/related', (req, res) => {
   const { id } = req.query;
   /* Get an array of IDs related to current product id */
@@ -149,3 +151,8 @@ app.put('/api', (req, res) => {
     .then(res.end())
     .catch((err) => new Error(err));
 });
+
+//Default loading for React router.
+app.get('/*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../client/dist/index.html'));
+})

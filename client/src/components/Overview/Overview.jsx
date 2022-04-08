@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ShoppingBagIcon, SearchIcon } from '@heroicons/react/outline';
 import StyleSelector from './components/StyleSelector';
 import ProdDescription from './components/ProdDescription';

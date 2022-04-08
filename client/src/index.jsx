@@ -1,11 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import GlobalStyle from './globalStyles';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import Overview from './components/Overview/Overview';
 import RI from './components/RI/RI';
 import QA from './components/QA/QA';
 import RR from './components/RR/RR';
+
+function RoutedApp () {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<App />}></Route>
+      </Routes>
+    </Router>
+  );
+}
 
 function App() {
   return (
@@ -19,4 +30,4 @@ function App() {
   );
 }
 
-ReactDOM.render(<App />, document.getElementById('app'));
+ReactDOM.render(<RoutedApp />, document.getElementById('app'));
