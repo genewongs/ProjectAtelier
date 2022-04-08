@@ -97,9 +97,9 @@ function AddReview({ modalState, toggleModal }) {
               </div>
               <StarRatingForm handleChange={handleRatingChange} />
               <CharacteristicsForm handleChange={handleCharacteristicChange} />
-              <div>
-                Do you reccomend this product?
-                <form className="rating-selector" id="recommend">
+              <div className="rec-selector">
+                Do you recommend this product?
+                <form id="recommend">
                   <label htmlFor="rec-true">
                     Yes
                     <input
@@ -120,43 +120,46 @@ function AddReview({ modalState, toggleModal }) {
                   </label>
                 </form>
               </div>
-              <div>Summary: </div>
-              <textarea
-                id="summary"
-                className="form-summary"
-                rows="3"
-                cols="60"
-                placeholder="Example: Best purchase ever!"
-                onChange={(e) => handleChange(e)}
-              />
-              <div>Body: </div>
-              <textarea
-                id="body"
-                className="form-body"
-                rows="7"
-                cols="60"
-                placeholder="Why did you like the product or not?"
-                onChange={(e) => handleChange(e)}
-              />
-              <div>Name: </div>
-              <input
-                type="text"
-                id="name"
-                className="name-input"
-                placeholder="Example: jackson11!"
-                onChange={(e) => handleChange(e)}
-              />
-              <div>For privacy reasons, do not use your full name or email address</div>
-              <div>E-Mail: </div>
-              <input
-                type="text"
-                id="email"
-                className="email-input"
-                placeholder="Example: jackson11@email.com"
-                onChange={(e) => handleChange(e)}
-              />
-              <div>For authentication reasons, you will not be emailed</div>
-              <button type="button" id="photos">Add Photos</button>
+              <div className="text-container">
+                <div className="headers">Summary</div>
+                <textarea
+                  id="summary"
+                  rows="3"
+                  cols="60"
+                  placeholder="Example: Best purchase ever!"
+                  onChange={(e) => handleChange(e)}
+                />
+                <div className="headers">Body</div>
+                <textarea
+                  id="body"
+                  className="form-body"
+                  rows="7"
+                  cols="60"
+                  placeholder="Why did you like the product or not?"
+                  onChange={(e) => handleChange(e)}
+                />
+              </div>
+              <div className="small-text-container">
+                <div className="headers">Name</div>
+                <input
+                  type="text"
+                  id="name"
+                  className="name-input"
+                  placeholder="Example: jackson11!"
+                  onChange={(e) => handleChange(e)}
+                />
+                <div className="caution-text">For privacy reasons, do not use your full name or email address</div>
+                <div className="headers">E-Mail Address</div>
+                <input
+                  type="text"
+                  id="email"
+                  className="email-input"
+                  placeholder="Example: jackson11@email.com"
+                  onChange={(e) => handleChange(e)}
+                />
+                <div className="caution-text">For authentication reasons, you will not be emailed</div>
+              </div>
+              <button type="button" className="add-photos-button" id="photos">Add Photos</button>
               <br />
               <button
                 type="button"
