@@ -89,14 +89,12 @@ function AddReview({ modalState, toggleModal }) {
         <Modal className="add-form" show={modalState} toggleModal={toggleModal}>
           <AddReviewStyled>
             <div className="form-container">
-              <h2>Write Your Review</h2>
-              <h3>
-                <span>
-                  About the
-                  {' '}
-                  {productName}
-                </span>
-              </h3>
+              <div className="title-text">Write Your Review</div>
+              <div className="about-product">
+                About the
+                {' '}
+                {productName}
+              </div>
               <StarRatingForm handleChange={handleRatingChange} />
               <CharacteristicsForm handleChange={handleCharacteristicChange} />
               <div>
@@ -124,8 +122,8 @@ function AddReview({ modalState, toggleModal }) {
               </div>
               <div>Summary: </div>
               <textarea
-                className="form-summary"
                 id="summary"
+                className="form-summary"
                 rows="3"
                 cols="60"
                 placeholder="Example: Best purchase ever!"
@@ -133,8 +131,8 @@ function AddReview({ modalState, toggleModal }) {
               />
               <div>Body: </div>
               <textarea
-                className="form-body"
                 id="body"
+                className="form-body"
                 rows="7"
                 cols="60"
                 placeholder="Why did you like the product or not?"
@@ -144,6 +142,7 @@ function AddReview({ modalState, toggleModal }) {
               <input
                 type="text"
                 id="name"
+                className="name-input"
                 placeholder="Example: jackson11!"
                 onChange={(e) => handleChange(e)}
               />
@@ -152,6 +151,7 @@ function AddReview({ modalState, toggleModal }) {
               <input
                 type="text"
                 id="email"
+                className="email-input"
                 placeholder="Example: jackson11@email.com"
                 onChange={(e) => handleChange(e)}
               />

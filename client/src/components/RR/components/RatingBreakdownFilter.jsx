@@ -40,8 +40,9 @@ function RatingBreakdownFilter({ handleSortBy, sortBy, clearFilters }) {
   }, [metaData]);
 
   return (
-    <div>
-      <StyledRatingBreakdownFilter percents={ratingsPercents}>
+
+    <StyledRatingBreakdownFilter percents={ratingsPercents}>
+      <div className="rating-container">
         {Object.entries(ratingsPercents).map((rating) => (
           <button
             type="button"
@@ -65,30 +66,32 @@ function RatingBreakdownFilter({ handleSortBy, sortBy, clearFilters }) {
             </div>
           </button>
         ))}
-      </StyledRatingBreakdownFilter>
-      {sortBy.length !== 0 && (
-      <div className="current-sort">
-        Currently filtered by |
-        {' '}
-        {sortBy.sort().map((sortKey) => (
-          <span>
-            {' '}
-            {sortKey}
-            {' '}
-            |
-          </span>
-        ))}
-        {' '}
-        starred reviews
-        <button type="button" className="remove-all" onClick={clearFilters}>✗ all filters</button>
       </div>
-      )}
-      <div className="number-recommended">
-        {recPercent}
-        {' '}
-        of buyers recommend this product!
+      <div className="below-ratings-container">
+        {sortBy.length !== 0 && (
+        <div className="current-sort">
+          Currently filtered by |
+          {' '}
+          {sortBy.sort().map((sortKey) => (
+            <span>
+              {' '}
+              {sortKey}
+              {' '}
+              |
+            </span>
+          ))}
+          {' '}
+          starred reviews
+        </div>
+        )}
+        {sortBy.length !== 0 && <button type="button" className="remove-all" onClick={clearFilters}>✗ all filters</button>}
+        <div className="number-recommended">
+          {recPercent}
+          {' '}
+          of buyers recommend this product!
+        </div>
       </div>
-    </div>
+    </StyledRatingBreakdownFilter>
   );
 }
 

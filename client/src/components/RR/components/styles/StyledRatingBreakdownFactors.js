@@ -7,6 +7,7 @@ const StyledRatingBreakdownFactors = styled.div`
 
     .key-container {
       font-size: 18px;
+      padding-bottom: 6px;
     }
 
     .bar-container {
@@ -15,21 +16,20 @@ const StyledRatingBreakdownFactors = styled.div`
         appearance: none;
         background: transparent;
         outline: 1px solid black;
+        height: 15px;
         width: 100%;
 
         ::-webkit-slider-thumb {
           -webkit-appearance: none;
           appearance: none;
-          width: 23px;
-          height: 24px;
-          border: 0;
-          border-radius: 50%;
+          width: 25px;
+          height: 25px;
+          transform: translateY(-5px);
           background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Black_triangle.svg/1200px-Black_triangle.svg.png');
           background-size: contain;
           background-position: center center;
           background-repeat: no-repeat;
       }
-
     }
 
     .description-container {
@@ -39,10 +39,6 @@ const StyledRatingBreakdownFactors = styled.div`
       font-size: 15px;
     }
   }
-
-
-
-
 `;
 
 export default StyledRatingBreakdownFactors;

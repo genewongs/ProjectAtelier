@@ -10,47 +10,103 @@ const AddReviewStyled = styled.div`
     border: 10px;
     border-radius: 10px;
     overflow: auto;
-  }
 
-  .star-rating {
-    display: flex;
-    flex-directin: row-reverse;
-    gap: 2px;
+    .title-text {
+      font-size: 30px;
+      padding-bottom: 5px;
+    }
 
-    button {
-      background-color: transparent;
-      border: none;
-      outline: none;
-      cursor: pointer;
+    .about-product {
       font-size: 20px;
+      padding-bottom: 10px;
     }
 
-    .on {
-      color: red;
+    .star-rating-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      .rate-text {
+        font-size: 15px;
+      }
+
+      .star-rating {
+        display: flex;
+        flex-directin: row-reverse;
+        align-items: center;
+        gap: 2px;
+
+        button {
+          background-color: transparent;
+          border: none;
+          outline: none;
+          cursor: pointer;
+          font-size: 20px;
+        }
+
+        .on {
+          color: red;
+        }
+
+        .off {
+          color: grey;
+        }
+      }
+
+      .selected-star-rating {
+        display: flex;
+        font-size: 15px;
+        justify-content: center;
+      }
     }
 
-    .off {
-      color: grey;
+
+    .characteristics-form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      width: 350px;
+
+      .characteristic-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 200px;
+
+        .input-container {
+          display: flex;
+          flex-direction: row;
+        }
+      }
+
+      .selected {
+        font-size: 15px;
+      }
     }
+
+    .rating-selector {
+
+    }
+
+    .form-summary {
+
+    }
+
+    .form-body {
+
+    }
+
+    .name-input {
+
+    }
+
+    .email-input {
+
+    }
+
   }
-
-  .characteristics-form {
-
-  }
-
-  .rating-selector {
-
-  }
-
-  .form-summary {
-
-  }
-
-  .form-body {
-
-  }
-
-
 `;
 
 export default AddReviewStyled;

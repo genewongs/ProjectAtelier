@@ -10,7 +10,7 @@ function ReviewListButtons({ limitHit, incrementCount, toggleModal }) {
             className="more-reviews-button"
             onClick={incrementCount}
           >
-            More Reviews
+            MORE REVIEWS
           </button>
         )}
       <button
@@ -18,7 +18,7 @@ function ReviewListButtons({ limitHit, incrementCount, toggleModal }) {
         className="add-review-button"
         onClick={toggleModal}
       >
-        Add Review +
+        ADD A REVIEW +
       </button>
     </div>
   );

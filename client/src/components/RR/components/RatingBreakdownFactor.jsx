@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext } from 'react';
 import ReviewStoreContext from '../utils/ReviewContext';
 import StyledRatingBreakdownFactors from './styles/StyledRatingBreakdownFactors';
 
@@ -21,7 +21,7 @@ function RatingBreakdownFactor() {
                 type="range"
                 min="1"
                 max="5"
-                // disabled
+                disabled
                 value={Math.round(metaData.characteristics[key].value * 10) / 10}
               />
               <div className="description-container">
