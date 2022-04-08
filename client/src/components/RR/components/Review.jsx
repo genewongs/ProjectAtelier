@@ -7,6 +7,7 @@ import ReviewPhotos from './ReviewPhotos';
 export default function Review({ review, setCurrDisplay, setExpanded }) {
   const [loadMore, setLoadMore] = useState(false);
   const [voted, setVoted] = useState(false);
+  const [reported, setReported] = useState(false);
   const first250 = review.body.slice(0, 250);
 
   function handleClick() {
@@ -24,6 +25,15 @@ export default function Review({ review, setCurrDisplay, setExpanded }) {
     }
   }
 
+  function handleReport() {
+    if (!reported) {
+      axios.put('/api', {
+        path: `reviews/${review.review_id}/report`,
+      })
+        .catch((err) => new Error(err));
+    }
+  }
+
   return (
     <div className="review">
       <div className="review-stars">
@@ -34,7 +44,7 @@ export default function Review({ review, setCurrDisplay, setExpanded }) {
       <div className="review-summary"><b>{review.summary}</b></div>
       <div className="review-body">
         {loadMore ? review.body : `${first250}` }
-        { first250 === review.body
+        { (first250 === review.body || loadMore)
           ? null
           : (
             <button
@@ -76,7 +86,7 @@ export default function Review({ review, setCurrDisplay, setExpanded }) {
         {review.helpfulness}
         )
         |
-        <button type="button">Report</button>
+        <button type="button" disable={reported ? 'true' : ''} onClick={() => { setReported(true); handleReport(); }}>Report</button>
       </div>
     </div>
   );

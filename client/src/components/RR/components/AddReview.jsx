@@ -3,15 +3,17 @@ import React, {
 } from 'react';
 import axios from 'axios';
 import Modal from './Modal';
-import ModalStyled from './styles/Modal';
-import RatingForm from './RatingForm';
+import ModalStyled from './styles/StyledModal';
+import AddReviewStyled from './styles/AddReviewStyled';
+import AddPhotos from './AddPhotos';
+import StarRatingForm from './StarRatingForm';
 import CharacteristicsForm from './CharacteristicsForm';
 import ReviewStoreContext from '../utils/ReviewContext';
 
 function AddReview({ modalState, toggleModal }) {
   const { id, metaData } = useContext(ReviewStoreContext);
   const [productName, setProductName] = useState('');
-  const [photos, setPhotos] = useState([]);
+  const [photoModalState, setPhotoModalState] = useState(false);
   const [formData, setFormData] = useState({
     product_id: id,
     rating: null,
@@ -20,7 +22,7 @@ function AddReview({ modalState, toggleModal }) {
     recommend: null,
     name: '',
     email: '',
-    photos,
+    photos: [],
     characteristics: {},
   });
   const query = {
@@ -41,11 +43,7 @@ function AddReview({ modalState, toggleModal }) {
   }
 
   function handleRating(e) {
-    setFormData((prevForm) => ({ ...prevForm, [e.target.name]: e.target.value }));
-  }
-
-  function handlePhoto(e) {
-    setPhotos((prevPhotos) => ({ ...prevPhotos }));
+    setFormData((prevForm) => ({ ...prevForm, [e.target.name]: Number(e.target.value) }));
   }
 
   function handleCharacteristic(e) {
@@ -53,12 +51,14 @@ function AddReview({ modalState, toggleModal }) {
       ...prevForm,
       characteristics: {
         ...formData.characteristics,
-        [metaData.characteristics[e.target.className].id]: e.target.value,
+        [metaData.characteristics[e.target.className].id]: Number(e.target.value),
       },
     }));
   }
 
   const handleRatingChange = useCallback((e) => handleRating(e), [formData]);
+
+  const togglePhotoModal = useCallback(() => setPhotoModalState((prev) => !prev), []);
 
   const handleCharacteristicChange = useCallback(
     (e) => handleCharacteristic(e),
@@ -73,9 +73,9 @@ function AddReview({ modalState, toggleModal }) {
 
   function postToServer(e) {
     e.preventDefault();
-    axios.post('/api', { query })
-      .then((response) => console.log(response))
+    axios.post('/api', query)
       .catch((err) => new Error(err));
+    toggleModal();
   }
 
   useEffect(() => {
@@ -87,75 +87,102 @@ function AddReview({ modalState, toggleModal }) {
       <br />
       <ModalStyled>
         <Modal className="add-form" show={modalState} toggleModal={toggleModal}>
-          <div className="form-container">
-            <h2>Write Your Review</h2>
-            <h3>
-              <span>
+          <AddReviewStyled>
+            <div className="form-container">
+              <div className="title-text">Write Your Review</div>
+              <div className="about-product">
                 About the
                 {' '}
                 {productName}
-              </span>
-            </h3>
-            <RatingForm handleChange={handleRatingChange} />
-            <CharacteristicsForm handleChange={handleCharacteristicChange} />
-            <div>Summary: </div>
-            <textarea
-              id="summary"
-              rows="3"
-              cols="60"
-              placeholder="Example: Best purchase ever!"
-              onChange={(e) => handleChange(e)}
-            />
-            <div>Body: </div>
-            <textarea
-              id="body"
-              rows="7"
-              cols="60"
-              placeholder="Why did you like the product or not?"
-              onChange={(e) => handleChange(e)}
-            />
-            <br />
-            <span>Do you reccomend this product? </span>
-            <form className="rating-selector" id="recommend">
-              <input
-                type="radio"
-                id="rec-true"
-                name="recommend"
-                onChange={(e) => handleRecommended(e)}
-              />
-              <input
-                type="radio"
-                id="rec-false"
-                name="recommend"
-                onChange={(e) => handleRecommended(e)}
-              />
-            </form>
-            <div>Name: </div>
-            <input
-              type="text"
-              id="name"
-              placeholder="Example: jackson11!"
-              onChange={(e) => handleChange(e)}
-            />
-            <div>For privacy reasons, do not use your full name or email address</div>
-            <div>E-Mail: </div>
-            <input
-              type="text"
-              id="email"
-              placeholder="Example: jackson11@email.com"
-              onChange={(e) => handleChange(e)}
-            />
-            <div>For authentication reasons, you will not be emailed</div>
-            <button type="button" id="photos">Add Photos</button>
-            <br />
-            <button
-              type="button"
-              className="modal-close"
-              onClick={toggleModal}
-            >
-              Close
-            </button>
-          </div>
+              </div>
+              <StarRatingForm handleChange={handleRatingChange} />
+              <CharacteristicsForm handleChange={handleCharacteristicChange} />
+              <div className="rec-selector">
+                Do you recommend this product?
+                <form id="recommend">
+                  <label htmlFor="rec-true">
+                    Yes
+                    <input
+                      type="radio"
+                      id="rec-true"
+                      name="recommend"
+                      onChange={(e) => handleRecommended(e)}
+                    />
+                  </label>
+                  <label htmlFor="rec-false">
+                    No
+                    <input
+                      type="radio"
+                      id="rec-false"
+                      name="recommend"
+                      onChange={(e) => handleRecommended(e)}
+                    />
+                  </label>
+                </form>
+              </div>
+              <div className="text-container">
+                <div className="headers">Summary</div>
+                <textarea
+                  id="summary"
+                  rows="3"
+                  cols="60"
+                  placeholder="Example: Best purchase ever!"
+                  onChange={(e) => handleChange(e)}
+                />
+                <div className="headers">Body</div>
+                <textarea
+                  id="body"
+                  className="form-body"
+                  rows="7"
+                  cols="60"
+                  placeholder="Why did you like the product or not?"
+                  onChange={(e) => handleChange(e)}
+                />
+              </div>
+              <div className="small-text-container">
+                <div className="headers">Name</div>
+                <input
+                  type="text"
+                  id="name"
+                  className="name-input"
+                  placeholder="Example: jackson11!"
+                  onChange={(e) => handleChange(e)}
+                />
+                <div className="caution-text">For privacy reasons, do not use your full name or email address</div>
+                <div className="headers">E-Mail Address</div>
+                <input
+                  type="text"
+                  id="email"
+                  className="email-input"
+                  placeholder="Example: jackson11@email.com"
+                  onChange={(e) => handleChange(e)}
+                />
+                <div className="caution-text">For authentication reasons, you will not be emailed</div>
+              </div>
+              <button
+                type="button"
+                className="add-photos-button"
+                id="photos"
+                onClick={togglePhotoModal}
+              >
+                Add Photos
+              </button>
+              <Modal show={photoModalState} toggleModal={togglePhotoModal}>
+                <AddPhotos setFormData={setFormData} toggleModal={togglePhotoModal} />
+              </Modal>
+              <div className="photos-container">
+                {formData.photos && formData.photos.map((image) => <img key={image} src={image} alt="" />)}
+              </div>
+              <button type="button" onClick={postToServer}>Add Review</button>
+              <button
+                type="button"
+                className="modal-close"
+                onClick={toggleModal}
+              >
+                Close
+              </button>
+            </div>
+          </AddReviewStyled>
         </Modal>
       </ModalStyled>
     </div>
