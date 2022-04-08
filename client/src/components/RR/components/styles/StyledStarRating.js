@@ -20,7 +20,7 @@ const StyledStar = styled.div.attrs({ 'data-testid': 'StyledStar' })`
   position: absolute;
   top: 0;
   left: 0;
-  content: '★★★★★';
+  content: '☆☆☆☆☆';
   color: black;
   font-size: ${(props) => props.fontSize};
   }

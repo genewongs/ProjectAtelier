@@ -167,3 +167,21 @@ function CharacteristicsForm({ handleChange }) {
 }
 
 export default CharacteristicsForm;
+
+// metaData.characteristics && (
+//   Object.keys(metaData.characteristics).map((characteristic) => (
+//     <form className={characteristic} onChange={handleDisplay}>
+//       <div className={`${characteristic}-container`}>
+//         {characteristic}
+//         <div className="selected">{ selected.length ? length[selected.length] : 'none selected'}</div>
+//         <div className="input-container">
+//           {Object.keys(this[characteristic]).map((option, index) => (
+//             <label htmlFor={option} key={option} className={characteristic}>
+//               <input type="radio" className={characteristic} name={characteristic} id={option} value={index + 1} onChange={handleChange} />
+//             </label>
+//           ))}
+//         </div>
+//       </div>
+//     </form>
+//   )
+// ))

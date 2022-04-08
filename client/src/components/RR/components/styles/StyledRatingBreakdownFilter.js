@@ -13,7 +13,7 @@ const StyledRatingBreakdownFilter = styled.div`
       font-size: 20px;
 
       :hover {
-        background: rgba(255, 179, 179, .55)
+        background: rgba(0, 0, 0, .1)
       }
     }
 
@@ -44,7 +44,8 @@ const StyledRatingBreakdownFilter = styled.div`
 
     .bar-container {
       width: 100%;
-      background-color: black;
+      background-color: transparent;
+      border: 1px solid black;
       text-align: center;
       color: white;
     }

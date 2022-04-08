@@ -64,6 +64,7 @@ function RatingBreakdownFactor() {
                 type="range"
                 min="1"
                 max="5"
+                step="1"
                 disabled
                 value={Math.round(metaData.characteristics[key].value * 10) / 10}
               />
