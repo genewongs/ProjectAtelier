@@ -4,7 +4,7 @@ import axios from 'axios';
 import RelatedProductsContext from '../utils/RelatedProductsContext';
 import RelatedProductsList from './RelatedProductsList';
 import YourOutfitList from './YourOutfitList';
-import Compare from './Compare.jsx';
+import Compare from './Compare';
 import { RelatedProductsStyled } from '../styles/RelatedProductsStyled.styled';
 import { YourOutfitStyled } from '../styles/YourOutfitStyled.styled';
 
@@ -15,6 +15,7 @@ export default function Container() {
     setLocalStorageOutfits,
     modalClicked,
     clickedRelatedData,
+    relatedData,
     setRelatedData,
     productData,
     setProductData,
@@ -59,7 +60,9 @@ export default function Container() {
   return (
     <>
       <RelatedProductsStyled>
-        <RelatedProductsList />
+        <RelatedProductsList
+          relatedData={relatedData}
+        />
         { modalClicked && (
         <Compare
           productData={productData}

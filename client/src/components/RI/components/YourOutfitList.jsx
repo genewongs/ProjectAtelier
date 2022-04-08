@@ -2,7 +2,7 @@
 /* eslint-disable react/jsx-no-bind */
 import React from 'react';
 import YourOutfitEntry from './YourOutfitEntry';
-import { AddOutfitWrapper, AddOutfitText } from '../styles/YourOutfitStyled.styled';
+import { OutfitWrapper, OutfitText } from '../styles/YourOutfitStyled.styled';
 
 export default function YourOutfitList({
   productData, localStorageOutfits, setLocalStorageOutfits,
@@ -16,11 +16,11 @@ export default function YourOutfitList({
 
   return (
     <>
-      <AddOutfitWrapper onClick={saveProductLocally}>
-        <AddOutfitText>
+      <OutfitWrapper onClick={saveProductLocally}>
+        <OutfitText>
           Add Current Product
-        </AddOutfitText>
-      </AddOutfitWrapper>
+        </OutfitText>
+      </OutfitWrapper>
       {
         localStorageOutfits.map((card, index) => (
           <YourOutfitEntry
