@@ -5,14 +5,15 @@ import YourOutfitEntry from './YourOutfitEntry';
 import { AddOutfitWrapper, AddOutfitText } from '../styles/YourOutfitStyled.styled';
 
 export default function YourOutfitList({
-  productData, localStorageOutfits, setLocalStorageOutfits, id,
+  productData, localStorageOutfits, setLocalStorageOutfits,
 }) {
   function saveProductLocally() {
     localStorage.setItem(productData.id, JSON.stringify(productData));
-    if (!localStorageOutfits.some((outfit) => outfit.id !== id)) {
+    if (!localStorageOutfits.some((outfit) => outfit.id === productData.id)) {
       setLocalStorageOutfits([...localStorageOutfits, productData]);
     }
   }
+
   return (
     <>
       <AddOutfitWrapper onClick={saveProductLocally}>

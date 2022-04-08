@@ -9,13 +9,13 @@ export function Related({ children }) {
   const [productData, setProductData] = useState([]);
 
   const [localStorageOutfits, setLocalStorageOutfits] = useState(() => {
-    const localStorageValues = [];
+    const values = [];
     const keys = Object.keys(localStorage);
     let i = keys.length;
     while (i--) {
-      localStorageValues.push(JSON.parse(localStorage.getItem(keys[i])));
+      values.push(JSON.parse(localStorage.getItem(keys[i])));
     }
-    return localStorageValues;
+    return values;
   });
 
   /* For the card that has been clicked */
@@ -24,7 +24,7 @@ export function Related({ children }) {
   const [modalClicked, setModalClicked] = useState(false);
   const toggleModal = useCallback(() => setModalClicked((prevState) => !prevState), []);
 
-  const id = 65632;
+  const id = 65635;
 
   const store = {
     relatedData,
