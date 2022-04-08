@@ -30,7 +30,7 @@ function RatingBreakdownFilter({ handleSortBy, sortBy, clearFilters }) {
     let totalRecs = 0;
     Object.values(metaData.recommended)
       .forEach((rec) => { totalRecs += Number(rec); });
-    setRecPercent(`${(Number(metaData.recommended.true) / totalRecs) * 100}%`);
+    setRecPercent(`${Math.round((Number(metaData.recommended.true) / totalRecs) * 100)}%`);
   }
 
   useEffect(() => {
@@ -66,14 +66,23 @@ function RatingBreakdownFilter({ handleSortBy, sortBy, clearFilters }) {
           </button>
         ))}
       </StyledRatingBreakdownFilter>
-      {sortBy.sort().map((sortKey) => (
-        <button type="button" key={sortKey} id={sortKey} onClick={handleSortBy}>
-          {sortKey}
-          {' '}
-          star ✗
-        </button>
-      ))}
-      <div>{sortBy.length !== 0 && <button type="button" className="remove-all" onClick={clearFilters}>✗ all filters</button>}</div>
+      {sortBy.length !== 0 && (
+      <div className="current-sort">
+        Currently filtered by |
+        {' '}
+        {sortBy.sort().map((sortKey) => (
+          <span>
+            {' '}
+            {sortKey}
+            {' '}
+            |
+          </span>
+        ))}
+        {' '}
+        starred reviews
+        <button type="button" className="remove-all" onClick={clearFilters}>✗ all filters</button>
+      </div>
+      )}
       <div className="number-recommended">
         {recPercent}
         {' '}
