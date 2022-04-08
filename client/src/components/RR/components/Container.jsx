@@ -80,7 +80,7 @@ function Container() {
 
   useEffect(() => {
     getReviews()
-      .then(async (response) => { await setReviewData(response.results); })
+      .then((response) => setReviewData(response.results))
       .then(() => sortByStars())
       .then(() => {
         if (count >= reviewCount) {
