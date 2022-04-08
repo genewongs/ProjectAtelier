@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import moment from 'moment';
 import ButtonStyle from './styles/StyledButtons';
+import AnswerListStyle from './styles/StyledAnswerList';
 
 export default function AnswerListEntry({ answer, getAnswers }) {
   function reportAnswer() {
@@ -22,46 +23,49 @@ export default function AnswerListEntry({ answer, getAnswers }) {
 
   return (
     <div>
+
       <b>A: </b>
       {' '}
       {' '}
       {answer.body}
       <br />
-
       <div>
-        <ButtonStyle>
-          By:
-          {' '}
-          {answer.answerer_name}
-          ,
-          {' '}
-          {moment(answer.date).format('MMMM Do YYYY')}
-          {' '}
-          {' '}
-          |
-          {' '}
-          {' '}
-          <span className="answer-helpful-and-report">
-
-            <span>
-              Helpful?
-              <button type="submit" onClick={incrementAnswerHelpful} className="helpful-answer-button">
-                Yes
-              </button>
-              (
-              {answer.helpfulness}
-              )
-              |
+        <AnswerListStyle>
+          <ButtonStyle>
+            <span className="answer-author-info">
+              by:
+              {' '}
+              {answer.answerer_name}
+              ,
+              {' '}
+              {moment(answer.date).format('MMMM Do YYYY')}
+              {' '}
+              {' '}
             </span>
-            <span>
-              <button type="submit" onClick={reportAnswer} className="report-answer-button">
-                Report Answer
-              </button>
+            |
+            {' '}
+            {' '}
+            <span className="answer-helpful-and-report">
+              <span>
+                Helpful?
+                <button type="submit" onClick={incrementAnswerHelpful} className="helpful-answer-button">
+                  Yes
+                </button>
+                (
+                {answer.helpfulness}
+                )
+                |
+              </span>
+              <span>
+                <button type="submit" onClick={reportAnswer} className="report-answer-button">
+                  Report Answer
+                </button>
+              </span>
             </span>
-
-          </span>
-        </ButtonStyle>
+          </ButtonStyle>
+        </AnswerListStyle>
       </div>
+
       <br />
     </div>
   );

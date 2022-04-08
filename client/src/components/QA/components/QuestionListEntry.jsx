@@ -3,6 +3,7 @@ import axios from 'axios';
 import NewAnswer from './NewAnswer';
 import AnswerList from './AnswerList';
 import ButtonStyle from './styles/StyledButtons';
+import StyledQuestion from './styles/StyledQuestion';
 
 export default function QuestionListEntry({ question, getQuestions }) {
   const [answerData, setAnswerData] = useState([]);
@@ -69,10 +70,14 @@ export default function QuestionListEntry({ question, getQuestions }) {
         <div>
 
           <ButtonStyle>
-            <b>Q: </b>
-            {' '}
-            {' '}
-            {question.question_body}
+            <StyledQuestion>
+              <span className="question-body">
+                <b>Q: </b>
+                {' '}
+                {' '}
+                <b>{question.question_body}</b>
+              </span>
+            </StyledQuestion>
             <span className="all-question-buttons">
               {' '}
               Helpful?
@@ -119,6 +124,7 @@ export default function QuestionListEntry({ question, getQuestions }) {
             <br />
           </div>
         </ButtonStyle>
+        <br />
       </div>
     </div>
   );

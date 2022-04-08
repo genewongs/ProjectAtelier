@@ -3,7 +3,7 @@ import axios from 'axios';
 import QuestionList from './components/QuestionList';
 import NewQuestion from './components/NewQuestion';
 import StyledSearchBar from './components/styles/StyledSearchBar';
-// import ButtonStyle from './components/styles/StyledButtons';
+import ButtonStyle from './components/styles/StyledButtons';
 import QuestionListStyled from './components/styles/StyledQuestionList';
 
 export default function QA() {
@@ -73,30 +73,33 @@ export default function QA() {
           <input type="text" placeholder="Have a question? Search for answers…" size="60" onChange={(event) => filterQuestionsWithSearch(event.target.value)} />
         </StyledSearchBar>
         <QuestionList questions={questionData} getQuestions={getQuestions} />
-        <div>
-          {limitHit ? null : (
-            <button
-              className="more-questions"
-              type="button"
-              onClick={() => incrementQuestionCount()}
-            >
-              More Answered Questions
-            </button>
-          )}
-          <br />
-
-        </div>
-        <br />
-        <div>
-          <button
-            className="add-question"
-            type="button"
-            onClick={() => setShow(true)}
-          >
-            Add A New Question +
-          </button>
-          <br />
-        </div>
+        <ButtonStyle>
+          <div className="button-container">
+            <div>
+              {limitHit ? null : (
+                <button
+                  className="more-questions"
+                  type="button"
+                  onClick={() => incrementQuestionCount()}
+                >
+                  MORE ANSWERED QUESTIONS
+                </button>
+              )}
+              <br />
+            </div>
+            <br />
+            <div>
+              <button
+                className="add-question"
+                type="button"
+                onClick={() => setShow(true)}
+              >
+                ADD A NEW QUESTION +
+              </button>
+              <br />
+            </div>
+          </div>
+        </ButtonStyle>
         <NewQuestion id={id} show={show} closeModal={closeModal} getQuestions={getQuestions} />
       </QuestionListStyled>
     </div>
