@@ -6,13 +6,14 @@ const cloudinary = require('cloudinary');
 const formData = require('express-form-data');
 const cors = require('cors');
 const { CLIENT_ORIGIN } = require('./config');
+const expressStaticGzip = require('express-static-gzip');
 
 const app = express();
 
 const port = process.env.PORT;
 
 app.use(express.json());
-app.use(express.static('client'));
+app.use(expressStaticGzip('client'));
 
 app.listen(port, () => { console.log('listening on port: ', port); });
 
