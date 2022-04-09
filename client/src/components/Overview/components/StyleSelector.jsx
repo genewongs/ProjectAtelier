@@ -7,6 +7,7 @@ import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import { SelectorContainer, ImageContainer, BadgeStyled } from './styles/StyledStyleSelector';
 import { ProductInfo } from './styles/ProductInfoStyled';
 import { SelectSize, SelectQuantity, AddCartButton, ErrorMsgStyled } from './styles/SelectSizeStyled';
+import { useNavigate, useParams } from 'react-router-dom';
 
 function StyleSelector({ styles, product, index, changeGallery, changeStyle, addItem }) {
   const [currentSku, setSku] = useState({});
@@ -16,8 +17,13 @@ function StyleSelector({ styles, product, index, changeGallery, changeStyle, add
   const [selectedStyle, setSelectedStyle] = useState(null);
   const [selectIndex, setSelectIndex] = useState(0);
   const [error, setError] = useState(false);
+  const [hasBeenSelected, setHasBeenSelected] = useState(false);
 
+  let navigate = useNavigate();
+  let { styleId } = useParams();
   let prodSkus = styles[index].skus;
+  console.log(styles)
+
 
   useEffect(() => {
     setQuantityNum(currentSku.quantity || 0);
@@ -42,9 +48,6 @@ function StyleSelector({ styles, product, index, changeGallery, changeStyle, add
         <span style={{fontWeight: 'bold'}}>STYLE > </span> {styles[index].name}
       </div> <br></br>
       <ImageContainer>
-        {/* <BadgeStyled>
-          <FontAwesomeIcon icon={faCheck} />
-        </BadgeStyled> */}
         {styles.map((product, index) => {
           return <img
             className={index === selectIndex ? 'selectedSize' : ''}
@@ -55,6 +58,7 @@ function StyleSelector({ styles, product, index, changeGallery, changeStyle, add
               setSelectIndex(index);
               setSku([]);
               changeStyle(product, index);
+              setHasBeenSelected(false);
             }
           }/>
         })}
@@ -66,6 +70,7 @@ function StyleSelector({ styles, product, index, changeGallery, changeStyle, add
             <button className={sku === selectedSize ? 'selected' : ''} key={id} onClick={(e) => {
               setSelectedSize(sku);
               setSku(prodSkus[sku]);
+              setHasBeenSelected(true);
             }
           }> {prodSkus[sku].size} </button>
           )
@@ -89,7 +94,7 @@ function StyleSelector({ styles, product, index, changeGallery, changeStyle, add
         <button onClick={(selectedSize !== 0 && quantity > 0) ? () => {addItem(selectedSize, quantity)} : () => {
           setError(true);
           setTimeout(() => {setError(false)}, 3000);
-        }}>{quantityNum === 0 && selectedSize !== 0 ? 'OUT OF STOCK' : 'ADD TO CART'}</button>
+        }}>{quantityNum === 0 && selectedSize !== 0 && hasBeenSelected ? 'OUT OF STOCK' : 'ADD TO CART'}</button>
       </AddCartButton>
     </SelectorContainer>
   )
