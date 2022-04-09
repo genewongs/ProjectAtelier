@@ -8,7 +8,6 @@ import RatingBreakdownFilter from './RatingBreakdownFilter';
 import RatingBreakdownFactor from './RatingBreakdownFactor';
 import ReviewSortSelector from './ReviewSortSelector';
 import ReviewList from './ReviewList';
-import ReviewListButtons from './ReviewListButtons';
 import AddReview from './AddReview';
 import ContainerStyled from './styles/StyledContainer';
 
@@ -43,7 +42,9 @@ function Container() {
 
   function sortByStars() {
     if (sortBy.length === 0) {
-      setFilterState(false);
+      if (filterState === true) {
+        setFilterState(false);
+      }
     } else {
       setFilterState(true);
       setFiltered([]);
@@ -94,6 +95,7 @@ function Container() {
 
   return (
     <ContainerStyled>
+      {console.log('rendered')}
       <div className="review-left-container">
         <StarRating />
         <RatingBreakdownFilter
@@ -106,11 +108,25 @@ function Container() {
       <div className="review-right-container">
         <ReviewSortSelector reviewCount={reviewCount} setSort={setSort} />
         <ReviewList reviews={filterState ? filtered : reviews} />
-        <ReviewListButtons
-          limitHit={limitHit}
-          incrementCount={incrementCount}
-          toggleModal={toggleModal}
-        />
+        <div className="review-buttons-container">
+          {limitHit ? null
+            : (
+              <button
+                type="button"
+                className="more-reviews-button"
+                onClick={incrementCount}
+              >
+                MORE REVIEWS
+              </button>
+            )}
+          <button
+            type="button"
+            className="add-review-button"
+            onClick={toggleModal}
+          >
+            ADD A REVIEW +
+          </button>
+        </div>
         <AddReview modalState={modalState} toggleModal={toggleModal} />
       </div>
     </ContainerStyled>

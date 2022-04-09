@@ -9,6 +9,7 @@ export default function Review({ review, setCurrDisplay, setExpanded }) {
   const [voted, setVoted] = useState(false);
   const [reported, setReported] = useState(false);
   const first250 = review.body.slice(0, 250);
+  let { helpfulness } = review.helpfulness;
 
   function handleClick() {
     setLoadMore((prev) => (!prev));
@@ -19,8 +20,7 @@ export default function Review({ review, setCurrDisplay, setExpanded }) {
       axios.put('/api', {
         path: `reviews/${review.review_id}/helpful`,
       })
-        // eslint-disable-next-line no-param-reassign
-        .then(review.helpfulness += 1)
+        .then(helpfulness += 1)
         .catch((err) => new Error(err));
     }
   }
@@ -83,7 +83,7 @@ export default function Review({ review, setCurrDisplay, setExpanded }) {
         {' '}
         <button type="button" disable={voted ? 'true' : ''} onClick={() => { setVoted(true); handleVote(); }}>Yes</button>
         (
-        {review.helpfulness}
+        {helpfulness}
         )
         |
         <button type="button" disable={reported ? 'true' : ''} onClick={() => { setReported(true); handleReport(); }}>Report</button>
