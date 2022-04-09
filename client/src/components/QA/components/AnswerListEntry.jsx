@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import moment from 'moment';
 import ButtonStyle from './styles/StyledButtons';
 import AnswerListStyle from './styles/StyledAnswerList';
 
 export default function AnswerListEntry({ answer, getAnswers }) {
+  const [helpClick, setHelpClick] = useState(false);
+
   function reportAnswer() {
     return axios.put('/api', {
       path: `qa/answers/${answer.answer_id}/report`,
@@ -14,10 +16,11 @@ export default function AnswerListEntry({ answer, getAnswers }) {
   }
 
   function incrementAnswerHelpful() {
-    return axios.put('/api', {
+    axios.put('/api', {
       path: `qa/answers/${answer.answer_id}/helpful`,
     })
-      .then(() => getAnswers())
+      .then(answer.helpfulness += 1)
+      .then(() => setHelpClick(true))
       .catch((err) => new Error(err));
   }
 
@@ -48,9 +51,11 @@ export default function AnswerListEntry({ answer, getAnswers }) {
             <span className="answer-helpful-and-report">
               <span>
                 Helpful?
-                <button type="submit" onClick={incrementAnswerHelpful} className="helpful-answer-button">
-                  Yes
-                </button>
+                {helpClick ? null : (
+                  <button type="submit" onClick={incrementAnswerHelpful} className="helpful-answer-button">
+                    Yes
+                  </button>
+                )}
                 (
                 {answer.helpfulness}
                 )

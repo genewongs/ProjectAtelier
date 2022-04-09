@@ -11,6 +11,7 @@ export default function QuestionListEntry({ question, getQuestions }) {
   const [count, setCount] = useState(2);
   const [show, setShow] = useState(false);
   const [limitHit, setLimitHit] = useState(false);
+  const [helpClick, setHelpClick] = useState(false);
 
   let startingLimit = 3;
 
@@ -31,10 +32,12 @@ export default function QuestionListEntry({ question, getQuestions }) {
   }
 
   function incrementHelpful() {
-    return axios.put('/api', {
+    axios.put('/api', {
       path: `qa/questions/${question.question_id}/helpful`,
     })
-      .then(getQuestions())
+      .then(question.question_helpfulness += 1)
+      .then(() => setHelpClick(true))
+
       .catch((err) => new Error(err));
   }
 
@@ -83,9 +86,11 @@ export default function QuestionListEntry({ question, getQuestions }) {
               Helpful?
               {' '}
               {' '}
-              <button type="submit" onClick={incrementHelpful} className="helpful-question-button">
-                Yes
-              </button>
+              {helpClick ? null : (
+                <button type="submit" onClick={incrementHelpful} className="helpful-question-button">
+                  Yes
+                </button>
+              )}
               (
               {question.question_helpfulness}
               )

@@ -4,7 +4,6 @@ const StyledSearchBar = styled.div`
 width: 300px;
   margin: 0 auto;
   width: 1100px;
-  overflow: auto;
   border: 2px;
   border-color: black;
   padding: 20px;

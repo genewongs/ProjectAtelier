@@ -4,7 +4,7 @@ const QuestionListStyled = styled.div`
 min-height: 325px;
 max-height: 90vh;
 overflow: auto;
-width: 1100px;
+width: 1140px;
 margin: 0 auto;
 padding-bottom: 25px;
 

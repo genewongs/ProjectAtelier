@@ -65,7 +65,6 @@ export default function QA() {
   }, [count]);
 
   return (
-
     <div className="questionList" data-testid="questionList">
       <QuestionListStyled>
         <h2>QUESTIONS AND ANSWERS</h2>
