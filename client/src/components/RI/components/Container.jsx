@@ -4,6 +4,7 @@ import axios from 'axios';
 import RelatedProductsContext from '../utils/RelatedProductsContext';
 import RelatedProductsList from './RelatedProductsList';
 import YourOutfitList from './YourOutfitList';
+import Carousel from './Carousel';
 import Compare from './Compare';
 import { RelatedProductsStyled } from '../styles/RelatedProductsStyled.styled';
 import { YourOutfitStyled } from '../styles/YourOutfitStyled.styled';
@@ -60,9 +61,12 @@ export default function Container() {
   return (
     <>
       <RelatedProductsStyled>
-        <RelatedProductsList
+        <Carousel
           relatedData={relatedData}
         />
+        {/* <RelatedProductsList
+          relatedData={relatedData}
+        /> */}
         { modalClicked && (
         <Compare
           productData={productData}
