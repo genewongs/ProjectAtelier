@@ -12,6 +12,7 @@ function RoutedApp () {
   return (
     <Router>
       <Routes>
+        <Route path="/:productId" element={<App />}></Route>
         <Route path="/" element={<App />}></Route>
       </Routes>
     </Router>
@@ -20,13 +21,13 @@ function RoutedApp () {
 
 function App() {
   return (
-      <div className="app-container">
-        <GlobalStyle />
-        <Overview />
-        <RI />
-        <QA />
-        <RR />
-      </div>
+    <div className="app-container">
+      <GlobalStyle />
+      <Overview />
+      <RI />
+      <QA />
+      <RR />
+    </div>
   );
 }
 

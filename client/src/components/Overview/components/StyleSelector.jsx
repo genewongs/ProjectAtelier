@@ -7,6 +7,7 @@ import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import { SelectorContainer, ImageContainer, BadgeStyled } from './styles/StyledStyleSelector';
 import { ProductInfo } from './styles/ProductInfoStyled';
 import { SelectSize, SelectQuantity, AddCartButton, ErrorMsgStyled } from './styles/SelectSizeStyled';
+import { useNavigate, useParams } from 'react-router-dom';
 
 function StyleSelector({ styles, product, index, changeGallery, changeStyle, addItem }) {
   const [currentSku, setSku] = useState({});
@@ -18,7 +19,11 @@ function StyleSelector({ styles, product, index, changeGallery, changeStyle, add
   const [error, setError] = useState(false);
   const [hasBeenSelected, setHasBeenSelected] = useState(false);
 
+  let navigate = useNavigate();
+  let { styleId } = useParams();
   let prodSkus = styles[index].skus;
+  console.log(styles)
+
 
   useEffect(() => {
     setQuantityNum(currentSku.quantity || 0);

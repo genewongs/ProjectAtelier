@@ -8,6 +8,7 @@ import { LordContainer } from './components/styles/LordContainerStyled';
 import { RightFlex } from './components/styles/ProductInfoStyled';
 import Gallery from './components/Gallery';
 import { NavBar, NavButtonsStyled, CartBadgeStyled } from './components/styles/NavBarStyled';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const axios = require('axios');
 
@@ -18,7 +19,10 @@ export default function Overview() {
   const [index, setIndex] = useState(0);
   const [expanded, setExpanded] = useState(false);
   const [cart, setCart] = useState([]);
-  const productId = '65635';
+
+  let { productId } = useParams();
+
+  productId = productId || '65631';
 
   useEffect(() => {
     fetchStyles(productId)
@@ -50,7 +54,9 @@ export default function Overview() {
   }
 
   function fetchProduct(id) {
-    return axios.get('api', { params: { path: `products/${id}` } });
+    if (id) {
+      return axios.get('api', { params: { path: `products/${id}` } });
+    }
   }
 
   function fetchCart() {
