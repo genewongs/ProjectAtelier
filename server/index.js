@@ -1,17 +1,19 @@
 require('dotenv').config();
 const express = require('express');
 const axios = require('axios');
+const path = require('path');
 const cloudinary = require('cloudinary');
 const formData = require('express-form-data');
 const cors = require('cors');
 const { CLIENT_ORIGIN } = require('./config');
+const expressStaticGzip = require('express-static-gzip');
 
 const app = express();
 
 const port = process.env.PORT;
 
 app.use(express.json());
-app.use(express.static('client'));
+app.use(expressStaticGzip('client'));
 
 app.listen(port, () => { console.log('listening on port: ', port); });
 
@@ -109,6 +111,7 @@ app.get('/api/products/related/styles', (req, res) => {
   Route to collect the current product id's relative id information
   Postman example: products/[iterate through related id]
 */
+
 app.get('/api/products/related', (req, res) => {
   const { id } = req.query;
   /* Get an array of IDs related to current product id */
@@ -174,4 +177,9 @@ app.post('/image-upload', (req, res) => {
   Promise.all(promises)
     .then((results) => res.send(results))
     .catch((err) => new Error(err));
+});
+
+//Default loading for React router.
+app.get('/*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../client/index.html'));
 });
