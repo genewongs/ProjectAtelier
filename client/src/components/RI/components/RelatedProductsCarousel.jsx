@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import RelatedProductsList from './RelatedProductsList';
 
-export default function Carousel({ relatedData }) {
+export default function RelatedProductsCarousel({ relatedData }) {
   const [startingIndex, setStartingIndex] = useState(0);
   const [endingIndex, setEndingIndex] = useState(4);
 

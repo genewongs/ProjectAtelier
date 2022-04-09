@@ -2,9 +2,8 @@
 import React, { useContext, useEffect } from 'react';
 import axios from 'axios';
 import RelatedProductsContext from '../utils/RelatedProductsContext';
-import RelatedProductsList from './RelatedProductsList';
-import YourOutfitList from './YourOutfitList';
-import Carousel from './Carousel';
+import RelatedProductsCarousel from './RelatedProductsCarousel';
+import YourOutfitCarousel from './YourOutfitCarousel';
 import Compare from './Compare';
 import { RelatedProductsStyled } from '../styles/RelatedProductsStyled.styled';
 import { YourOutfitStyled } from '../styles/YourOutfitStyled.styled';
@@ -61,12 +60,9 @@ export default function Container() {
   return (
     <>
       <RelatedProductsStyled>
-        <Carousel
+        <RelatedProductsCarousel
           relatedData={relatedData}
         />
-        {/* <RelatedProductsList
-          relatedData={relatedData}
-        /> */}
         { modalClicked && (
         <Compare
           productData={productData}
@@ -77,7 +73,7 @@ export default function Container() {
         )}
       </RelatedProductsStyled>
       <YourOutfitStyled>
-        <YourOutfitList
+        <YourOutfitCarousel
           productData={productData}
           localStorageOutfits={localStorageOutfits}
           setLocalStorageOutfits={setLocalStorageOutfits}

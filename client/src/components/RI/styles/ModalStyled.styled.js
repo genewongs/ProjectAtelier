@@ -3,24 +3,24 @@ import styled from 'styled-components';
 
 export const ModalWrapper = styled.div`
   .modal-container{
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
     position: fixed;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
     left: 0;
     top: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
   }
   .compare-container {
-    background-color: rgba(255, 255, 255, 1);
     display: flex;
+    padding: 20px;
     flex-direction: column;
     align-items: center;
-    padding: 20px;
     border: 1px solid;
+    background-color: rgba(255, 255, 255, 1);
     border-radius: 10px;
   }
 `;

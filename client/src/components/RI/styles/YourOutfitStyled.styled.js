@@ -14,8 +14,8 @@ export const OutfitWrapper = styled.div`
 `;
 
 export const OutfitText = styled.div`
-  color: #202020;
   padding-left:15px;
   padding-right: 20px;
   padding-top:60px;
+  padding-bottom: 20px;
 `;
