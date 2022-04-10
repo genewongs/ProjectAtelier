@@ -23,7 +23,6 @@ const AddReviewStyled = styled.div`
 
     &:hover {
       &::-webkit-scrollbar-thumb {
-        /* background-color: rgba(221, 54, 54, 0.5); */
         background-color: transparent;
       }
     }
@@ -86,20 +85,17 @@ const AddReviewStyled = styled.div`
       width: 350px;
       font-size: 19px;
       padding: 5px;
-
       .characteristic-container {
         display: flex;
         flex-direction: column;
         align-items: center;
         width: 200px;
         font-size: 17px;
-
         .input-container {
           display: flex;
           flex-direction: row;
         }
       }
-
       .selected {
         font-size: 15px;
       }
@@ -133,7 +129,7 @@ const AddReviewStyled = styled.div`
       align-items: center;
       font-size: 15px;
       textarea {
-        border: 2px solid red;
+        border: 2px solid black;
         resize: none;
 
         ::placeholder {
@@ -162,13 +158,13 @@ const AddReviewStyled = styled.div`
       .name-input {
         width: 50%;
         height: 20px;
-        border: 2px solid red;
+        border: 2px solid black;
       }
 
       .email-input {
         width: 70%;
         height: 20px;
-        border: 2px solid red;
+        border: 2px solid black;
       }
     }
 
@@ -195,6 +191,22 @@ const AddReviewStyled = styled.div`
 
       &:hover {
         color: red;
+      }
+    }
+
+    .post-review {
+      height: 45px;
+      width: 150px;
+      border: 0px;
+      outline: 0px;
+      background: black;
+      font-size: 15px;
+      color: white;
+      border-radius: 10px;
+      transition: 0.3s;
+
+      &:hover {
+        background: red;
       }
     }
   }

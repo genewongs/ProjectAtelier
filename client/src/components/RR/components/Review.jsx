@@ -8,8 +8,8 @@ export default function Review({ review, setCurrDisplay, setExpanded }) {
   const [loadMore, setLoadMore] = useState(false);
   const [voted, setVoted] = useState(false);
   const [reported, setReported] = useState(false);
+  const [helpfulness, setHelpfulness] = useState(review.helpfulness);
   const first250 = review.body.slice(0, 250);
-  let { helpfulness } = review.helpfulness;
 
   function handleClick() {
     setLoadMore((prev) => (!prev));
@@ -20,7 +20,7 @@ export default function Review({ review, setCurrDisplay, setExpanded }) {
       axios.put('/api', {
         path: `reviews/${review.review_id}/helpful`,
       })
-        .then(helpfulness += 1)
+        .then(setHelpfulness((prev) => prev + 1))
         .catch((err) => new Error(err));
     }
   }

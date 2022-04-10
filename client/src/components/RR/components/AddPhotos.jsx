@@ -1,7 +1,5 @@
 import React, { useState, useCallback } from 'react';
 import axios from 'axios';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTimesCircle, faImage, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import StyledAddPhotos from './styles/StyledAddPhotos';
 
 function AddPhotos({ setFormData, toggleModal }) {
@@ -11,15 +9,24 @@ function AddPhotos({ setFormData, toggleModal }) {
 
   function onChange(e) {
     const images = Array.from(e.target.files);
-    setUploading(true);
 
     const formData = new FormData();
+    const types = ['png', 'jpeg', 'gif', 'webp'];
 
     images.forEach((image, index) => {
       formData.append(index, image);
     });
 
+    setUploading(true);
     axios.post('/image-upload', formData)
+      .then((response) => {
+        if (types.every((type) => response.data[0].format !== type)) {
+          setUploading(false);
+          alert('unable to upload file');
+          throw response;
+        }
+        return response;
+      })
       .then((response) => {
         setUploading(false);
         setImageStore((prev) => prev.concat(response.data));
@@ -51,8 +58,9 @@ function AddPhotos({ setFormData, toggleModal }) {
     }
     if (limitPhotos < 5 && imageStore.length >= 0) {
       return (
-        <div>
+        <div className="preview-list">
           <Images images={imageStore} removeImage={deleteImage} />
+          <br />
           <Button onChange={handleChange} />
         </div>
       );
@@ -71,8 +79,16 @@ function AddPhotos({ setFormData, toggleModal }) {
           {' '}
           more photos
         </div>
+        <br />
         {display()}
-        <button type="button" className="close-upload-button" onClick={sendToReviewForm}>Finish Uploading</button>
+        <br />
+        <button
+          type="button"
+          className="close-upload-button"
+          onClick={sendToReviewForm}
+        >
+          Finish Uploading
+        </button>
       </div>
     </StyledAddPhotos>
   );
@@ -81,7 +97,7 @@ function AddPhotos({ setFormData, toggleModal }) {
 function Spinner() {
   return (
     <div className="spinner fadein">
-      <FontAwesomeIcon icon={faSpinner} size="2x" color="#FF0000" />
+      Uploading...
     </div>
   );
 }
@@ -89,11 +105,12 @@ function Spinner() {
 function Images({ images, removeImage }) {
   return (
     images.map((image) => (
-      <div key={image.public_id} className="photo-prev">
+      <div key={image.public_id} className="photo-preview">
         <button type="button" onClick={() => removeImage(image.public_id)} className="delete-photo">
-          <FontAwesomeIcon icon={faTimesCircle} size="2x" />
+          ✗ remove photo
         </button>
         <img src={image.secure_url} alt="" />
+        <br />
       </div>
     ))
   );
@@ -103,8 +120,12 @@ function Button({ onChange }) {
   return (
     <div className="add-photo-button">
       <label htmlFor="add-photo">
-        <FontAwesomeIcon icon={faImage} color="#FF0000" size="2x" />
-        <input type="file" id="add-photo" onChange={onChange} />
+        <input
+          type="file"
+          id="add-photo"
+          accept="image/png, image/jpg, image/gif, image/webp"
+          onChange={onChange}
+        />
       </label>
     </div>
   );

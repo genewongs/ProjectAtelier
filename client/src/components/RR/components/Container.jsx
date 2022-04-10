@@ -95,7 +95,6 @@ function Container() {
 
   return (
     <ContainerStyled>
-      {console.log('rendered')}
       <div className="review-left-container">
         <StarRating />
         <RatingBreakdownFilter
