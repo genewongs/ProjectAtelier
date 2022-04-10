@@ -102,7 +102,7 @@ export const ThumbnailsImageStyled = styled.div`
 `;
 
 export const GalleryInnerStyled = styled.div`
-  max-height: 900px;
+  max-height: 800px;
   width: 100%;
   background-position: center;
   background-repeat: no-repeat;

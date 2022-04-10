@@ -5,13 +5,13 @@ import { ArrowsExpandIcon } from '@heroicons/react/outline';
 import {
   GalleryStyled, GalleryInnerStyled,
   GalleryInnerLeftStyled, GalleryInnerCenterStyled,
-  GalleryInnerRightStyled
+  GalleryInnerRightStyled,
 } from './styles/GalleryStyled';
 import ThumbnailsGallery from './ThumbnailsGallery';
 
 function Gallery({
   style, handleExpand, width,
-  height, magnifierHeight = 400, magnifieWidth = 300, zoomLevel = 2.5,
+  height, magnifierHeight = 800, magnifieWidth = 700, zoomLevel = 2.5,
 }) {
   const [img, setImg] = useState(0);
   const [[imgWidth, imgHeight], setSize] = useState([0, 0]);
@@ -22,6 +22,8 @@ function Gallery({
   function navigateImage(photo, index) {
     setImg(index);
   }
+
+  console.log(imgWidth, imgHeight);
 
   return (
     <GalleryStyled>
@@ -64,11 +66,11 @@ function Gallery({
                 position: 'absolute',
 
                 pointerEvents: 'none',
-                height: `${magnifierHeight}px`,
-                width: `${magnifieWidth}px`,
+                height: `${imgHeight}px`,
+                width: `${imgWidth}px`,
                 // move element center to cursor pos
-                top: `${y - magnifierHeight / 2}px`,
-                left: `${x - magnifieWidth / 2}px`,
+                // top: `${magnifierHeight}px`,
+                // left: `${magnifieWidth}px`,
                 opacity: '1',
                 border: '1px solid lightgray',
                 backgroundColor: 'white',
@@ -81,8 +83,8 @@ function Gallery({
                 }px`,
 
                 // calculate position of zoomed image.
-                backgroundPositionX: `${-x * zoomLevel + magnifieWidth / 2}px`,
-                backgroundPositionY: `${-y * zoomLevel + magnifierHeight / 2}px`,
+                backgroundPositionX: `${-x * zoomLevel / (1.68)}px`,
+                backgroundPositionY: `${-y * zoomLevel / (1.68)}px`,
               }}
             />
           ) : <> </>}
@@ -105,7 +107,15 @@ function Gallery({
           e.stopPropagation();
         }}
         >
-          <ArrowsExpandIcon className="expandIcon" onClick={handleExpand} />
+          <ArrowsExpandIcon
+            className="expandIcon"
+            onClick={(e) => {
+              handleExpand();
+              const elem = e.currentTarget;
+              const { width, height } = elem.getBoundingClientRect();
+              setSize([width, height]);
+            }}
+          />
           <FontAwesomeIcon
             className={img === style.photos.length - 1 ? 'disable button2' : 'button2'}
             icon={faChevronRight}
