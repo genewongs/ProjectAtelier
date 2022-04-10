@@ -51,6 +51,30 @@ const StyledAddPhotos = styled.div`
         color: red;
         }
     }
+
+    .error-modal {
+      background-color: rgba(255, 255, 255, 1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+      border: 2px;
+      border-radius: 10px;
+      overflow: auto;
+      max-height: 75vh;
+      gap: 5px;
+
+      button {
+        background: transparent;
+        outline: 0px;
+        border: 0px;
+        text-decoration: underline;
+        font-size: 15px;
+        &:hover{
+            color:red;
+        }
+      }
+    }
   }
 `;
 

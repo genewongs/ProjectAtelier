@@ -1,11 +1,13 @@
 import React, { useState, useCallback } from 'react';
 import axios from 'axios';
+import Modal from './Modal';
 import StyledAddPhotos from './styles/StyledAddPhotos';
 
 function AddPhotos({ setFormData, toggleModal }) {
   const [limitPhotos, setLimitPhotos] = useState(0);
   const [imageStore, setImageStore] = useState([]);
   const [uploading, setUploading] = useState(false);
+  const [errModalState, setErrModalState] = useState(false);
 
   function onChange(e) {
     const images = Array.from(e.target.files);
@@ -22,7 +24,7 @@ function AddPhotos({ setFormData, toggleModal }) {
       .then((response) => {
         if (types.every((type) => response.data[0].format !== type)) {
           setUploading(false);
-          alert('unable to upload file');
+          setErrModalState(true);
           throw response;
         }
         return response;
@@ -52,6 +54,8 @@ function AddPhotos({ setFormData, toggleModal }) {
 
   const deleteImage = useCallback((id) => { removeImage(id); }, []);
 
+  const toggleErrorModal = useCallback(() => setErrModalState((prev) => !prev), []);
+
   function display() {
     if (uploading) {
       return <Spinner />;
@@ -71,6 +75,13 @@ function AddPhotos({ setFormData, toggleModal }) {
   return (
     <StyledAddPhotos>
       <div className="add-photos-container">
+        <Modal show={errModalState} toggleModal={toggleErrorModal}>
+          <div className="error-modal">
+            <h3>Error</h3>
+            <div>Unable to upload file.</div>
+            <button type="button" onClick={toggleErrorModal}>Close</button>
+          </div>
+        </Modal>
         <div>Upload Photos</div>
         <div>
           You may upload up to
