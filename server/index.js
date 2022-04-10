@@ -5,8 +5,8 @@ const path = require('path');
 const cloudinary = require('cloudinary');
 const formData = require('express-form-data');
 const cors = require('cors');
-const { CLIENT_ORIGIN } = require('./config');
 const expressStaticGzip = require('express-static-gzip');
+const { CLIENT_ORIGIN } = require('./config');
 
 const app = express();
 
@@ -179,7 +179,7 @@ app.post('/image-upload', (req, res) => {
     .catch((err) => new Error(err));
 });
 
-//Default loading for React router.
+// Default loading for React router.
 app.get('/*', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/index.html'));
 });
