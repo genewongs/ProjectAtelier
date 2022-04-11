@@ -106,7 +106,7 @@ function Container() {
 
   useEffect(() => {
     sortByStars();
-  }, [reviews]);
+  }, [reviews, sortBy]);
 
   useEffect(() => {
     returnDisplay();
