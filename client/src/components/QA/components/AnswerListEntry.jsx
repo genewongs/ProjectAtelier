@@ -35,6 +35,7 @@ export default function AnswerListEntry({ answer, getAnswers }) {
       <div>
         <AnswerListStyle>
           <ButtonStyle>
+            {/* refactor this area */}
             <span className="answer-author-info">
               by:
               {' '}
