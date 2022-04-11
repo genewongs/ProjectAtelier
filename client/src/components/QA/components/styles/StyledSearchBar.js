@@ -3,11 +3,10 @@ import styled from 'styled-components';
 const StyledSearchBar = styled.div`
 width: 300px;
   margin: 0 auto;
-  width: 700px;
-  overflow: auto;
+  width: 1100px;
   border: 2px;
   border-color: black;
-  padding: 50px;
+  padding-bottom: 20px;
 `;
 
 export default StyledSearchBar;
