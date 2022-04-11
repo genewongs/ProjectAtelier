@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
+import { useParams } from 'react-router-dom';
 import QuestionList from './components/QuestionList';
 import NewQuestion from './components/NewQuestion';
 import StyledSearchBar from './components/styles/StyledSearchBar';
@@ -14,7 +15,9 @@ export default function QA() {
   const [limitHit, setLimitHit] = useState(false);
   const [totalLength, setLength] = useState(3);
 
-  const id = 65654;
+  const { productId } = useParams();
+
+  const id = Number(productId) || 65654;
 
   function toggleModal() {
     if (show === true) {
@@ -65,7 +68,7 @@ export default function QA() {
   }, [count]);
 
   return (
-    <div className="questionList" data-testid="questionList">
+    <div className="questionList" data-testid="QA">
       <QuestionContainer>
         <h2>QUESTIONS AND ANSWERS</h2>
         <StyledSearchBar>
