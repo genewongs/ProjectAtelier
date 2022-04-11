@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const AddReviewStyled = styled.div`
+const StyledAddReview = styled.div`
   .form-container{
     background-color: rgba(255, 255, 255, 1);
     display: flex;
@@ -235,4 +235,4 @@ const AddReviewStyled = styled.div`
   }
 `;
 
-export default AddReviewStyled;
+export default StyledAddReview;

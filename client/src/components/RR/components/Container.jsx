@@ -2,7 +2,6 @@ import React, {
   useState, useContext, useEffect, useCallback,
 } from 'react';
 import axios from 'axios';
-
 import ReviewStoreContext from '../utils/ReviewContext';
 import StarRating from './StarRating';
 import RatingBreakdownFilter from './RatingBreakdownFilter';
@@ -15,10 +14,9 @@ import ContainerStyled from './styles/StyledContainer';
 
 function Container() {
   const {
-    id, reviews, setReviewData, setMetaData,
+    id, reviews, setReviewData, setMetaData, reviewCount,
   } = useContext(ReviewStoreContext);
   const [count, setCount] = useState(2);
-  const [reviewCount, setReviewCount] = useState(0);
   const [limitHit, setLimitHit] = useState(false);
   const [modalState, setModalState] = useState(false);
   const [sort, setSort] = useState('relevant');
@@ -101,8 +99,6 @@ function Container() {
       .then((results) => {
         setReviewData(results[0].results);
         setMetaData(results[1]);
-        setReviewCount(Object.values(results[1].ratings)
-          .reduce((sum, num) => Number(sum) + Number(num), 0));
       })
       .catch((err) => new Error(err));
   }, []);

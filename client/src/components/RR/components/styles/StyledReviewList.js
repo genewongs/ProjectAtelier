@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 
 const ReviewListStyled = styled.div`
-  min-height: 400px;
   max-height: 90vh;
   width: 700px;
   overflow: scroll;

@@ -1,10 +1,10 @@
 import React, {
-  useState, useCallback, useEffect, useContext,
+  useState, useCallback, useEffect, useContext, useMemo,
 } from 'react';
 import axios from 'axios';
 import Modal from './Modal';
 import ModalStyled from './styles/StyledModal';
-import AddReviewStyled from './styles/AddReviewStyled';
+import StyledAddReview from './styles/StyledAddReview';
 import AddPhotos from './AddPhotos';
 import StarRatingForm from './StarRatingForm';
 import CharacteristicsForm from './CharacteristicsForm';
@@ -31,6 +31,8 @@ function AddReview({ modalState, toggleModal }) {
     path: 'reviews',
     query: formData,
   };
+
+  const emptyForm = useMemo(() => formData, [id]);
 
   function handleChange(e) {
     setFormData((prevForm) => ({ ...prevForm, [e.target.id]: e.target.value }));
@@ -116,6 +118,7 @@ function AddReview({ modalState, toggleModal }) {
     if (verified === true) {
       axios.post('/api', query)
         .catch((err) => new Error(err));
+      setFormData(emptyForm);
       toggleModal();
     }
   }
@@ -129,7 +132,7 @@ function AddReview({ modalState, toggleModal }) {
       <br />
       <ModalStyled>
         <Modal className="add-form" show={modalState} toggleModal={toggleModal}>
-          <AddReviewStyled>
+          <StyledAddReview>
             <div className="form-container">
               <div className="title-text">Write Your Review</div>
               <div className="about-product">
@@ -239,7 +242,7 @@ function AddReview({ modalState, toggleModal }) {
                 Close
               </button>
             </div>
-          </AddReviewStyled>
+          </StyledAddReview>
         </Modal>
       </ModalStyled>
     </div>
