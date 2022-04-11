@@ -115,7 +115,6 @@ function AddReview({ modalState, toggleModal }) {
 
     if (verified === true) {
       axios.post('/api', query)
-        .then((response) => console.log(response))
         .catch((err) => new Error(err));
       toggleModal();
     }
