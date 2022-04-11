@@ -38,7 +38,7 @@ function RatingBreakdownFilter({ handleSortBy, sortBy, clearFilters }) {
           Currently filtered by |
           {' '}
           {sortBy.sort().map((sortKey) => (
-            <span>
+            <span key={sortKey}>
               {' '}
               {sortKey}
               {' '}

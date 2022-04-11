@@ -6,6 +6,7 @@ import ReviewStoreContext from '../utils/ReviewContext';
 import StarRating from './StarRating';
 import RatingBreakdownFilter from './RatingBreakdownFilter';
 import RatingBreakdownFactor from './RatingBreakdownFactor';
+import KeywordSearch from './KeywordSearch';
 import ReviewSortSelector from './ReviewSortSelector';
 import ReviewList from './ReviewList';
 import AddReview from './AddReview';
@@ -23,6 +24,8 @@ function Container() {
   const [filtered, setFiltered] = useState([]);
   const [filterState, setFilterState] = useState(false);
   const [sortBy, setSortBy] = useState([]);
+  const [searched, setSearched] = useState([]);
+  const [currDisplay, setCurrDisplay] = useState([]);
 
   function getReviews() {
     return new Promise((resolve, reject) => {
@@ -48,6 +51,16 @@ function Container() {
     } else {
       setFilterState(true);
       setFiltered(reviews.filter((review) => sortBy.includes(review.rating)));
+    }
+  }
+
+  function returnDisplay() {
+    if (searched.length !== 0) {
+      setCurrDisplay(searched);
+    } else if (filterState === true) {
+      setCurrDisplay(filtered);
+    } else {
+      setCurrDisplay(reviews);
     }
   }
 
@@ -95,6 +108,10 @@ function Container() {
     sortByStars();
   }, [reviews]);
 
+  useEffect(() => {
+    returnDisplay();
+  }, [searched, filtered, reviews]);
+
   return (
     <ContainerStyled>
       <div className="review-left-container">
@@ -107,8 +124,14 @@ function Container() {
         <RatingBreakdownFactor />
       </div>
       <div className="review-right-container">
+        <KeywordSearch
+          reviews={reviews}
+          setSearched={setSearched}
+          filterState={filterState}
+          filtered={filtered}
+        />
         <ReviewSortSelector reviewCount={reviewCount} setSort={setSort} />
-        <ReviewList reviews={filterState ? filtered : reviews} />
+        <ReviewList reviews={currDisplay} />
         <div className="review-buttons-container">
           {limitHit ? null
             : (
