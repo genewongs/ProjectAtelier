@@ -3,9 +3,8 @@
 /* eslint-disable react/jsx-no-bind */
 import React, { useState } from 'react';
 import YourOutfitList from './YourOutfitList';
-import { OutfitWrapper, OutfitText } from '../styles/YourOutfitStyled.styled';
 
-export default function YourOutfitCarousel({ productData, localStorageOutfits, setLocalStorageOutfits }) {
+export default function YourOutfitCarousel({ localStorageOutfits, setLocalStorageOutfits }) {
   const [startingIndex, setStartingIndex] = useState(0);
   const [endingIndex, setEndingIndex] = useState(4);
 
@@ -23,30 +22,23 @@ export default function YourOutfitCarousel({ productData, localStorageOutfits, s
     }
   }
 
-  function saveProductLocally() {
-    localStorage.setItem(productData.id, JSON.stringify(productData));
-    if (!localStorageOutfits.some((outfit) => outfit.id === productData.id)) {
-      setLocalStorageOutfits([...localStorageOutfits, productData]);
-    }
-  }
   return (
     <>
-      <OutfitWrapper onClick={saveProductLocally}>
-        <OutfitText>
-          Add Current Product
-        </OutfitText>
-      </OutfitWrapper>
+      { (localStorageOutfits.length > 4) && (
       <button
         onClick={() => { updateLeft(startingIndex, endingIndex); }}
       >
         &larr;
       </button>
+      )}
       <YourOutfitList localStorageOutfits={localStorageOutfits.slice(startingIndex, endingIndex)} setLocalStorageOutfits={setLocalStorageOutfits} />
+      { (localStorageOutfits.length > 4) && (
       <button
         onClick={() => { updateRight(startingIndex, endingIndex); }}
       >
         &rarr;
       </button>
+      )}
     </>
   );
 }

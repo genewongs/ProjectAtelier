@@ -2,10 +2,13 @@
 import styled from 'styled-components';
 
 export const CardWrapper = styled.div`
+  display: grid;
   height: 335px;
   width: 225px;
   border: 1px solid;
-  margin: 0px 12px;
+  margin: 0px 12px 10px;
+  text-align: center;
+  grid-template-areas: "image" "text";
   .star-icon {
     height: 30px;
     width: 30px;
@@ -18,17 +21,16 @@ export const CardWrapper = styled.div`
 `;
 
 export const CardImage = styled.div`
+  grid-area: image;
   background-image: url(${(props) => props.photo});
-  border-top-left-radius: 15px;
-  border-top-right-radius: 15px;
   background-size: cover;
 `;
 
 export const CardName = styled.h1`
-  /* flex-wrap: wrap; */
-  /* display: flex; */
+  grid-area: text;
   font-weight: bold;
-  font-size: 17px;
+  font-size: 15px;
+  text-align: left;
   position: absolute;
   padding-left: 15px;
 `;

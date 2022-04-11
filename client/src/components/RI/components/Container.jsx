@@ -6,7 +6,7 @@ import RelatedProductsCarousel from './RelatedProductsCarousel';
 import YourOutfitCarousel from './YourOutfitCarousel';
 import Compare from './Compare';
 import { RelatedProductsStyled } from '../styles/RelatedProductsStyled.styled';
-import { YourOutfitStyled } from '../styles/YourOutfitStyled.styled';
+import { YourOutfitStyled, OutfitWrapper, OutfitText } from '../styles/YourOutfitStyled.styled';
 
 export default function Container() {
   const {
@@ -52,6 +52,13 @@ export default function Container() {
     setRelatedData(relatedStylesInfo);
   }
 
+  function saveProductLocally() {
+    localStorage.setItem(productData.id, JSON.stringify(productData));
+    if (!localStorageOutfits.some((outfit) => outfit.id === productData.id)) {
+      setLocalStorageOutfits([...localStorageOutfits, productData]);
+    }
+  }
+
   useEffect(() => {
     getRelatedInfo();
     getProductInfo();
@@ -73,6 +80,11 @@ export default function Container() {
         )}
       </RelatedProductsStyled>
       <YourOutfitStyled>
+        <OutfitWrapper onClick={saveProductLocally}>
+          <OutfitText>
+            Add Current Product
+          </OutfitText>
+        </OutfitWrapper>
         <YourOutfitCarousel
           productData={productData}
           localStorageOutfits={localStorageOutfits}

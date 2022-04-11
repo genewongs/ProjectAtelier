@@ -25,6 +25,13 @@ export const ModalWrapper = styled.div`
   }
 `;
 
+export const Title = styled.h1`
+  grid-area: header;
+  font-size: 15px;
+  color: black;
+  padding: 2px;
+`;
+
 /* Going to be a container for the left side of the comparison modal */
 export const LeftWrapper = styled.div`
   display: flex;

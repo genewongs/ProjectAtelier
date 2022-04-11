@@ -24,7 +24,7 @@ export function Related({ children }) {
   const [modalClicked, setModalClicked] = useState(false);
   const toggleModal = useCallback(() => setModalClicked((prevState) => !prevState), []);
 
-  const id = 65636;
+  const id = 65635;
 
   const store = {
     relatedData,

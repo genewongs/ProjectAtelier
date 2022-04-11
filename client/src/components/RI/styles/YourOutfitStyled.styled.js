@@ -7,8 +7,8 @@ export const YourOutfitStyled = styled.div`
 `;
 
 export const OutfitWrapper = styled.div`
-  height: 400px;
-  width: 250px;
+  height: 335px;
+  width: 225px;
   display: flex;
   border: 1px solid;
 `;

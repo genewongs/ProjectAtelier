@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  ModalWrapper, LeftWrapper, LeftFeat, RightWrapper, RightFeat,
+  ModalWrapper, LeftWrapper, LeftFeat, RightWrapper, RightFeat, Title,
 } from '../styles/ModalStyled.styled';
 import Modal from './Modal';
 
@@ -12,6 +12,7 @@ export default function Compare({
       <ModalWrapper>
         <Modal className="show-compare" show={modalClicked} toggleModal={toggleModal}>
           <div className="compare-container">
+            <Title>Comparing</Title>
             <LeftWrapper>
               {clickedRelatedData.name}
               {

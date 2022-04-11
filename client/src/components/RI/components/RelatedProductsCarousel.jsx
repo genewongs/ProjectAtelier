@@ -22,17 +22,21 @@ export default function RelatedProductsCarousel({ relatedData }) {
 
   return (
     <>
+      { relatedData.length > 4 && (
       <button
         onClick={() => { updateLeft(startingIndex, endingIndex); }}
       >
         &larr;
       </button>
+      )}
       <RelatedProductsList relatedData={relatedData.slice(startingIndex, endingIndex)} />
+      { relatedData.length > 4 && (
       <button
         onClick={() => { updateRight(startingIndex, endingIndex); }}
       >
         &rarr;
       </button>
+      )}
     </>
   );
 }
