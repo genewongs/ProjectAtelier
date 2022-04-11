@@ -1,24 +1,44 @@
-import React, { useContext } from 'react';
-import { ModalWrapper, Left } from '../styles/ModalStyled.styled';
-import RelatedProductsContext from '../utils/RelatedProductsContext';
+import React from 'react';
+import {
+  ModalWrapper, LeftWrapper, LeftFeat, RightWrapper, RightFeat, Title,
+} from '../styles/ModalStyled.styled';
+import Modal from './Modal';
 
-export default function Compare() {
-  const myContext = useContext(RelatedProductsContext);
+export default function Compare({
+  clickedRelatedData, productData, toggleModal, modalClicked,
+}) {
   return (
     <div>
       <ModalWrapper>
-        Comparing
-        <Left>
-          {
-            myContext.clickedRelatedData.features.map((currentFeature) => (
-              <p>
-                {currentFeature.feature}
-                :
-                {currentFeature.value || 'N/A'}
-              </p>
-            ))
-          }
-        </Left>
+        <Modal className="show-compare" show={modalClicked} toggleModal={toggleModal}>
+          <div className="compare-container">
+            <Title>Comparing</Title>
+            <LeftWrapper>
+              {clickedRelatedData.name}
+              {
+                clickedRelatedData.features.map((currentFeature) => (
+                  <LeftFeat>
+                    {currentFeature.feature}
+                    :
+                    {currentFeature.value || 'N/A'}
+                  </LeftFeat>
+                ))
+              }
+            </LeftWrapper>
+            <RightWrapper>
+              {productData.name}
+              {
+                productData.features.map((currentFeature) => (
+                  <RightFeat>
+                    {currentFeature.feature}
+                    :
+                    {currentFeature.value || 'N/A'}
+                  </RightFeat>
+                ))
+              }
+            </RightWrapper>
+          </div>
+        </Modal>
       </ModalWrapper>
     </div>
   );

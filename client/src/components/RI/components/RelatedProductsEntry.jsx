@@ -1,11 +1,11 @@
 import React, { useContext } from 'react';
 import RelatedProductsContext from '../utils/RelatedProductsContext';
-import Card from './Card';
+import RelatedProductsCard from './RelatedProductsCard';
 
 export default function RelatedProductsEntry({ singleRelatedData }) {
   const myContext = useContext(RelatedProductsContext);
   return (
-    <Card
+    <RelatedProductsCard
       url={singleRelatedData.results[0].photos[0].url || 'https://shenandoahcountyva.us/bos/wp-content/uploads/sites/4/2018/01/picture-not-available-clipart-12.jpg'}
       name={singleRelatedData.name}
       category={singleRelatedData.category}

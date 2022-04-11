@@ -2,14 +2,24 @@
 import React, { useContext, useEffect } from 'react';
 import axios from 'axios';
 import RelatedProductsContext from '../utils/RelatedProductsContext';
-import RelatedProductsList from './RelatedProductsList';
-import Compare from './Compare.jsx';
-
-import { ContainerStyled } from '../styles/ContainerStyled.styled';
+import RelatedProductsCarousel from './RelatedProductsCarousel';
+import YourOutfitCarousel from './YourOutfitCarousel';
+import Compare from './Compare';
+import { RelatedProductsStyled } from '../styles/RelatedProductsStyled.styled';
+import { YourOutfitStyled, OutfitWrapper, OutfitText } from '../styles/YourOutfitStyled.styled';
 
 export default function Container() {
   const {
-    modalClicked, setRelatedData, setProductData, id,
+    toggleModal,
+    localStorageOutfits,
+    setLocalStorageOutfits,
+    modalClicked,
+    clickedRelatedData,
+    relatedData,
+    setRelatedData,
+    productData,
+    setProductData,
+    id,
   } = useContext(RelatedProductsContext);
 
   async function getProductInfo() {
@@ -42,17 +52,45 @@ export default function Container() {
     setRelatedData(relatedStylesInfo);
   }
 
+  function saveProductLocally() {
+    localStorage.setItem(productData.id, JSON.stringify(productData));
+    if (!localStorageOutfits.some((outfit) => outfit.id === productData.id)) {
+      setLocalStorageOutfits([...localStorageOutfits, productData]);
+    }
+  }
+
   useEffect(() => {
     getRelatedInfo();
     getProductInfo();
   }, []);
 
   return (
-    <ContainerStyled>
-      <RelatedProductsList />
-      { modalClicked && (
-        <Compare />
-      )}
-    </ContainerStyled>
+    <>
+      <RelatedProductsStyled>
+        <RelatedProductsCarousel
+          relatedData={relatedData}
+        />
+        { modalClicked && (
+        <Compare
+          productData={productData}
+          clickedRelatedData={clickedRelatedData}
+          toggleModal={toggleModal}
+          modalClicked={modalClicked}
+        />
+        )}
+      </RelatedProductsStyled>
+      <YourOutfitStyled>
+        <OutfitWrapper onClick={saveProductLocally}>
+          <OutfitText>
+            Add Current Product
+          </OutfitText>
+        </OutfitWrapper>
+        <YourOutfitCarousel
+          productData={productData}
+          localStorageOutfits={localStorageOutfits}
+          setLocalStorageOutfits={setLocalStorageOutfits}
+        />
+      </YourOutfitStyled>
+    </>
   );
 }
