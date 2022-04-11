@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { ArrowsExpandIcon } from '@heroicons/react/outline';
@@ -9,21 +9,17 @@ import {
 } from './styles/GalleryStyled';
 import ThumbnailsGallery from './ThumbnailsGallery';
 
-function Gallery({
-  style, handleExpand, width,
-  height, magnifierHeight = 800, magnifieWidth = 700, zoomLevel = 2.5,
-}) {
+function Gallery({ style, handleExpand, width, height, zoomLevel = 2.5, expanded }) {
   const [img, setImg] = useState(0);
   const [[imgWidth, imgHeight], setSize] = useState([0, 0]);
   const [showMagnifier, setShowMagnifier] = useState(false);
   const [[x, y], setXY] = useState([0, 0]);
   const [preMagnify, setPreMagnify] = useState(true);
+  const imageContainerRef = useRef(null);
 
   function navigateImage(photo, index) {
     setImg(index);
-  }
-
-  console.log(imgWidth, imgHeight);
+  };
 
   return (
     <GalleryStyled>
@@ -31,9 +27,11 @@ function Gallery({
       <ThumbnailsGallery style={style} img={img} navigateImage={navigateImage} />
 
       <GalleryInnerStyled
+        ref={imageContainerRef}
         img={style.photos[img].url}
-        className={preMagnify ? 'magnify' : ''}
-        style={{ position: 'relative', height, width }}
+        height={height}
+        width={width}
+        className={preMagnify ? `magnify` : ''}
         onClick={() => {
           setPreMagnify(!preMagnify);
         }}
@@ -87,7 +85,7 @@ function Gallery({
                 backgroundPositionY: `${-y * zoomLevel / (1.68)}px`,
               }}
             />
-          ) : <> </>}
+          ) : null}
 
         <GalleryInnerLeftStyled onClick={(e) => { e.stopPropagation(); }}>
           <FontAwesomeIcon

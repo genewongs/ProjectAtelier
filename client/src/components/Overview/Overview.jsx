@@ -90,7 +90,7 @@ export default function Overview() {
   }
 
   return (
-    <LordContainer>
+    <LordContainer data-testid='lordContainer'>
       <NavBar>
         <img src="./dist/images/BACKLASH_LOGO_sml.png" />
         <NavButtonsStyled>
@@ -102,7 +102,7 @@ export default function Overview() {
         </NavButtonsStyled>
       </NavBar>
       <Flex>
-        {currentStyle && <Gallery style={currentStyle} handleExpand={handleExpand} />}
+        {currentStyle && <Gallery style={currentStyle} expanded={expanded} handleExpand={handleExpand} />}
         {!expanded && (
           <RightFlex>
             <Socials />

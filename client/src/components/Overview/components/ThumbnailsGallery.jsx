@@ -47,7 +47,7 @@ function ThumbnailsGallery({ style, img, navigateImage }) {
                 navigateImage(photo, index);
               }}
             />
-          ) : <></>
+          ) : null
       ))}
 
       <ThumbnailsRight>
