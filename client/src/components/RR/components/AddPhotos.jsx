@@ -121,7 +121,7 @@ function Images({ images, removeImage }) {
     images.map((image) => (
       <div key={image.public_id} className="photo-preview">
         <button type="button" onClick={() => removeImage(image.public_id)} className="delete-photo">
-          ✗ remove photo
+          ✖ remove photo
         </button>
         <img src={image.secure_url} alt="" />
         <br />

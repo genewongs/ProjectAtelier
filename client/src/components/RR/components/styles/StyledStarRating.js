@@ -6,10 +6,6 @@ const StyledStar = styled.div.attrs({ 'data-testid': 'StyledStar' })`
   gap: 5px;
   align-items: center;
 
-.average {
-  font-size: 60px;
-}
-
 .stars-rating {
   font-size: ${(props) => props.fontSize};
   position: relative;

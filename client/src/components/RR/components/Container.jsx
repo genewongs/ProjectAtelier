@@ -14,7 +14,7 @@ import ContainerStyled from './styles/StyledContainer';
 
 function Container() {
   const {
-    id, reviews, setReviewData, setMetaData, reviewCount,
+    id, reviews, setReviewData, setMetaData, reviewCount, averageRating,
   } = useContext(ReviewStoreContext);
   const [count, setCount] = useState(2);
   const [limitHit, setLimitHit] = useState(false);
@@ -131,7 +131,10 @@ function Container() {
   return (
     <ContainerStyled>
       <div className="review-left-container">
-        <StarRating />
+        <div className="star-rating-container">
+          <span className="average">{averageRating}</span>
+          <StarRating id={id} fontSize={50} />
+        </div>
         <RatingBreakdownFilter
           handleSortBy={handleSortBy}
           sortBy={sortBy}

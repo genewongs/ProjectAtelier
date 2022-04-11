@@ -1,5 +1,5 @@
 import React, {
-  useState, useCallback, useEffect, useContext, useMemo,
+  useState, useCallback, useEffect, useContext,
 } from 'react';
 import axios from 'axios';
 import Modal from './Modal';
@@ -31,8 +31,6 @@ function AddReview({ modalState, toggleModal }) {
     path: 'reviews',
     query: formData,
   };
-
-  const emptyForm = useMemo(() => formData, [id]);
 
   function handleChange(e) {
     setFormData((prevForm) => ({ ...prevForm, [e.target.id]: e.target.value }));
@@ -117,8 +115,8 @@ function AddReview({ modalState, toggleModal }) {
 
     if (verified === true) {
       axios.post('/api', query)
+        .then((response) => console.log(response))
         .catch((err) => new Error(err));
-      setFormData(emptyForm);
       toggleModal();
     }
   }

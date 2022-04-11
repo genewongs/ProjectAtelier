@@ -9,10 +9,7 @@ const ReviewStoreContext = createContext();
 export function ReviewStore({ children }) {
   const [reviews, setReviewData] = useState([]);
   const [metaData, setMetaData] = useState([]);
-  const [percentAverageStars, setPercentAverageStars] = useState({
-    average: 0,
-    percent: 0,
-  });
+  const [averageRating, setAverageRating] = useState(0);
   const [reviewCount, setReviewCount] = useState(0);
   const [recPercent, setRecPercent] = useState(0);
   const [ratingsPercents, setRatingsPercents] = useState({
@@ -24,7 +21,7 @@ export function ReviewStore({ children }) {
   });
 
   const { productId } = useParams();
-  const id = productId || 65641;
+  const id = Number(productId) || 65640;
 
   function getPercents() {
     let totalEntries = 0;
@@ -53,10 +50,7 @@ export function ReviewStore({ children }) {
     }
 
     if (totalEntries) {
-      setPercentAverageStars({
-        average: Math.round((totalRating / totalEntries) * 10) / 10,
-        percent: (Math.round((totalRating / totalEntries) * 4) / 4) * 20,
-      });
+      setAverageRating(Math.round((totalRating / totalEntries) * 10) / 10);
     }
   }
 
@@ -76,7 +70,7 @@ export function ReviewStore({ children }) {
     setReviewData,
     metaData,
     setMetaData,
-    percentAverageStars,
+    averageRating,
     recPercent,
     ratingsPercents,
     reviewCount,
