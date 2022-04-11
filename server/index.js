@@ -179,7 +179,6 @@ app.post('/image-upload', (req, res) => {
     .catch((err) => new Error(err));
 });
 
-<<<<<<< HEAD
 // getting results object length
 
 app.get('/api/length', (req, res) => {
@@ -194,8 +193,6 @@ app.get('/api/length', (req, res) => {
     .then((response) => res.status(200).end(JSON.stringify(response.data.results.length)));
 });
 
-=======
->>>>>>> 538f3b2cda807ca0927257d5021da999ca5fba53
 // Default loading for React router.
 app.get('/*', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/index.html'));
