@@ -1,6 +1,7 @@
 import React, {
   createContext, useState, useMemo, useEffect,
 } from 'react';
+import { useParams } from 'react-router-dom';
 
 const ReviewStoreContext = createContext();
 
@@ -18,7 +19,8 @@ export function ReviewStore({ children }) {
     1: 0,
   });
 
-  const id = 65641;
+  const { productId } = useParams();
+  const id = productId || 65641;
 
   function getPercents() {
     let totalEntries = 0;

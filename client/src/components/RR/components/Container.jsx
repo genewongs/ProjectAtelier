@@ -2,6 +2,7 @@ import React, {
   useState, useContext, useEffect, useCallback,
 } from 'react';
 import axios from 'axios';
+
 import ReviewStoreContext from '../utils/ReviewContext';
 import StarRating from './StarRating';
 import RatingBreakdownFilter from './RatingBreakdownFilter';
@@ -125,7 +126,7 @@ function Container() {
 
   useEffect(() => {
     searchReviews();
-  }, [searchTerm, sortBy, reviews, sort, filtered]);
+  }, [searchTerm, sortBy, reviews, filtered]);
 
   useEffect(() => {
     returnDisplay();

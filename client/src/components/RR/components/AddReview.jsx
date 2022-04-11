@@ -58,7 +58,7 @@ function AddReview({ modalState, toggleModal }) {
 
   const togglePhotoModal = useCallback(() => setPhotoModalState((prev) => !prev), []);
 
-  const toggleErrModal = useCallback(() => setErrModalState((prev) => !prev, []));
+  const toggleErrModal = useCallback(() => setErrModalState((prev) => !prev), []);
 
   const handleCharacteristicChange = useCallback(
     (e) => handleCharacteristic(e),
