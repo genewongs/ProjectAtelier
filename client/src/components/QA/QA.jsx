@@ -1,25 +1,30 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
+import { useParams } from 'react-router-dom';
 import QuestionList from './components/QuestionList';
 import NewQuestion from './components/NewQuestion';
 import StyledSearchBar from './components/styles/StyledSearchBar';
+import ButtonStyle from './components/styles/StyledButtons';
+import QuestionListStyled from './components/styles/StyledQuestionList';
+import QuestionContainer from './components/styles/StyledContainer';
 
 export default function QA() {
   const [questionData, setQuestionData] = useState([]);
-  const [allQuestionData, setAllQuestionData] = useState([]);
   const [count, setCount] = useState(2);
   const [show, setShow] = useState(false);
   const [limitHit, setLimitHit] = useState(false);
+  const [totalLength, setLength] = useState(3);
 
-  const id = 65654;
-  let startingLimit = 5;
+  const { productId } = useParams();
 
-  if (allQuestionData.length > startingLimit) {
-    startingLimit = allQuestionData.length;
-  }
+  const id = Number(productId) || 65654;
 
-  function closeModal() {
-    setShow(false);
+  function toggleModal() {
+    if (show === true) {
+      setShow(false);
+    } else {
+      setShow(true);
+    }
   }
 
   function getQuestions() {
@@ -28,9 +33,9 @@ export default function QA() {
       .catch((err) => err);
   }
 
-  function getAllQuestions() {
-    return axios.get('/api', { params: { path: `qa/questions?product_id=${id}&count=9999` } })
-      .then((response) => setAllQuestionData(response.data.results))
+  function getLength() {
+    return axios.get('/api/length', { params: { path: `qa/questions?product_id=${id}&count=9999` } })
+      .then((response) => setLength(response.data))
       .catch((err) => err);
   }
 
@@ -40,7 +45,7 @@ export default function QA() {
       getQuestions();
       return;
     }
-    allQuestionData.forEach((question) => {
+    questionData.forEach((question) => {
       if (question.question_body.includes(term)) {
         filteredList.push(question);
       }
@@ -51,10 +56,10 @@ export default function QA() {
   const incrementQuestionCount = useCallback(() => setCount((prevCount) => prevCount + 2), []);
 
   useEffect(() => {
-    getAllQuestions();
+    getLength();
     getQuestions()
       .then(() => {
-        if (count >= startingLimit) {
+        if (count >= totalLength) {
           setLimitHit(true);
         } else {
           setLimitHit(false);
@@ -63,35 +68,46 @@ export default function QA() {
   }, [count]);
 
   return (
-
-    <div data-testid="questionList">
-      <StyledSearchBar>
-        <input type="text" placeholder="Have a question? Search for answers…" size="60" onChange={(event) => filterQuestionsWithSearch(event.target.value)} />
-      </StyledSearchBar>
-      <QuestionList questions={questionData} getQuestions={getQuestions} />
-      <br />
-      <div>
-        {limitHit ? null : (
-          <button
-            type="button"
-            onClick={() => incrementQuestionCount()}
-          >
-            More Answered Questions
-          </button>
-        )}
-        <br />
-      </div>
-      <br />
-      <div>
-        <button
-          type="button"
-          onClick={() => setShow(true)}
-        >
-          Add A New Question +
-        </button>
-        <br />
-      </div>
-      <NewQuestion id={id} show={show} closeModal={closeModal} getQuestions={getQuestions} />
+    <div className="questionList" data-testid="QA">
+      <QuestionContainer>
+        <h2>QUESTIONS AND ANSWERS</h2>
+        <StyledSearchBar>
+          <input type="text" placeholder="Have a question? Search for answers…" size="60" onChange={(event) => filterQuestionsWithSearch(event.target.value)} />
+        </StyledSearchBar>
+      </QuestionContainer>
+      <QuestionListStyled>
+        <QuestionList questions={questionData} getQuestions={getQuestions} />
+      </QuestionListStyled>
+      <QuestionContainer>
+        <ButtonStyle>
+          <div className="button-container">
+            <div>
+              {limitHit ? null : (
+                <button
+                  className="more-questions"
+                  type="button"
+                  onClick={() => incrementQuestionCount()}
+                >
+                  MORE ANSWERED QUESTIONS
+                </button>
+              )}
+              <br />
+            </div>
+            <br />
+            <div>
+              <button
+                className="add-question"
+                type="button"
+                onClick={() => setShow(true)}
+              >
+                ADD A NEW QUESTION +
+              </button>
+              <br />
+            </div>
+          </div>
+        </ButtonStyle>
+      </QuestionContainer>
+      <NewQuestion id={id} show={show} toggleModal={toggleModal} getQuestions={getQuestions} />
     </div>
   );
 }

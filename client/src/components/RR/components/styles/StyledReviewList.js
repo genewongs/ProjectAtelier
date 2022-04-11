@@ -28,8 +28,14 @@ const ReviewListStyled = styled.div`
     height: 90%;
     height: auto;
     border-bottom: 2px solid black;
-    margin: 10px;
-    padding: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+
+  .top-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
   }
 
   .review-body {
@@ -56,7 +62,7 @@ const ReviewListStyled = styled.div`
     font-size: 15px;
 
     .review-date {
-      font-size: 13px;
+      font-size: 15px;
     }
   }
 
@@ -82,6 +88,7 @@ const ReviewListStyled = styled.div`
         color: red;
       }
     }
+  }
   }
 `;
 

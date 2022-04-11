@@ -1,34 +1,25 @@
 import React, { useState, useCallback } from 'react';
 import axios from 'axios';
-import Modal from './Modal';
-import StyledAddPhotos from './styles/StyledAddPhotos';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTimesCircle, faImage, faSpinner } from '@fortawesome/free-solid-svg-icons';
+import StyledAddPhotos from '../../RR/components/styles/StyledAddPhotos';
 
-function AddPhotos({ setFormData, toggleModal }) {
+function AddAnswerPhotos({ setFormData, toggleModal }) {
   const [limitPhotos, setLimitPhotos] = useState(0);
   const [imageStore, setImageStore] = useState([]);
   const [uploading, setUploading] = useState(false);
-  const [errModalState, setErrModalState] = useState(false);
 
   function onChange(e) {
     const images = Array.from(e.target.files);
+    setUploading(true);
 
     const formData = new FormData();
-    const types = ['png', 'jpeg', 'gif', 'webp'];
 
     images.forEach((image, index) => {
       formData.append(index, image);
     });
 
-    setUploading(true);
     axios.post('/image-upload', formData)
-      .then((response) => {
-        if (types.every((type) => response.data[0].format !== type)) {
-          setUploading(false);
-          setErrModalState(true);
-          throw response;
-        }
-        return response;
-      })
       .then((response) => {
         setUploading(false);
         setImageStore((prev) => prev.concat(response.data));
@@ -52,12 +43,7 @@ function AddPhotos({ setFormData, toggleModal }) {
 
   const handleChange = useCallback((e) => { onChange(e); }, []);
 
-  const deleteImage = useCallback((id) => {
-    removeImage(id);
-    setLimitPhotos((prev) => prev - 1);
-  }, []);
-
-  const toggleErrorModal = useCallback(() => setErrModalState((prev) => !prev), []);
+  const deleteImage = useCallback((id) => { removeImage(id); }, []);
 
   function display() {
     if (uploading) {
@@ -65,9 +51,8 @@ function AddPhotos({ setFormData, toggleModal }) {
     }
     if (limitPhotos < 5 && imageStore.length >= 0) {
       return (
-        <div className="preview-list">
+        <div>
           <Images images={imageStore} removeImage={deleteImage} />
-          <br />
           <Button onChange={handleChange} />
         </div>
       );
@@ -78,13 +63,6 @@ function AddPhotos({ setFormData, toggleModal }) {
   return (
     <StyledAddPhotos>
       <div className="add-photos-container">
-        <Modal show={errModalState} toggleModal={toggleErrorModal}>
-          <div className="error-modal">
-            <h3>Error</h3>
-            <div>Unable to upload file.</div>
-            <button type="button" onClick={toggleErrorModal}>Close</button>
-          </div>
-        </Modal>
         <div>Upload Photos</div>
         <div>
           You may upload up to
@@ -93,16 +71,8 @@ function AddPhotos({ setFormData, toggleModal }) {
           {' '}
           more photos
         </div>
-        <br />
         {display()}
-        <br />
-        <button
-          type="button"
-          className="close-upload-button"
-          onClick={sendToReviewForm}
-        >
-          Finish Uploading
-        </button>
+        <button type="button" className="close-upload-button" onClick={sendToReviewForm}>Finish Uploading</button>
       </div>
     </StyledAddPhotos>
   );
@@ -111,7 +81,7 @@ function AddPhotos({ setFormData, toggleModal }) {
 function Spinner() {
   return (
     <div className="spinner fadein">
-      Uploading...
+      <FontAwesomeIcon icon={faSpinner} size="2x" color="#FF0000" />
     </div>
   );
 }
@@ -119,12 +89,11 @@ function Spinner() {
 function Images({ images, removeImage }) {
   return (
     images.map((image) => (
-      <div key={image.public_id} className="photo-preview">
+      <div key={image.public_id} className="photo-prev">
         <button type="button" onClick={() => removeImage(image.public_id)} className="delete-photo">
-          ✗ remove photo
+          <FontAwesomeIcon icon={faTimesCircle} size="2x" />
         </button>
         <img src={image.secure_url} alt="" />
-        <br />
       </div>
     ))
   );
@@ -134,15 +103,11 @@ function Button({ onChange }) {
   return (
     <div className="add-photo-button">
       <label htmlFor="add-photo">
-        <input
-          type="file"
-          id="add-photo"
-          accept="image/png, image/jpg, image/gif, image/webp"
-          onChange={onChange}
-        />
+        <FontAwesomeIcon icon={faImage} color="#FF0000" size="2x" />
+        <input type="file" id="add-photo" onChange={onChange} />
       </label>
     </div>
   );
 }
 
-export default AddPhotos;
+export default AddAnswerPhotos;

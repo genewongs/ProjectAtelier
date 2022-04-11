@@ -1,8 +1,21 @@
 import React from 'react';
+import KeywordSearchStyled from './styles/StyledKeywordSearch';
 
-function KeywordSearch() {
+function KeywordSearch({ setSearchTerm }) {
+  function handleChange(e) {
+    if (e.target.value.length > 3) {
+      setSearchTerm(e.target.value);
+    } else {
+      setSearchTerm('');
+    }
+  }
+
   return (
-    <div>hello this is Keyword Search</div>
+    <KeywordSearchStyled>
+      <label htmlFor="search">
+        <input type="text" id="search" placeholder="Search..." onChange={handleChange} />
+      </label>
+    </KeywordSearchStyled>
   );
 }
 

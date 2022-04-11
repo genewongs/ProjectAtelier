@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import StyledModalContainer from './styles/StyledModalContainer';
+import StyledModal from './styles/StyledModal';
 
 export default function NewAnswer({
-  show, questionID, closeModal, getAnswers,
+  show, questionID, toggleModal, getAnswers,
 }) {
   const [answerBody, setAnswerBody] = useState([]);
   const [answerAuthorName, setAnswerAuthorName] = useState([]);
@@ -37,10 +39,10 @@ export default function NewAnswer({
     if (answer.body.length < 1 || answer.name.length < 1 || answer.email.length < 1) {
       alert('fix empty field(s)');
     } else {
-      closeModal();
+      toggleModal();
       console.log(answer);
       axios.post('/api', query)
-        .then((response) => getAnswers())
+        .then(() => getAnswers())
         .catch((err) => console.error(err));
       console.log(answer);
     }
@@ -48,57 +50,61 @@ export default function NewAnswer({
 
   return (
     <div>
-      <h2>Submit Your Answer:</h2>
-      <span>Your Answer: * </span>
-      <br />
-      <textarea
-        id="newAnswer"
-        rows="4"
-        cols="50"
-        onChange={(event) => { getBody(event.target.value); }}
-      />
-      <br />
-      <br />
-      <span>What is your nickname? * </span>
-      <br />
-      <input
-        type="text"
-        id="nickname"
-        placeholder="Example: jack543!"
-        onChange={(event) => { getAuthorName(event.target.value); }}
-      />
-      <br />
-      <span>For privacy reasons, do not use your full name or email address </span>
-      <br />
-      <br />
-      <span>What is your email? * </span>
-      <br />
-      <input
-        type="text"
-        id="email"
-        placeholder="Example: jack@email.com"
-        onChange={(event) => { getEmail(event.target.value); }}
-      />
-      <br />
-      <span>For authentication reasons, you will not be emailed </span>
-      <div>
-        <br />
-        <button
-          type="button"
-          onClick={() => { submitQuestion(); }}
-        >
-          Submit Answer
-        </button>
-        <br />
-        <br />
-        <button
-          type="button"
-          onClick={() => { closeModal(); }}
-        >
-          Close
-        </button>
-      </div>
-      <br />
+      <StyledModalContainer onClick={toggleModal}>
+        <StyledModal onClick={(e) => { e.stopPropagation(); }}>
+          <h2>Submit Your Answer:</h2>
+          <span>Your Answer: * </span>
+          <br />
+          <textarea
+            id="newAnswer"
+            rows="4"
+            cols="50"
+            onChange={(event) => { getBody(event.target.value); }}
+          />
+          <br />
+          <br />
+          <span>What is your nickname? * </span>
+          <br />
+          <input
+            type="text"
+            id="nickname"
+            placeholder="Example: jack543!"
+            onChange={(event) => { getAuthorName(event.target.value); }}
+          />
+          <br />
+          <span>For privacy reasons, do not use your full name or email address </span>
+          <br />
+          <br />
+          <span>What is your email? * </span>
+          <br />
+          <input
+            type="text"
+            id="email"
+            placeholder="Example: jack@email.com"
+            onChange={(event) => { getEmail(event.target.value); }}
+          />
+          <br />
+          <span>For authentication reasons, you will not be emailed </span>
+          <div>
+            <br />
+            <button
+              type="button"
+              onClick={() => { submitQuestion(); }}
+            >
+              Submit Answer
+            </button>
+            <br />
+            <br />
+            <button
+              type="button"
+              onClick={() => { toggleModal(); }}
+            >
+              Close
+            </button>
+          </div>
+          <br />
+        </StyledModal>
+      </StyledModalContainer>
     </div>
   );
 }

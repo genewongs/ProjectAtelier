@@ -2,19 +2,16 @@ import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import NewAnswer from './NewAnswer';
 import AnswerList from './AnswerList';
+import ButtonStyle from './styles/StyledButtons';
+import StyledQuestion from './styles/StyledQuestion';
 
 export default function QuestionListEntry({ question, getQuestions }) {
   const [answerData, setAnswerData] = useState([]);
-  const [allAnswerData, setAllAnswerData] = useState([]);
+  const [totalLength, setLength] = useState(3);
   const [count, setCount] = useState(2);
   const [show, setShow] = useState(false);
   const [limitHit, setLimitHit] = useState(false);
-
-  let startingLimit = 3;
-
-  if (allAnswerData.length > startingLimit) {
-    startingLimit = allAnswerData.length;
-  }
+  const [helpClick, setHelpClick] = useState(false);
 
   function getAnswers() {
     return axios.get('/api', { params: { path: `qa/questions/${question.question_id}/answers?count=${count}` } })
@@ -22,17 +19,19 @@ export default function QuestionListEntry({ question, getQuestions }) {
       .catch((err) => err);
   }
 
-  function getAllAnswers() {
-    return axios.get('/api', { params: { path: `qa/questions/${question.question_id}/answers?count=9999` } })
-      .then((response) => setAllAnswerData(response.data.results))
+  function getLength() {
+    return axios.get('/api/length', { params: { path: `qa/questions/${question.question_id}/answers?count=9999` } })
+      .then((response) => setLength(response.data))
       .catch((err) => err);
   }
 
   function incrementHelpful() {
-    return axios.put('/api', {
+    axios.put('/api', {
       path: `qa/questions/${question.question_id}/helpful`,
     })
-      .then(getQuestions())
+      .then(question.question_helpfulness += 1)
+      .then(() => setHelpClick(true))
+
       .catch((err) => new Error(err));
   }
 
@@ -44,17 +43,21 @@ export default function QuestionListEntry({ question, getQuestions }) {
       .catch((err) => new Error(err));
   }
 
-  function closeModal() {
-    setShow(false);
+  function toggleModal() {
+    if (show === true) {
+      setShow(false);
+    } else {
+      setShow(true);
+    }
   }
 
   const incrementCount = useCallback(() => setCount((prevCount) => prevCount + 2), []);
 
   useEffect(() => {
-    getAllAnswers();
+    getLength();
     getAnswers()
       .then(() => {
-        if (count >= startingLimit) {
+        if (count >= totalLength) {
           setLimitHit(true);
         } else {
           setLimitHit(false);
@@ -64,43 +67,68 @@ export default function QuestionListEntry({ question, getQuestions }) {
 
   return (
     <div>
-      <ul>
-        <li>{question.question_body}</li>
-        <span>
-          Helpful?
-          <button type="submit" onClick={incrementHelpful}>
-            Yes
-          </button>
-          {question.question_helpfulness}
-        </span>
-        <span>
-          <button type="submit" onClick={reportQuestion}>
-            Report
-          </button>
-        </span>
+      <div>
         <div>
-          <AnswerList answers={answerData} getAnswers={getAnswers} />
+
+          <ButtonStyle>
+            <StyledQuestion>
+              <span className="question-body">
+                <b>Q: </b>
+                {' '}
+                {' '}
+                <b>{question.question_body}</b>
+              </span>
+            </StyledQuestion>
+            <span className="all-question-buttons">
+              {' '}
+              Helpful?
+              {' '}
+              {' '}
+              {helpClick ? null : (
+                <button type="submit" onClick={incrementHelpful} className="helpful-question-button">
+                  Yes
+                </button>
+              )}
+              (
+              {question.question_helpfulness}
+              )
+              |
+              <button
+                type="button"
+                onClick={() => toggleModal()}
+                className="add-answer-button"
+              >
+                Add Answer
+              </button>
+              {/* eslint-disable-next-line max-len */}
+              <NewAnswer show={show} questionID={question.question_id} toggleModal={toggleModal} getAnswers={getAnswers} />
+              |
+              <button type="submit" onClick={reportQuestion} className="report-question-button">
+                Report This Question
+              </button>
+            </span>
+          </ButtonStyle>
+          <br />
+        </div>
+      </div>
+      <div>
+        <AnswerList answers={answerData} getAnswers={getAnswers} />
+        <ButtonStyle>
           <div>
             {limitHit ? null : (
               <button
                 type="button"
                 onClick={incrementCount}
+                className="load-more-answer-button"
               >
-                Load More Answers
+                <b>LOAD MORE ANSWERS</b>
               </button>
             )}
             <br />
           </div>
-        </div>
-        <button
-          type="button"
-          onClick={() => setShow(true)}
-        >
-          Submit A New Answer
-        </button>
-      </ul>
-      {/* eslint-disable-next-line max-len */}
-      <NewAnswer show={show} questionID={question.question_id} closeModal={closeModal} getAnswers={getAnswers} />
+        </ButtonStyle>
+        <br />
+      </div>
     </div>
   );
 }

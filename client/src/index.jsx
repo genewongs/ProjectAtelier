@@ -1,19 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import GlobalStyle from './globalStyles';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import GlobalStyle from './globalStyles';
 
 import Overview from './components/Overview/Overview';
 import RI from './components/RI/RI';
 import QA from './components/QA/QA';
 import RR from './components/RR/RR';
 
-function RoutedApp () {
+function RoutedApp() {
   return (
     <Router>
       <Routes>
-        <Route path="/:productId" element={<App />}></Route>
-        <Route path="/" element={<App />}></Route>
+        <Route path="/:productId" element={<App />} />
+        <Route path="/" element={<App />} />
       </Routes>
     </Router>
   );

@@ -5,8 +5,8 @@ const path = require('path');
 const cloudinary = require('cloudinary');
 const formData = require('express-form-data');
 const cors = require('cors');
-const { CLIENT_ORIGIN } = require('./config');
 const expressStaticGzip = require('express-static-gzip');
+const { CLIENT_ORIGIN } = require('./config');
 
 const app = express();
 
@@ -179,7 +179,21 @@ app.post('/image-upload', (req, res) => {
     .catch((err) => new Error(err));
 });
 
-//Default loading for React router.
+// getting results object length
+
+app.get('/api/length', (req, res) => {
+  const options = {
+    url: `https://app-hrsei-api.herokuapp.com/api/fec2/rfp/${req.query.path}`,
+    headers: {
+      Authorization: process.env.APIKEY,
+    },
+  };
+
+  axios(options)
+    .then((response) => res.status(200).end(JSON.stringify(response.data.results.length)));
+});
+
+// Default loading for React router.
 app.get('/*', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/index.html'));
 });
