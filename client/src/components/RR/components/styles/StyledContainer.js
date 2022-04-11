@@ -5,7 +5,6 @@ const ContainerStyled = styled.div`
   flex-direction: row;
   justify-content: center;
   align-items: flex-start;
-  font-family: Helvetica;
   gap: 20px;
   font-size: 20px;
   margin: 10px;

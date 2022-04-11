@@ -14,6 +14,7 @@ function AddReview({ modalState, toggleModal }) {
   const { id, metaData } = useContext(ReviewStoreContext);
   const [productName, setProductName] = useState('');
   const [photoModalState, setPhotoModalState] = useState(false);
+  const [errModalState, setErrModalState] = useState(false);
   const [warning, setWarning] = useState('');
   const [formData, setFormData] = useState({
     product_id: id,
@@ -56,6 +57,8 @@ function AddReview({ modalState, toggleModal }) {
   const handleRatingChange = useCallback((e) => handleRating(e), [formData]);
 
   const togglePhotoModal = useCallback(() => setPhotoModalState((prev) => !prev), []);
+
+  const toggleErrModal = useCallback(() => setErrModalState((prev) => !prev, []));
 
   const handleCharacteristicChange = useCallback(
     (e) => handleCharacteristic(e),
@@ -104,6 +107,7 @@ function AddReview({ modalState, toggleModal }) {
 
     if (warningString) {
       setWarning('You must enter the following: \n'.concat(warningString));
+      setErrModalState(true);
     } else {
       setWarning(warningString);
       verified = true;
@@ -181,7 +185,7 @@ function AddReview({ modalState, toggleModal }) {
                 <div>
                   Minimum required characters left:
                   {' '}
-                  {50 - formData.body.length}
+                  {formData.body.length < 50 ? 50 - formData.body.length : 0}
                 </div>
               </div>
               <div className="small-text-container">
@@ -220,7 +224,12 @@ function AddReview({ modalState, toggleModal }) {
               </div>
               <br />
               <button type="button" className="post-review" onClick={postToServer}>Add Review</button>
-              <div>{warning ? <pre>{warning}</pre> : null }</div>
+              <Modal show={errModalState} toggleModal={toggleErrModal}>
+                <div className="err-modal">
+                  {warning ? <pre className="warning">{warning}</pre> : null }
+                  <button type="button" className="err-close" onClick={toggleErrModal}>Close</button>
+                </div>
+              </Modal>
               <br />
               <button
                 type="button"

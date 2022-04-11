@@ -36,10 +36,15 @@ export default function Review({ review, setCurrDisplay, setExpanded }) {
 
   return (
     <div className="review">
-      <div className="review-stars">
+      <div className="top-container">
         <StyledStars percent={`${(review.rating * 20)}%`} fontSize="20px">
           <span className="stars-rating">★★★★★</span>
         </StyledStars>
+        <div className="review-name">
+          {review.reviewer_name}
+          {', \n'}
+          <span className="review-date">{moment(review.date).format('LL')}</span>
+        </div>
       </div>
       <div className="review-summary"><b>{review.summary}</b></div>
       <div className="review-body">
@@ -62,11 +67,6 @@ export default function Review({ review, setCurrDisplay, setExpanded }) {
         setExpanded={setExpanded}
       />
       <div className="review-recommend">{review.recommend && '✓ I recommend this product'}</div>
-      <div className="review-name">
-        {review.reviewer_name}
-        {'\n'}
-        <span className="review-date">{moment(review.date).format('LL')}</span>
-      </div>
       {review.response
         ? (
           <div className="review-response">

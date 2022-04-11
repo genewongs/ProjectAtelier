@@ -205,6 +205,33 @@ const AddReviewStyled = styled.div`
         background: red;
       }
     }
+
+    .err-modal {
+      background-color: rgba(255, 255, 255, 1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+      border: 2px;
+      border-radius: 10px;
+      overflow: auto;
+      max-height: 75vh;
+      gap: 5px;
+
+      .warning {
+        text-align: center;
+      }
+
+      .err-close {
+        border: 0px;
+        background: transparent;
+        outline: 0px;
+
+        &:hover {
+          color: red;
+        }
+      }
+    }
   }
 `;
 

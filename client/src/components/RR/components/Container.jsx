@@ -24,6 +24,7 @@ function Container() {
   const [filtered, setFiltered] = useState([]);
   const [filterState, setFilterState] = useState(false);
   const [sortBy, setSortBy] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
   const [searched, setSearched] = useState([]);
   const [currDisplay, setCurrDisplay] = useState([]);
 
@@ -54,8 +55,22 @@ function Container() {
     }
   }
 
+  function searchReviews() {
+    if (searchTerm.length > 3) {
+      if (filterState) {
+        setSearched(filtered.filter((review) => review.body.includes(searchTerm)
+          || review.summary.includes(searchTerm)));
+      } else {
+        setSearched(reviews.filter((review) => review.body.includes(searchTerm)
+        || review.summary.includes(searchTerm)));
+      }
+    } else {
+      setSearched([]);
+    }
+  }
+
   function returnDisplay() {
-    if (searched.length !== 0) {
+    if (searchTerm.length !== 0) {
       setCurrDisplay(searched);
     } else if (filterState === true) {
       setCurrDisplay(filtered);
@@ -109,6 +124,10 @@ function Container() {
   }, [reviews, sortBy]);
 
   useEffect(() => {
+    searchReviews();
+  }, [searchTerm, sortBy, reviews, sort, filtered]);
+
+  useEffect(() => {
     returnDisplay();
   }, [searched, filtered, reviews]);
 
@@ -124,12 +143,8 @@ function Container() {
         <RatingBreakdownFactor />
       </div>
       <div className="review-right-container">
-        <KeywordSearch
-          reviews={reviews}
-          setSearched={setSearched}
-          filterState={filterState}
-          filtered={filtered}
-        />
+        <KeywordSearch setSearchTerm={setSearchTerm} />
+        <br />
         <ReviewSortSelector reviewCount={reviewCount} setSort={setSort} />
         <ReviewList reviews={currDisplay} />
         <div className="review-buttons-container">

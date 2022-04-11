@@ -1,28 +1,21 @@
 import React from 'react';
+import KeywordSearchStyled from './styles/StyledKeywordSearch';
 
-function KeywordSearch({
-  reviews, setSearched, filterState, filtered,
-}) {
+function KeywordSearch({ setSearchTerm }) {
   function handleChange(e) {
     if (e.target.value.length > 3) {
-      if (filterState) {
-        setSearched(filtered.filter((review) => review.body.includes(e.target.value)
-          || review.summary.includes(e.target.value)));
-      } else {
-        setSearched(reviews.filter((review) => review.body.includes(e.target.value)
-        || review.summary.includes(e.target.value)));
-      }
+      setSearchTerm(e.target.value);
     } else {
-      setSearched([]);
+      setSearchTerm('');
     }
   }
 
   return (
-    <div>
+    <KeywordSearchStyled>
       <label htmlFor="search">
-        <input type="text" id="search" onChange={handleChange} />
+        <input type="text" id="search" placeholder="Search..." onChange={handleChange} />
       </label>
-    </div>
+    </KeywordSearchStyled>
   );
 }
 
