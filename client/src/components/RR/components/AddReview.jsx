@@ -36,11 +36,7 @@ function AddReview({ modalState, toggleModal }) {
   }
 
   function handleRecommended(e) {
-    let bool = false;
-    if (e.target.id === 'rec-true') {
-      bool = true;
-    }
-    setFormData(((prevForm) => ({ ...prevForm, [e.target.name]: bool })));
+    setFormData(((prevForm) => ({ ...prevForm, [e.target.name]: (e.target.id === 'rec-true') })));
   }
 
   function handleRating(e) {

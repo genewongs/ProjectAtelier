@@ -14,7 +14,7 @@ const ContainerStyled = styled.div`
   .review-left-container {
     display:flex;
     flex-direction: column;
-    border: 2px solid black;
+    /* border: 2px solid black; */
     width: 500px;
     padding: 5px;
   }
@@ -23,7 +23,7 @@ const ContainerStyled = styled.div`
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    border: 2px solid black;
+    /* border: 2px solid black; */
     padding: 10px;
 
     .sort-selector {

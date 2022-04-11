@@ -47,7 +47,6 @@ function Container() {
       }
     } else {
       setFilterState(true);
-      setFiltered([]);
       setFiltered(reviews.filter((review) => sortBy.includes(review.rating)));
     }
   }
@@ -82,7 +81,6 @@ function Container() {
   useEffect(() => {
     getReviews()
       .then((response) => setReviewData(response.results))
-      .then(() => sortByStars())
       .then(() => {
         if (count >= reviewCount) {
           setLimitHit(true);
@@ -92,6 +90,10 @@ function Container() {
       })
       .catch((err) => new Error(err));
   }, [count, reviewCount, sort, sortBy]);
+
+  useEffect(() => {
+    sortByStars();
+  }, [reviews]);
 
   return (
     <ContainerStyled>
