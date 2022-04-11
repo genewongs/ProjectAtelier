@@ -6,8 +6,7 @@ max-height: 90vh;
 overflow: auto;
 width: 1140px;
 margin: 0 auto;
-padding-bottom: 25px;
-
+padding-bottom: 10px;
 `;
 
 export default QuestionListStyled;

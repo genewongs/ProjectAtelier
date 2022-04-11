@@ -5,23 +5,23 @@ import NewQuestion from './components/NewQuestion';
 import StyledSearchBar from './components/styles/StyledSearchBar';
 import ButtonStyle from './components/styles/StyledButtons';
 import QuestionListStyled from './components/styles/StyledQuestionList';
+import QuestionContainer from './components/styles/StyledContainer';
 
 export default function QA() {
   const [questionData, setQuestionData] = useState([]);
-  const [allQuestionData, setAllQuestionData] = useState([]);
   const [count, setCount] = useState(2);
   const [show, setShow] = useState(false);
   const [limitHit, setLimitHit] = useState(false);
+  const [totalLength, setLength] = useState(3);
 
   const id = 65654;
-  let startingLimit = 5;
 
-  if (allQuestionData.length > startingLimit) {
-    startingLimit = allQuestionData.length;
-  }
-
-  function closeModal() {
-    setShow(false);
+  function toggleModal() {
+    if (show === true) {
+      setShow(false);
+    } else {
+      setShow(true);
+    }
   }
 
   function getQuestions() {
@@ -30,9 +30,9 @@ export default function QA() {
       .catch((err) => err);
   }
 
-  function getAllQuestions() {
-    return axios.get('/api', { params: { path: `qa/questions?product_id=${id}&count=9999` } })
-      .then((response) => setAllQuestionData(response.data.results))
+  function getLength() {
+    return axios.get('/api/length', { params: { path: `qa/questions?product_id=${id}&count=9999` } })
+      .then((response) => setLength(response.data))
       .catch((err) => err);
   }
 
@@ -42,7 +42,7 @@ export default function QA() {
       getQuestions();
       return;
     }
-    allQuestionData.forEach((question) => {
+    questionData.forEach((question) => {
       if (question.question_body.includes(term)) {
         filteredList.push(question);
       }
@@ -53,10 +53,10 @@ export default function QA() {
   const incrementQuestionCount = useCallback(() => setCount((prevCount) => prevCount + 2), []);
 
   useEffect(() => {
-    getAllQuestions();
+    getLength();
     getQuestions()
       .then(() => {
-        if (count >= startingLimit) {
+        if (count >= totalLength) {
           setLimitHit(true);
         } else {
           setLimitHit(false);
@@ -66,12 +66,16 @@ export default function QA() {
 
   return (
     <div className="questionList" data-testid="questionList">
-      <QuestionListStyled>
+      <QuestionContainer>
         <h2>QUESTIONS AND ANSWERS</h2>
         <StyledSearchBar>
           <input type="text" placeholder="Have a question? Search for answers…" size="60" onChange={(event) => filterQuestionsWithSearch(event.target.value)} />
         </StyledSearchBar>
+      </QuestionContainer>
+      <QuestionListStyled>
         <QuestionList questions={questionData} getQuestions={getQuestions} />
+      </QuestionListStyled>
+      <QuestionContainer>
         <ButtonStyle>
           <div className="button-container">
             <div>
@@ -99,8 +103,8 @@ export default function QA() {
             </div>
           </div>
         </ButtonStyle>
-        <NewQuestion id={id} show={show} closeModal={closeModal} getQuestions={getQuestions} />
-      </QuestionListStyled>
+      </QuestionContainer>
+      <NewQuestion id={id} show={show} toggleModal={toggleModal} getQuestions={getQuestions} />
     </div>
   );
 }

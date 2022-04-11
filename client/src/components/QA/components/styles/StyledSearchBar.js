@@ -6,9 +6,7 @@ width: 300px;
   width: 1100px;
   border: 2px;
   border-color: black;
-  padding: 20px;
-
-
+  padding-bottom: 20px;
 `;
 
 export default StyledSearchBar;

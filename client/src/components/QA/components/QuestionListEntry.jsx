@@ -7,17 +7,11 @@ import StyledQuestion from './styles/StyledQuestion';
 
 export default function QuestionListEntry({ question, getQuestions }) {
   const [answerData, setAnswerData] = useState([]);
-  const [allAnswerData, setAllAnswerData] = useState([]);
+  const [totalLength, setLength] = useState(3);
   const [count, setCount] = useState(2);
   const [show, setShow] = useState(false);
   const [limitHit, setLimitHit] = useState(false);
   const [helpClick, setHelpClick] = useState(false);
-
-  let startingLimit = 3;
-
-  if (allAnswerData.length > startingLimit) {
-    startingLimit = allAnswerData.length;
-  }
 
   function getAnswers() {
     return axios.get('/api', { params: { path: `qa/questions/${question.question_id}/answers?count=${count}` } })
@@ -25,9 +19,9 @@ export default function QuestionListEntry({ question, getQuestions }) {
       .catch((err) => err);
   }
 
-  function getAllAnswers() {
-    return axios.get('/api', { params: { path: `qa/questions/${question.question_id}/answers?count=9999` } })
-      .then((response) => setAllAnswerData(response.data.results))
+  function getLength() {
+    return axios.get('/api/length', { params: { path: `qa/questions/${question.question_id}/answers?count=9999` } })
+      .then((response) => setLength(response.data))
       .catch((err) => err);
   }
 
@@ -49,17 +43,21 @@ export default function QuestionListEntry({ question, getQuestions }) {
       .catch((err) => new Error(err));
   }
 
-  function closeModal() {
-    setShow(false);
+  function toggleModal() {
+    if (show === true) {
+      setShow(false);
+    } else {
+      setShow(true);
+    }
   }
 
   const incrementCount = useCallback(() => setCount((prevCount) => prevCount + 2), []);
 
   useEffect(() => {
-    getAllAnswers();
+    getLength();
     getAnswers()
       .then(() => {
-        if (count >= startingLimit) {
+        if (count >= totalLength) {
           setLimitHit(true);
         } else {
           setLimitHit(false);
@@ -97,13 +95,13 @@ export default function QuestionListEntry({ question, getQuestions }) {
               |
               <button
                 type="button"
-                onClick={() => setShow(true)}
+                onClick={() => toggleModal()}
                 className="add-answer-button"
               >
                 Add Answer
               </button>
               {/* eslint-disable-next-line max-len */}
-              <NewAnswer show={show} questionID={question.question_id} closeModal={closeModal} getAnswers={getAnswers} />
+              <NewAnswer show={show} questionID={question.question_id} toggleModal={toggleModal} getAnswers={getAnswers} />
               |
               <button type="submit" onClick={reportQuestion} className="report-question-button">
                 Report This Question

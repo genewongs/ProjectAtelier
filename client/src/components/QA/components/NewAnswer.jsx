@@ -4,7 +4,7 @@ import StyledModalContainer from './styles/StyledModalContainer';
 import StyledModal from './styles/StyledModal';
 
 export default function NewAnswer({
-  show, questionID, closeModal, getAnswers,
+  show, questionID, toggleModal, getAnswers,
 }) {
   const [answerBody, setAnswerBody] = useState([]);
   const [answerAuthorName, setAnswerAuthorName] = useState([]);
@@ -39,7 +39,7 @@ export default function NewAnswer({
     if (answer.body.length < 1 || answer.name.length < 1 || answer.email.length < 1) {
       alert('fix empty field(s)');
     } else {
-      closeModal();
+      toggleModal();
       console.log(answer);
       axios.post('/api', query)
         .then(() => getAnswers())
@@ -50,8 +50,8 @@ export default function NewAnswer({
 
   return (
     <div>
-      <StyledModalContainer>
-        <StyledModal>
+      <StyledModalContainer onClick={toggleModal}>
+        <StyledModal onClick={(e) => { e.stopPropagation(); }}>
           <h2>Submit Your Answer:</h2>
           <span>Your Answer: * </span>
           <br />
@@ -97,7 +97,7 @@ export default function NewAnswer({
             <br />
             <button
               type="button"
-              onClick={() => { closeModal(); }}
+              onClick={() => { toggleModal(); }}
             >
               Close
             </button>
@@ -105,7 +105,6 @@ export default function NewAnswer({
           <br />
         </StyledModal>
       </StyledModalContainer>
-
     </div>
   );
 }

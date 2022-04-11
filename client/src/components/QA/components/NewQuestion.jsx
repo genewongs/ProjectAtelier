@@ -3,7 +3,7 @@ import axios from 'axios';
 import StyledModalContainer from './styles/StyledModalContainer';
 import StyledModal from './styles/StyledModal';
 
-export default function NewQuestion({ id, show, closeModal }) {
+export default function NewQuestion({ id, show, toggleModal }) {
   if (!show) {
     return null;
   }
@@ -38,7 +38,7 @@ export default function NewQuestion({ id, show, closeModal }) {
     if (question.body.length < 1 || question.name.length < 1 || question.email.length < 1) {
       alert('fix empty field(s)');
     } else {
-      closeModal();
+      toggleModal();
       console.log(question);
       axios.post('/api', query)
         .then((response) => console.log(response))
@@ -49,8 +49,8 @@ export default function NewQuestion({ id, show, closeModal }) {
   return (
 
     <div>
-      <StyledModalContainer>
-        <StyledModal>
+      <StyledModalContainer onClick={toggleModal}>
+        <StyledModal onClick={(event) => { event.stopPropagation(); }}>
           <h2>Ask Your Question Here:</h2>
           <span>Your Question: * </span>
           <br />
@@ -92,7 +92,7 @@ export default function NewQuestion({ id, show, closeModal }) {
             <br />
             <button
               type="button"
-              onClick={() => { closeModal(); }}
+              onClick={() => { toggleModal(); }}
             >
               Close
             </button>
