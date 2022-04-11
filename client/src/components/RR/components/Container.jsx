@@ -6,9 +6,9 @@ import ReviewStoreContext from '../utils/ReviewContext';
 import StarRating from './StarRating';
 import RatingBreakdownFilter from './RatingBreakdownFilter';
 import RatingBreakdownFactor from './RatingBreakdownFactor';
+import KeywordSearch from './KeywordSearch';
 import ReviewSortSelector from './ReviewSortSelector';
 import ReviewList from './ReviewList';
-import ReviewListButtons from './ReviewListButtons';
 import AddReview from './AddReview';
 import ContainerStyled from './styles/StyledContainer';
 
@@ -24,6 +24,9 @@ function Container() {
   const [filtered, setFiltered] = useState([]);
   const [filterState, setFilterState] = useState(false);
   const [sortBy, setSortBy] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [searched, setSearched] = useState([]);
+  const [currDisplay, setCurrDisplay] = useState([]);
 
   function getReviews() {
     return new Promise((resolve, reject) => {
@@ -43,11 +46,36 @@ function Container() {
 
   function sortByStars() {
     if (sortBy.length === 0) {
-      setFilterState(false);
+      if (filterState === true) {
+        setFilterState(false);
+      }
     } else {
       setFilterState(true);
-      setFiltered([]);
       setFiltered(reviews.filter((review) => sortBy.includes(review.rating)));
+    }
+  }
+
+  function searchReviews() {
+    if (searchTerm.length > 3) {
+      if (filterState) {
+        setSearched(filtered.filter((review) => review.body.includes(searchTerm)
+          || review.summary.includes(searchTerm)));
+      } else {
+        setSearched(reviews.filter((review) => review.body.includes(searchTerm)
+        || review.summary.includes(searchTerm)));
+      }
+    } else {
+      setSearched([]);
+    }
+  }
+
+  function returnDisplay() {
+    if (searchTerm.length !== 0) {
+      setCurrDisplay(searched);
+    } else if (filterState === true) {
+      setCurrDisplay(filtered);
+    } else {
+      setCurrDisplay(reviews);
     }
   }
 
@@ -81,7 +109,6 @@ function Container() {
   useEffect(() => {
     getReviews()
       .then((response) => setReviewData(response.results))
-      .then(() => sortByStars())
       .then(() => {
         if (count >= reviewCount) {
           setLimitHit(true);
@@ -91,6 +118,18 @@ function Container() {
       })
       .catch((err) => new Error(err));
   }, [count, reviewCount, sort, sortBy]);
+
+  useEffect(() => {
+    sortByStars();
+  }, [reviews, sortBy]);
+
+  useEffect(() => {
+    searchReviews();
+  }, [searchTerm, sortBy, reviews, sort, filtered]);
+
+  useEffect(() => {
+    returnDisplay();
+  }, [searched, filtered, reviews]);
 
   return (
     <ContainerStyled>
@@ -104,13 +143,29 @@ function Container() {
         <RatingBreakdownFactor />
       </div>
       <div className="review-right-container">
+        <KeywordSearch setSearchTerm={setSearchTerm} />
+        <br />
         <ReviewSortSelector reviewCount={reviewCount} setSort={setSort} />
-        <ReviewList reviews={filterState ? filtered : reviews} />
-        <ReviewListButtons
-          limitHit={limitHit}
-          incrementCount={incrementCount}
-          toggleModal={toggleModal}
-        />
+        <ReviewList reviews={currDisplay} />
+        <div className="review-buttons-container">
+          {limitHit ? null
+            : (
+              <button
+                type="button"
+                className="more-reviews-button"
+                onClick={incrementCount}
+              >
+                MORE REVIEWS
+              </button>
+            )}
+          <button
+            type="button"
+            className="add-review-button"
+            onClick={toggleModal}
+          >
+            ADD A REVIEW +
+          </button>
+        </div>
         <AddReview modalState={modalState} toggleModal={toggleModal} />
       </div>
     </ContainerStyled>
