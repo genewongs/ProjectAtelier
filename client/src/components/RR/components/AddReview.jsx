@@ -4,7 +4,7 @@ import React, {
 import axios from 'axios';
 import Modal from './Modal';
 import ModalStyled from './styles/StyledModal';
-import AddReviewStyled from './styles/AddReviewStyled';
+import StyledAddReview from './styles/StyledAddReview';
 import AddPhotos from './AddPhotos';
 import StarRatingForm from './StarRatingForm';
 import CharacteristicsForm from './CharacteristicsForm';
@@ -58,7 +58,7 @@ function AddReview({ modalState, toggleModal }) {
 
   const togglePhotoModal = useCallback(() => setPhotoModalState((prev) => !prev), []);
 
-  const toggleErrModal = useCallback(() => setErrModalState((prev) => !prev, []));
+  const toggleErrModal = useCallback(() => setErrModalState((prev) => !prev), []);
 
   const handleCharacteristicChange = useCallback(
     (e) => handleCharacteristic(e),
@@ -129,7 +129,7 @@ function AddReview({ modalState, toggleModal }) {
       <br />
       <ModalStyled>
         <Modal className="add-form" show={modalState} toggleModal={toggleModal}>
-          <AddReviewStyled>
+          <StyledAddReview>
             <div className="form-container">
               <div className="title-text">Write Your Review</div>
               <div className="about-product">
@@ -239,7 +239,7 @@ function AddReview({ modalState, toggleModal }) {
                 Close
               </button>
             </div>
-          </AddReviewStyled>
+          </StyledAddReview>
         </Modal>
       </ModalStyled>
     </div>

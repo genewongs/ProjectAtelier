@@ -4,7 +4,7 @@ function ReviewSortSelector({ reviewCount, setSort }) {
   return (
     <div className="review-sorted-by">
       {reviewCount}
-      {reviewCount >= 2 ? ' reviews, ' : ' review, '}
+      {reviewCount >= 2 || reviewCount === 0 ? ' reviews, ' : ' review, '}
       sorted by
       {' '}
       <select className="sort-selector" onChange={(e) => setSort(e.target.value)}>

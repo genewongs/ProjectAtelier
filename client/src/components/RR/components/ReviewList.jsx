@@ -8,7 +8,7 @@ export default function ReviewList({ reviews }) {
   const [expanded, setExpanded] = useState(false);
   const [currDisplay, setCurrDisplay] = useState('');
 
-  const toggleModal = useCallback(() => setExpanded((prev) => !prev));
+  const toggleModal = useCallback(() => setExpanded((prev) => !prev), []);
 
   return (
     <>
