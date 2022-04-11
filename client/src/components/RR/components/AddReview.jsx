@@ -223,7 +223,7 @@ function AddReview({ modalState, toggleModal }) {
               </div>
               <br />
               <button type="button" className="post-review" onClick={postToServer}>Add Review</button>
-              <div>{warning ? <div>{warning}</div> : null }</div>
+              <div>{warning ? <pre>{warning}</pre> : null }</div>
               <br />
               <button
                 type="button"

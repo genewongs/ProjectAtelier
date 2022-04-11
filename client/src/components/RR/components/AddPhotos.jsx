@@ -52,7 +52,10 @@ function AddPhotos({ setFormData, toggleModal }) {
 
   const handleChange = useCallback((e) => { onChange(e); }, []);
 
-  const deleteImage = useCallback((id) => { removeImage(id); }, []);
+  const deleteImage = useCallback((id) => {
+    removeImage(id);
+    setLimitPhotos((prev) => prev - 1);
+  }, []);
 
   const toggleErrorModal = useCallback(() => setErrModalState((prev) => !prev), []);
 

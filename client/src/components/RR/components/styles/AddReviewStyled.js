@@ -129,9 +129,7 @@ const AddReviewStyled = styled.div`
       align-items: center;
       font-size: 15px;
       textarea {
-        border: 2px solid black;
         resize: none;
-
         ::placeholder {
           font-family: helvetica;
           font-size: 13px;
@@ -158,13 +156,11 @@ const AddReviewStyled = styled.div`
       .name-input {
         width: 50%;
         height: 20px;
-        border: 2px solid black;
       }
 
       .email-input {
         width: 70%;
         height: 20px;
-        border: 2px solid black;
       }
     }
 
