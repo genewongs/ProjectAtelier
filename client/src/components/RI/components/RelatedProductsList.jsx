@@ -3,14 +3,21 @@ import React from 'react';
 import RelatedProductsContext from '../utils/RelatedProductsContext';
 import RelatedProductsEntry from './RelatedProductsEntry';
 
-export default function RelatedProductsList() {
+export default function RelatedProductsList({ relatedData }) {
   return (
-    <RelatedProductsContext.Consumer>
-      {({ relatedData }) => (
+    <>
+      {
         relatedData.map((card, index) => (
           <RelatedProductsEntry singleRelatedData={card} key={index} />
         ))
-      )}
-    </RelatedProductsContext.Consumer>
+      }
+    </>
+    // <RelatedProductsContext.Consumer>
+    //   {({ relatedData }) => (
+    //     relatedData.map((card, index) => (
+    //       <RelatedProductsEntry singleRelatedData={card} key={index} />
+    //     ))
+    //   )}
+    // </RelatedProductsContext.Consumer>
   );
 }
