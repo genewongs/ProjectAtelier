@@ -31,6 +31,22 @@ const ModalStyled = styled.div`
     }
   }
 
+  .modal-content {
+    .photo-close-button {
+      position: absolute;
+      top: 0;
+      left: 0;
+      -ms-transform: translate(-50%, -50%);
+      background-color: transparent;
+      color: white;
+      font-size: 30;
+      border: 1px solid white;
+      cursor: pointer;
+      &:hover {
+        color: red;
+      }
+  }
+
   .modal-close{
     width: 10%;
   }

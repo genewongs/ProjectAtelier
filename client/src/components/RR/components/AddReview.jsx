@@ -14,16 +14,18 @@ function AddReview({ modalState, toggleModal }) {
   const { id, metaData } = useContext(ReviewStoreContext);
   const [productName, setProductName] = useState('');
   const [photoModalState, setPhotoModalState] = useState(false);
+  const [errModalState, setErrModalState] = useState(false);
+  const [warning, setWarning] = useState('');
   const [formData, setFormData] = useState({
     product_id: id,
     rating: null,
     summary: '',
     body: '',
     recommend: null,
-    name: '',
-    email: '',
+    name: null,
+    email: null,
     photos: [],
-    characteristics: {},
+    characteristics: null,
   });
   const query = {
     path: 'reviews',
@@ -35,11 +37,7 @@ function AddReview({ modalState, toggleModal }) {
   }
 
   function handleRecommended(e) {
-    let bool = false;
-    if (e.target.id === 'rec-true') {
-      bool = true;
-    }
-    setFormData(((prevForm) => ({ ...prevForm, [e.target.name]: bool })));
+    setFormData(((prevForm) => ({ ...prevForm, [e.target.name]: (e.target.id === 'rec-true') })));
   }
 
   function handleRating(e) {
@@ -60,6 +58,8 @@ function AddReview({ modalState, toggleModal }) {
 
   const togglePhotoModal = useCallback(() => setPhotoModalState((prev) => !prev), []);
 
+  const toggleErrModal = useCallback(() => setErrModalState((prev) => !prev, []));
+
   const handleCharacteristicChange = useCallback(
     (e) => handleCharacteristic(e),
     [metaData, formData],
@@ -71,11 +71,53 @@ function AddReview({ modalState, toggleModal }) {
       .catch((err) => new Error(err));
   }
 
-  function postToServer(e) {
+  function verifyEmail() {
+    const regex = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/i;
+    return regex.test(formData.email);
+  }
+
+  async function postToServer(e) {
     e.preventDefault();
-    axios.post('/api', query)
-      .catch((err) => new Error(err));
-    toggleModal();
+    let verified = false;
+    let warningString = '';
+
+    if (formData.rating === null) {
+      warningString += 'Rating\n';
+    }
+    if (formData.body === null || formData.body.length === undefined || formData.body.length < 50) {
+      warningString += 'Body\n';
+    }
+    if (formData.recommend === null) {
+      warningString += 'Recommendation\n';
+    }
+    if (formData.name === null || formData.name === undefined || formData.name.length === 0) {
+      warningString += 'Name\n';
+    }
+    if (formData.email === null || !verifyEmail()) {
+      warningString += 'Email\n';
+    }
+    if (formData.characteristics === null) {
+      warningString += 'Characteristics\n';
+    } else if (formData.characteristics !== null) {
+      if (Object.keys(formData.characteristics).length
+      !== Object.keys(metaData.characteristics).length) {
+        warningString += 'Characteristics\n';
+      }
+    }
+
+    if (warningString) {
+      setWarning('You must enter the following: \n'.concat(warningString));
+      setErrModalState(true);
+    } else {
+      setWarning(warningString);
+      verified = true;
+    }
+
+    if (verified === true) {
+      axios.post('/api', query)
+        .catch((err) => new Error(err));
+      toggleModal();
+    }
   }
 
   useEffect(() => {
@@ -126,6 +168,7 @@ function AddReview({ modalState, toggleModal }) {
                   id="summary"
                   rows="3"
                   cols="60"
+                  maxLength="60"
                   placeholder="Example: Best purchase ever!"
                   onChange={(e) => handleChange(e)}
                 />
@@ -135,9 +178,15 @@ function AddReview({ modalState, toggleModal }) {
                   className="form-body"
                   rows="7"
                   cols="60"
+                  maxLength="1000"
                   placeholder="Why did you like the product or not?"
                   onChange={(e) => handleChange(e)}
                 />
+                <div>
+                  Minimum required characters left:
+                  {' '}
+                  {formData.body.length < 50 ? 50 - formData.body.length : 0}
+                </div>
               </div>
               <div className="small-text-container">
                 <div className="headers">Name</div>
@@ -173,7 +222,15 @@ function AddReview({ modalState, toggleModal }) {
               <div className="photos-container">
                 {formData.photos && formData.photos.map((image) => <img key={image} src={image} alt="" />)}
               </div>
-              <button type="button" onClick={postToServer}>Add Review</button>
+              <br />
+              <button type="button" className="post-review" onClick={postToServer}>Add Review</button>
+              <Modal show={errModalState} toggleModal={toggleErrModal}>
+                <div className="err-modal">
+                  {warning ? <pre className="warning">{warning}</pre> : null }
+                  <button type="button" className="err-close" onClick={toggleErrModal}>Close</button>
+                </div>
+              </Modal>
+              <br />
               <button
                 type="button"
                 className="modal-close"

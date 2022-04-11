@@ -23,7 +23,6 @@ const AddReviewStyled = styled.div`
 
     &:hover {
       &::-webkit-scrollbar-thumb {
-        /* background-color: rgba(221, 54, 54, 0.5); */
         background-color: transparent;
       }
     }
@@ -86,20 +85,17 @@ const AddReviewStyled = styled.div`
       width: 350px;
       font-size: 19px;
       padding: 5px;
-
       .characteristic-container {
         display: flex;
         flex-direction: column;
         align-items: center;
         width: 200px;
         font-size: 17px;
-
         .input-container {
           display: flex;
           flex-direction: row;
         }
       }
-
       .selected {
         font-size: 15px;
       }
@@ -133,9 +129,7 @@ const AddReviewStyled = styled.div`
       align-items: center;
       font-size: 15px;
       textarea {
-        border: 2px solid red;
         resize: none;
-
         ::placeholder {
           font-family: helvetica;
           font-size: 13px;
@@ -162,13 +156,11 @@ const AddReviewStyled = styled.div`
       .name-input {
         width: 50%;
         height: 20px;
-        border: 2px solid red;
       }
 
       .email-input {
         width: 70%;
         height: 20px;
-        border: 2px solid red;
       }
     }
 
@@ -195,6 +187,49 @@ const AddReviewStyled = styled.div`
 
       &:hover {
         color: red;
+      }
+    }
+
+    .post-review {
+      height: 45px;
+      width: 150px;
+      border: 0px;
+      outline: 0px;
+      background: black;
+      font-size: 15px;
+      color: white;
+      border-radius: 10px;
+      transition: 0.3s;
+
+      &:hover {
+        background: red;
+      }
+    }
+
+    .err-modal {
+      background-color: rgba(255, 255, 255, 1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+      border: 2px;
+      border-radius: 10px;
+      overflow: auto;
+      max-height: 75vh;
+      gap: 5px;
+
+      .warning {
+        text-align: center;
+      }
+
+      .err-close {
+        border: 0px;
+        background: transparent;
+        outline: 0px;
+
+        &:hover {
+          color: red;
+        }
       }
     }
   }

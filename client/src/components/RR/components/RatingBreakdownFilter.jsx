@@ -1,46 +1,11 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext } from 'react';
 import ReviewStoreContext from '../utils/ReviewContext';
 import StyledRatingBreakdownFilter from './styles/StyledRatingBreakdownFilter';
 
 function RatingBreakdownFilter({ handleSortBy, sortBy, clearFilters }) {
-  const { metaData } = useContext(ReviewStoreContext);
-  const [recPercent, setRecPercent] = useState(0);
-  const [ratingsPercents, setRatingsPercents] = useState({
-    5: 0,
-    4: 0,
-    3: 0,
-    2: 0,
-    1: 0,
-  });
-
-  function getPercents() {
-    let totalEntries = 0;
-    Object.values(metaData.ratings)
-      .forEach((rating) => {
-        totalEntries += Number(rating);
-      });
-
-    Object.entries(metaData.ratings)
-      .forEach((rating) => {
-        const percent = Math.round((Number(rating[1]) / totalEntries) * 100);
-        setRatingsPercents((prev) => (
-          { ...prev, [Number(rating[0])]: `${percent}%` }));
-      });
-
-    let totalRecs = 0;
-    Object.values(metaData.recommended)
-      .forEach((rec) => { totalRecs += Number(rec); });
-    setRecPercent(`${Math.round((Number(metaData.recommended.true) / totalRecs) * 100)}%`);
-  }
-
-  useEffect(() => {
-    if (metaData.length !== 0) {
-      getPercents();
-    }
-  }, [metaData]);
+  const { ratingsPercents, recPercent } = useContext(ReviewStoreContext);
 
   return (
-
     <StyledRatingBreakdownFilter percents={ratingsPercents}>
       <div className="rating-container">
         {Object.entries(ratingsPercents).map((rating) => (
@@ -73,7 +38,7 @@ function RatingBreakdownFilter({ handleSortBy, sortBy, clearFilters }) {
           Currently filtered by |
           {' '}
           {sortBy.sort().map((sortKey) => (
-            <span>
+            <span key={sortKey}>
               {' '}
               {sortKey}
               {' '}
