@@ -20,6 +20,11 @@ const ContainerStyled = styled.div`
       display: flex;
       flex-direction: row;
       gap: 5px;
+
+      .stars-rating {
+        font-size: 50px;
+      }
+
       .average {
         font-size: 60px;
       }

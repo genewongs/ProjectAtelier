@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import PropTypes from 'prop-types';
 import StarStyled from './styles/StyledStarRating';
 
 function StarRating({ id, fontSize }) {
@@ -15,10 +16,15 @@ function StarRating({ id, fontSize }) {
   }, []);
 
   return (
-    <StarStyled percent={`${percent}%`} fontSize={Number(fontSize)}>
+    <StarStyled percent={`${percent}%`} fontSize={fontSize}>
       <span className="stars-rating">★★★★★</span>
     </StarStyled>
   );
 }
 
 export default StarRating;
+
+StarRating.propTypes = {
+  id: PropTypes.number.isRequired,
+  fontSize: PropTypes.number.isRequired,
+};

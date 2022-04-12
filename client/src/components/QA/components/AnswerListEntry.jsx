@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import moment from 'moment';
+import dayjs from 'dayjs';
 import ButtonStyle from './styles/StyledButtons';
 import AnswerListStyle from './styles/StyledAnswerList';
 import PhotoList from './PhotoList';
@@ -43,7 +43,7 @@ export default function AnswerListEntry({ answer, getAnswers }) {
               {answer.answerer_name}
               ,
               {' '}
-              {moment(answer.date).format('MMMM Do YYYY')}
+              {dayjs(answer.date).format('MMMM D, YYYY')}
               {' '}
               {' '}
             </span>
