@@ -10,6 +10,19 @@ background-color: rgba(255, 255, 255, 1);
   border-radius: 10px;
   overflow: auto;
   max-height: 75vh;
+
+  .new-answer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  }
+
+  .new-answer-buttons {
+  padding: 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  }
 `;
 
 export default StyledModal;

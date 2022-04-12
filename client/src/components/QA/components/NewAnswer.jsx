@@ -70,71 +70,73 @@ export default function NewAnswer({
     <div>
       <StyledModalContainer onClick={toggleModal}>
         <StyledModal onClick={(e) => { e.stopPropagation(); }}>
-          <h2>Submit Your Answer:</h2>
-          <span>Your Answer: * </span>
-          <br />
-          <textarea
-            id="newAnswer"
-            rows="4"
-            cols="50"
-            onChange={(event) => { getBody(event.target.value); }}
-          />
-          <br />
-          <br />
-          <span>What is your nickname? * </span>
-          <br />
-          <input
-            type="text"
-            id="nickname"
-            placeholder="Example: jack543!"
-            onChange={(event) => { getAuthorName(event.target.value); }}
-          />
-          <br />
-          <span>For privacy reasons, do not use your full name or email address </span>
-          <br />
-          <br />
-          <span>What is your email? * </span>
-          <br />
-          <input
-            type="text"
-            id="email"
-            placeholder="Example: jack@email.com"
-            onChange={(event) => { getEmail(event.target.value); }}
-          />
-          <br />
-          <span>For authentication reasons, you will not be emailed </span>
-          <div>
+          <div className="new-answer">
+            <h2>Submit Your Answer:</h2>
+            <span>Your Answer: * </span>
             <br />
-            <button
-              type="button"
-              className="add-photos-button"
-              id="photos"
-              onClick={togglePhotoModal}
-            >
-              {photoModalState ? null : (
-                // eslint-disable-next-line max-len
-                <AddAnswerPhotos togglePhotoModal={togglePhotoModal} setAnswerPhotos={setAnswerPhotos} />
-              )}
-              Add Photos
-            </button>
+            <textarea
+              id="newAnswer"
+              rows="4"
+              cols="50"
+              onChange={(event) => { getBody(event.target.value); }}
+            />
             <br />
             <br />
-            <button
-              type="button"
-              onClick={() => { submitQuestion(); }}
-            >
-              Submit Answer
-            </button>
+            <span>What is your nickname? * </span>
+            <br />
+            <input
+              type="text"
+              id="nickname"
+              placeholder="Example: jack543!"
+              onChange={(event) => { getAuthorName(event.target.value); }}
+            />
+            <br />
+            <span>For privacy reasons, do not use your full name or email address </span>
             <br />
             <br />
-            <button
-              type="button"
-              onClick={() => { toggleModal(); }}
-            >
-              Close
-            </button>
+            <span>What is your email? * </span>
+            <br />
+            <input
+              type="text"
+              id="email"
+              placeholder="Example: jack@email.com"
+              onChange={(event) => { getEmail(event.target.value); }}
+            />
+            <br />
+            <span>For authentication reasons, you will not be emailed </span>
+            <div className="new-answer-buttons">
+              <br />
+              <button
+                type="button"
+                className="add-photos-button"
+                id="photos"
+                onClick={togglePhotoModal}
+              >
+                {photoModalState ? null : (
+                  // eslint-disable-next-line max-len
+                  <AddAnswerPhotos togglePhotoModal={togglePhotoModal} setAnswerPhotos={setAnswerPhotos} />
+                )}
+                Add Photos
+              </button>
+              <br />
+              <br />
+              <button
+                type="button"
+                onClick={() => { submitQuestion(); }}
+              >
+                Submit Answer
+              </button>
+              <br />
+              <br />
+              <button
+                type="button"
+                onClick={() => { toggleModal(); }}
+              >
+                Close
+              </button>
+            </div>
+            <br />
           </div>
-          <br />
         </StyledModal>
       </StyledModalContainer>
     </div>
