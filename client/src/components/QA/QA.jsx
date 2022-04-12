@@ -21,8 +21,6 @@ export default function QA() {
 
   const id = Number(productId) || 65654;
 
-  // const NewQuestion = React.lazy(() => import('./components/NewQuestion'));
-
   function toggleModal() {
     if (show === true) {
       setShow(false);

@@ -2,13 +2,16 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import StyledModalContainer from './styles/StyledModalContainer';
 import StyledModal from './styles/StyledModal';
+import AddAnswerPhotos from './AddAnswerPhotos';
 
 export default function NewAnswer({
   show, questionID, toggleModal, getAnswers,
 }) {
   const [answerBody, setAnswerBody] = useState([]);
   const [answerAuthorName, setAnswerAuthorName] = useState([]);
+  const [answerPhotos, setAnswerPhotos] = useState([]);
   const [answerAuthorEmail, setAnswerAuthorEmail] = useState([]);
+  const [photoModalState, setPhotoModalState] = useState(true);
 
   if (!show) {
     return null;
@@ -26,11 +29,28 @@ export default function NewAnswer({
     setAnswerAuthorEmail(userInput);
   }
 
+  function togglePhotoModal() {
+    if (photoModalState) {
+      setPhotoModalState(false);
+    } else {
+      setPhotoModalState(true);
+    }
+  }
+
+  function getURLs() {
+    const photoURLs = [];
+    answerPhotos.forEach((photo) => {
+      photoURLs.push(photo.secure_url);
+    });
+    return photoURLs;
+  }
+
   function submitQuestion() {
     const answer = {
       body: answerBody,
       name: answerAuthorName,
       email: answerAuthorEmail,
+      photos: getURLs(),
     };
     const query = {
       path: `qa/questions/${questionID}/answers`,
@@ -40,11 +60,9 @@ export default function NewAnswer({
       alert('fix empty field(s)');
     } else {
       toggleModal();
-      console.log(answer);
       axios.post('/api', query)
         .then(() => getAnswers())
-        .catch((err) => console.error(err));
-      console.log(answer);
+        .catch((err) => new Error(err));
     }
   }
 
@@ -86,6 +104,20 @@ export default function NewAnswer({
           <br />
           <span>For authentication reasons, you will not be emailed </span>
           <div>
+            <br />
+            <button
+              type="button"
+              className="add-photos-button"
+              id="photos"
+              onClick={togglePhotoModal}
+            >
+              {photoModalState ? null : (
+                // eslint-disable-next-line max-len
+                <AddAnswerPhotos togglePhotoModal={togglePhotoModal} setAnswerPhotos={setAnswerPhotos} />
+              )}
+              Add Photos
+            </button>
+            <br />
             <br />
             <button
               type="button"

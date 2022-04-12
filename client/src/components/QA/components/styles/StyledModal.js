@@ -9,6 +9,7 @@ background-color: rgba(255, 255, 255, 1);
   border: 10px;
   border-radius: 10px;
   overflow: auto;
+  max-height: 75vh;
 `;
 
 export default StyledModal;

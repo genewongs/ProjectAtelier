@@ -3,6 +3,7 @@ import axios from 'axios';
 import moment from 'moment';
 import ButtonStyle from './styles/StyledButtons';
 import AnswerListStyle from './styles/StyledAnswerList';
+import PhotoList from './PhotoList';
 
 export default function AnswerListEntry({ answer, getAnswers }) {
   const [helpClick, setHelpClick] = useState(false);
@@ -69,9 +70,9 @@ export default function AnswerListEntry({ answer, getAnswers }) {
               </span>
             </span>
           </ButtonStyle>
+          <PhotoList photos={answer.photos} />
         </AnswerListStyle>
       </div>
-
       <br />
     </div>
   );

@@ -3,7 +3,9 @@ import axios from 'axios';
 import StyledModalContainer from './styles/StyledModalContainer';
 import StyledModal from './styles/StyledModal';
 
-export default function NewQuestion({ id, show, toggleModal }) {
+export default function NewQuestion({
+  id, show, toggleModal, getQuestions,
+}) {
   if (!show) {
     return null;
   }
@@ -39,10 +41,9 @@ export default function NewQuestion({ id, show, toggleModal }) {
       alert('fix empty field(s)');
     } else {
       toggleModal();
-      console.log(question);
       axios.post('/api', query)
-        .then((response) => console.log(response))
-        .catch((err) => console.error(err));
+        .then(() => getQuestions())
+        .catch((err) => new Error(err));
     }
   }
 
