@@ -129,6 +129,8 @@ function Container() {
   }, [searched, filtered, reviews]);
 
   return (
+    (averageRating
+    && (
     <ContainerStyled>
       <div className="review-left-container">
         <div className="star-rating-container">
@@ -169,6 +171,8 @@ function Container() {
         <AddReview modalState={modalState} toggleModal={toggleModal} />
       </div>
     </ContainerStyled>
+    )
+    )
   );
 }
 
