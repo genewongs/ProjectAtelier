@@ -1,18 +1,19 @@
-import React, {
-  useState, useCallback, useEffect, useContext,
-} from 'react';
+import React, { useState, useCallback, useContext } from 'react';
 import axios from 'axios';
+import PropTypes from 'prop-types';
 import Modal from './Modal';
 import ModalStyled from './styles/StyledModal';
-import AddReviewStyled from './styles/AddReviewStyled';
+import StyledAddReview from './styles/StyledAddReview';
 import AddPhotos from './AddPhotos';
 import StarRatingForm from './StarRatingForm';
 import CharacteristicsForm from './CharacteristicsForm';
 import ReviewStoreContext from '../utils/ReviewContext';
+import ContextStoreContext from '../../../utils/ContextStore';
 
 function AddReview({ modalState, toggleModal }) {
   const { id, metaData } = useContext(ReviewStoreContext);
-  const [productName, setProductName] = useState('');
+  const { productName } = useContext(ContextStoreContext);
+  // const [productName, setProductName] = useState('');
   const [photoModalState, setPhotoModalState] = useState(false);
   const [errModalState, setErrModalState] = useState(false);
   const [warning, setWarning] = useState('');
@@ -58,18 +59,12 @@ function AddReview({ modalState, toggleModal }) {
 
   const togglePhotoModal = useCallback(() => setPhotoModalState((prev) => !prev), []);
 
-  const toggleErrModal = useCallback(() => setErrModalState((prev) => !prev, []));
+  const toggleErrModal = useCallback(() => setErrModalState((prev) => !prev), []);
 
   const handleCharacteristicChange = useCallback(
     (e) => handleCharacteristic(e),
     [metaData, formData],
   );
-
-  function getProductName() {
-    axios.get('/api', { params: { path: `products/${id}` } })
-      .then((response) => (setProductName(response.data.name)))
-      .catch((err) => new Error(err));
-  }
 
   function verifyEmail() {
     const regex = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/i;
@@ -120,16 +115,12 @@ function AddReview({ modalState, toggleModal }) {
     }
   }
 
-  useEffect(() => {
-    getProductName();
-  }, []);
-
   return (
     <div>
       <br />
       <ModalStyled>
         <Modal className="add-form" show={modalState} toggleModal={toggleModal}>
-          <AddReviewStyled>
+          <StyledAddReview>
             <div className="form-container">
               <div className="title-text">Write Your Review</div>
               <div className="about-product">
@@ -239,7 +230,7 @@ function AddReview({ modalState, toggleModal }) {
                 Close
               </button>
             </div>
-          </AddReviewStyled>
+          </StyledAddReview>
         </Modal>
       </ModalStyled>
     </div>
@@ -247,3 +238,8 @@ function AddReview({ modalState, toggleModal }) {
 }
 
 export default AddReview;
+
+AddReview.propTypes = {
+  modalState: PropTypes.bool.isRequired,
+  toggleModal: PropTypes.func.isRequired,
+};

@@ -1,8 +1,9 @@
 const path = require('path');
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const CompressionPlugin = require('compression-webpack-plugin');
 
 module.exports = {
-  mode: 'development',
+  mode: 'production',
   entry: './client/src/index.jsx',
   output: {
     path: path.resolve(__dirname, 'client/dist'),
@@ -12,12 +13,13 @@ module.exports = {
   resolve: {
     extensions: ['', '.js', '.jsx'],
   },
-  // devServer: {
-  //   historyApiFallBack: true,
-  // },
-  // plugins: [new CompressionPlugin({
-  //   algorithm: 'gzip',
-  // })],
+  devServer: {
+    historyApiFallBack: true,
+  },
+  plugins: [
+    new CompressionPlugin({ algorithm: 'gzip' }),
+    new BundleAnalyzerPlugin(),
+  ],
   module: {
     rules: [
       {
@@ -27,7 +29,7 @@ module.exports = {
           loader: 'babel-loader',
           options: {
             presets: ['@babel/preset-env', '@babel/preset-react'],
-            plugins: ['babel-plugin-styled-components', '@babel/transform-runtime', '@babel/plugin-syntax-jsx'],
+            plugins: ['babel-plugin-styled-components', '@babel/transform-runtime'],
           },
         },
       },

@@ -15,6 +15,20 @@ const ContainerStyled = styled.div`
     flex-direction: column;
     width: 500px;
     padding: 5px;
+
+    .star-rating-container {
+      display: flex;
+      flex-direction: row;
+      gap: 5px;
+
+      .stars-rating {
+        font-size: 50px;
+      }
+
+      .average {
+        font-size: 60px;
+      }
+    }
   }
 
   .review-right-container {

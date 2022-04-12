@@ -14,10 +14,9 @@ import ContainerStyled from './styles/StyledContainer';
 
 function Container() {
   const {
-    id, reviews, setReviewData, setMetaData,
+    id, reviews, setReviewData, setMetaData, reviewCount, averageRating,
   } = useContext(ReviewStoreContext);
   const [count, setCount] = useState(2);
-  const [reviewCount, setReviewCount] = useState(0);
   const [limitHit, setLimitHit] = useState(false);
   const [modalState, setModalState] = useState(false);
   const [sort, setSort] = useState('relevant');
@@ -100,8 +99,6 @@ function Container() {
       .then((results) => {
         setReviewData(results[0].results);
         setMetaData(results[1]);
-        setReviewCount(Object.values(results[1].ratings)
-          .reduce((sum, num) => Number(sum) + Number(num), 0));
       })
       .catch((err) => new Error(err));
   }, []);
@@ -125,16 +122,21 @@ function Container() {
 
   useEffect(() => {
     searchReviews();
-  }, [searchTerm, sortBy, reviews, sort, filtered]);
+  }, [searchTerm, sortBy, reviews, filtered]);
 
   useEffect(() => {
     returnDisplay();
   }, [searched, filtered, reviews]);
 
   return (
+    (averageRating
+    && (
     <ContainerStyled>
       <div className="review-left-container">
-        <StarRating />
+        <div className="star-rating-container">
+          <span className="average">{averageRating}</span>
+          <StarRating id={id} fontSize={50} />
+        </div>
         <RatingBreakdownFilter
           handleSortBy={handleSortBy}
           sortBy={sortBy}
@@ -169,6 +171,8 @@ function Container() {
         <AddReview modalState={modalState} toggleModal={toggleModal} />
       </div>
     </ContainerStyled>
+    )
+    )
   );
 }
 

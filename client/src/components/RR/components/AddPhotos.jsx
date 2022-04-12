@@ -1,5 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import axios from 'axios';
+import PropTypes from 'prop-types';
 import Modal from './Modal';
 import StyledAddPhotos from './styles/StyledAddPhotos';
 
@@ -121,7 +122,7 @@ function Images({ images, removeImage }) {
     images.map((image) => (
       <div key={image.public_id} className="photo-preview">
         <button type="button" onClick={() => removeImage(image.public_id)} className="delete-photo">
-          ✗ remove photo
+          ✖ remove photo
         </button>
         <img src={image.secure_url} alt="" />
         <br />
@@ -146,3 +147,12 @@ function Button({ onChange }) {
 }
 
 export default AddPhotos;
+
+AddPhotos.propTypes = {
+  setFormData: PropTypes.func.isRequired,
+  toggleModal: PropTypes.func.isRequired,
+};
+
+Button.propTypes = {
+  onChange: PropTypes.func.isRequired,
+};

@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import PropTypes from 'prop-types';
 import ReviewStoreContext from '../utils/ReviewContext';
 import StyledRatingBreakdownFilter from './styles/StyledRatingBreakdownFilter';
 
@@ -61,3 +62,9 @@ function RatingBreakdownFilter({ handleSortBy, sortBy, clearFilters }) {
 }
 
 export default RatingBreakdownFilter;
+
+RatingBreakdownFilter.propTypes = {
+  handleSortBy: PropTypes.func.isRequired,
+  sortBy: PropTypes.arrayOf(PropTypes.number).isRequired,
+  clearFilters: PropTypes.func.isRequired,
+};

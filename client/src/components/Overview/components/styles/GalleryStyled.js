@@ -4,9 +4,9 @@ export const GalleryStyled = styled.div.attrs({ 'data-testid': 'carousel'})`
   display: flex;
   flex-grow: 1;
   max-width: 100%;
+  height: auto;
   background-color: white;
   transition: all ease-in-out 0.5s;
-  cursor: zoom-out;
   .magnify {
     cursor: zoom-in;
   }
@@ -102,14 +102,19 @@ export const ThumbnailsImageStyled = styled.div`
 `;
 
 export const GalleryInnerStyled = styled.div`
-  max-height: 900px;
-  width: 100%;
+  position: relative;
+  /* max-height: 800px;
+  width: 100%; */
+  max-height: ${(props) => props.height || '800px'};
+  width: ${(props) => props.width || '100%'};
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
   object-fit: cover;
   background-image: url(${(props) => props.img || '/dist/images/NPA.jpeg'});
   display: flex;
+  transition: all ease-in-out 0.03s;
+  cursor: zoom-out;
 `;
 
 export const GalleryInnerLeftStyled = styled.div`

@@ -1,4 +1,5 @@
 import React, { useState, useCallback } from 'react';
+import PropTypes from 'prop-types';
 import Review from './Review';
 import ReviewListStyled from './styles/StyledReviewList';
 import ModalStyled from './styles/StyledModal';
@@ -8,7 +9,7 @@ export default function ReviewList({ reviews }) {
   const [expanded, setExpanded] = useState(false);
   const [currDisplay, setCurrDisplay] = useState('');
 
-  const toggleModal = useCallback(() => setExpanded((prev) => !prev));
+  const toggleModal = useCallback(() => setExpanded((prev) => !prev), []);
 
   return (
     <>
@@ -39,3 +40,7 @@ export default function ReviewList({ reviews }) {
     </>
   );
 }
+
+ReviewList.propTypes = {
+  reviews: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.shape)).isRequired,
+};
