@@ -1,4 +1,6 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, {
+  useState, useEffect, useCallback,
+} from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import QuestionList from './components/QuestionList';
@@ -18,6 +20,8 @@ export default function QA() {
   const { productId } = useParams();
 
   const id = Number(productId) || 65654;
+
+  // const NewQuestion = React.lazy(() => import('./components/NewQuestion'));
 
   function toggleModal() {
     if (show === true) {
@@ -107,7 +111,9 @@ export default function QA() {
           </div>
         </ButtonStyle>
       </QuestionContainer>
+      {/* <Suspense fallback={<div>Loading...</div>}> */}
       <NewQuestion id={id} show={show} toggleModal={toggleModal} getQuestions={getQuestions} />
+      {/* </Suspense> */}
     </div>
   );
 }

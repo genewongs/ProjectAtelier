@@ -21,6 +21,7 @@
   "homepage": "https://github.com/TheCatalinaWineMixer/ProjectAtelier#readme",
   "devDependencies": {
     "@babel/core": "^7.17.8",
+    "@babel/plugin-syntax-dynamic-import": "^7.8.3",
     "@babel/plugin-syntax-jsx": "^7.16.7",
     "@babel/plugin-transform-runtime": "^7.17.0",
     "@babel/preset-env": "^7.16.11",
@@ -49,6 +50,7 @@
     "webpack-dev-server": "^4.8.1"
   },
   "dependencies": {
+    "@babel/plugin-syntax-dynamic-import": "^7.8.3",
     "@fortawesome/fontawesome-svg-core": "^6.1.1",
     "@fortawesome/free-brands-svg-icons": "^6.1.1",
     "@fortawesome/free-solid-svg-icons": "^6.1.1",
