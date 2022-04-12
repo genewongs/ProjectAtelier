@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import StyledPhoto from './styles/StyledPhoto';
 
 function ReviewPhotos({ photoUrls, setCurrDisplay, setExpanded }) {
@@ -27,9 +26,3 @@ function ReviewPhotos({ photoUrls, setCurrDisplay, setExpanded }) {
 }
 
 export default ReviewPhotos;
-
-ReviewPhotos.propTypes = {
-  photoUrls: PropTypes.arrayOf(PropTypes.string).isRequired,
-  setCurrDisplay: PropTypes.func.isRequired,
-  setExpanded: PropTypes.func.isRequired,
-};

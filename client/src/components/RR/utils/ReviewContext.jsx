@@ -1,7 +1,6 @@
 import React, {
   createContext, useState, useMemo, useEffect,
 } from 'react';
-import PropTypes from 'prop-types';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 
@@ -86,7 +85,3 @@ export function ReviewStore({ children }) {
 }
 
 export default ReviewStoreContext;
-
-ReviewStore.propTypes = {
-  children: PropTypes.element.isRequired,
-};

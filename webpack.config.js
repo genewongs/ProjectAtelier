@@ -1,5 +1,4 @@
 const path = require('path');
-const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const CompressionPlugin = require('compression-webpack-plugin');
 
 module.exports = {
@@ -18,7 +17,6 @@ module.exports = {
   },
   plugins: [
     new CompressionPlugin({ algorithm: 'gzip' }),
-    new BundleAnalyzerPlugin(),
   ],
   module: {
     rules: [

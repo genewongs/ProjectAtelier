@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import PropTypes from 'prop-types';
 import StarStyled from './styles/StyledStarRating';
 
 function StarRating({ id, fontSize }) {
@@ -23,8 +22,3 @@ function StarRating({ id, fontSize }) {
 }
 
 export default StarRating;
-
-StarRating.propTypes = {
-  id: PropTypes.number.isRequired,
-  fontSize: PropTypes.number.isRequired,
-};

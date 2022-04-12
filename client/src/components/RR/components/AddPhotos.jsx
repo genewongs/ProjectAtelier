@@ -1,6 +1,5 @@
 import React, { useState, useCallback } from 'react';
 import axios from 'axios';
-import PropTypes from 'prop-types';
 import Modal from './Modal';
 import StyledAddPhotos from './styles/StyledAddPhotos';
 
@@ -147,12 +146,3 @@ function Button({ onChange }) {
 }
 
 export default AddPhotos;
-
-AddPhotos.propTypes = {
-  setFormData: PropTypes.func.isRequired,
-  toggleModal: PropTypes.func.isRequired,
-};
-
-Button.propTypes = {
-  onChange: PropTypes.func.isRequired,
-};
