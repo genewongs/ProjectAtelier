@@ -32,35 +32,35 @@ export default function Overview() {
           setCurrentStyle(res.data.results[0]);
         }
       })
-      .catch((res) => res.sendStatus(500));
+      .catch((err) => console.log(err));
     fetchProduct(productId)
       .then((res) => {
         if (res.status === 200) {
           setProduct(res.data);
         }
       })
-      .catch((res) => res.sendStatus(500));
+      .catch((err) => console.log(err));
     fetchCart()
       .then((res) => {
         if (res.status === 200) {
           setCart(res.data);
         }
       })
-      .catch((res) => res.sendStatus(500));
+      .catch((err) => console.log(err));
   }, []);
 
   function fetchStyles(id) {
-    return axios.get('api', { params: { path: `products/${id}/styles` } });
+    return axios.get('/api', { params: { path: `products/${id}/styles` } });
   }
 
   function fetchProduct(id) {
     if (id) {
-      return axios.get('api', { params: { path: `products/${id}` } });
+      return axios.get('/api', { params: { path: `products/${id}` } });
     }
   }
 
   function fetchCart() {
-    return axios.get('api', { params: { path: 'cart' } });
+    return axios.get('/api', { params: { path: 'cart' } });
   }
 
   function changeGallery(object) {
@@ -102,7 +102,7 @@ export default function Overview() {
         </NavButtonsStyled>
       </NavBar>
       <Flex>
-        {currentStyle && <Gallery style={currentStyle} expanded={expanded} handleExpand={handleExpand} />}
+        {currentStyle && <Gallery data-testid='carousel' style={currentStyle} expanded={expanded} handleExpand={handleExpand} />}
         {!expanded && (
           <RightFlex>
             <Socials />
