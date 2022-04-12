@@ -1,5 +1,4 @@
 import React, { useContext, useState } from 'react';
-import PropTypes from 'prop-types';
 import ReviewStoreContext from '../utils/ReviewContext';
 
 function CharacteristicsForm({ handleChange }) {
@@ -93,7 +92,3 @@ function CharacteristicsForm({ handleChange }) {
 }
 
 export default CharacteristicsForm;
-
-CharacteristicsForm.propTypes = {
-  handleChange: PropTypes.func.isRequired,
-};

@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import dayjs from 'dayjs';
 import axios from 'axios';
-import PropTypes from 'prop-types';
 import StyledStars from './styles/StyledStarRating';
 import ReviewPhotos from './ReviewPhotos';
 
@@ -92,9 +91,3 @@ export default function Review({ review, setCurrDisplay, setExpanded }) {
     </div>
   );
 }
-
-Review.propTypes = {
-  review: PropTypes.shape.isRequired,
-  setCurrDisplay: PropTypes.func.isRequired,
-  setExpanded: PropTypes.func.isRequired,
-};

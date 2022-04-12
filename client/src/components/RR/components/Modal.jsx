@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 function Modal({ show, children, toggleModal }) {
   const showHideClassName = show ? 'modal-block' : 'modal-none';
@@ -16,9 +15,3 @@ function Modal({ show, children, toggleModal }) {
 }
 
 export default Modal;
-
-Modal.propTypes = {
-  show: PropTypes.bool.isRequired,
-  children: PropTypes.element.isRequired,
-  toggleModal: PropTypes.func.isRequired,
-};
