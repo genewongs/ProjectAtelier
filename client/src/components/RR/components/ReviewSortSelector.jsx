@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 function ReviewSortSelector({ reviewCount, setSort }) {
   return (
@@ -17,3 +18,8 @@ function ReviewSortSelector({ reviewCount, setSort }) {
 }
 
 export default ReviewSortSelector;
+
+ReviewSortSelector.propTypes = {
+  reviewCount: PropTypes.number.isRequired,
+  setSort: PropTypes.func.isRequired,
+};

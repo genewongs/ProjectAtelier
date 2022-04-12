@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 
 function RatingForm({ handleChange }) {
   const [selected, setSelected] = useState('');
@@ -51,3 +52,7 @@ function RatingForm({ handleChange }) {
 }
 
 export default RatingForm;
+
+RatingForm.propTypes = {
+  handleChange: PropTypes.func.isRequired,
+};
