@@ -8,7 +8,7 @@ import { LordContainer } from './components/styles/LordContainerStyled';
 import { RightFlex } from './components/styles/ProductInfoStyled';
 import Gallery from './components/Gallery';
 import { NavBar, NavButtonsStyled, CartBadgeStyled } from './components/styles/NavBarStyled';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 const axios = require('axios');
 
@@ -21,7 +21,6 @@ export default function Overview() {
   const [cart, setCart] = useState([]);
 
   let { productId } = useParams();
-
   productId = productId || '65631';
 
   useEffect(() => {
