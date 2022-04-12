@@ -1,27 +1,27 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { ArrowsExpandIcon } from '@heroicons/react/outline';
 import {
   GalleryStyled, GalleryInnerStyled,
   GalleryInnerLeftStyled, GalleryInnerCenterStyled,
-  GalleryInnerRightStyled
+  GalleryInnerRightStyled,
 } from './styles/GalleryStyled';
 import ThumbnailsGallery from './ThumbnailsGallery';
 
-function Gallery({
-  style, handleExpand, width,
-  height, magnifierHeight = 400, magnifieWidth = 300, zoomLevel = 2.5,
-}) {
+function Gallery({ style, handleExpand, width, height, zoomLevel = 2.5, expanded }) {
   const [img, setImg] = useState(0);
   const [[imgWidth, imgHeight], setSize] = useState([0, 0]);
   const [showMagnifier, setShowMagnifier] = useState(false);
   const [[x, y], setXY] = useState([0, 0]);
   const [preMagnify, setPreMagnify] = useState(true);
+  const imageContainerRef = useRef(null);
+
+  console.log(style)
 
   function navigateImage(photo, index) {
     setImg(index);
-  }
+  };
 
   return (
     <GalleryStyled>
@@ -29,9 +29,11 @@ function Gallery({
       <ThumbnailsGallery style={style} img={img} navigateImage={navigateImage} />
 
       <GalleryInnerStyled
+        ref={imageContainerRef}
         img={style.photos[img].url}
-        className={preMagnify ? 'magnify' : ''}
-        style={{ position: 'relative', height, width }}
+        height={height}
+        width={width}
+        className={preMagnify ? `magnify` : ''}
         onClick={() => {
           setPreMagnify(!preMagnify);
         }}
@@ -64,11 +66,11 @@ function Gallery({
                 position: 'absolute',
 
                 pointerEvents: 'none',
-                height: `${magnifierHeight}px`,
-                width: `${magnifieWidth}px`,
+                height: `${imgHeight}px`,
+                width: `${imgWidth}px`,
                 // move element center to cursor pos
-                top: `${y - magnifierHeight / 2}px`,
-                left: `${x - magnifieWidth / 2}px`,
+                // top: `${magnifierHeight}px`,
+                // left: `${magnifieWidth}px`,
                 opacity: '1',
                 border: '1px solid lightgray',
                 backgroundColor: 'white',
@@ -81,11 +83,11 @@ function Gallery({
                 }px`,
 
                 // calculate position of zoomed image.
-                backgroundPositionX: `${-x * zoomLevel + magnifieWidth / 2}px`,
-                backgroundPositionY: `${-y * zoomLevel + magnifierHeight / 2}px`,
+                backgroundPositionX: `${-x * zoomLevel / (1.68)}px`,
+                backgroundPositionY: `${-y * zoomLevel / (1.68)}px`,
               }}
             />
-          ) : <> </>}
+          ) : null}
 
         <GalleryInnerLeftStyled onClick={(e) => { e.stopPropagation(); }}>
           <FontAwesomeIcon
@@ -105,7 +107,15 @@ function Gallery({
           e.stopPropagation();
         }}
         >
-          <ArrowsExpandIcon className="expandIcon" onClick={handleExpand} />
+          <ArrowsExpandIcon
+            className="expandIcon"
+            onClick={(e) => {
+              handleExpand();
+              const elem = e.currentTarget;
+              const { width, height } = elem.getBoundingClientRect();
+              setSize([width, height]);
+            }}
+          />
           <FontAwesomeIcon
             className={img === style.photos.length - 1 ? 'disable button2' : 'button2'}
             icon={faChevronRight}
