@@ -193,6 +193,34 @@ app.get('/api/length', (req, res) => {
     .then((response) => res.status(200).end(JSON.stringify(response.data.results.length)));
 });
 
+// getting percent for stars
+app.get('/api/percent', (req, res) => {
+  const options = {
+    url: `https://app-hrsei-api.herokuapp.com/api/fec2/rfp/${req.query.path}`,
+    headers: {
+      Authorization: process.env.APIKEY,
+    },
+  };
+
+  axios(options)
+    .then((response) => {
+      let totalEntries = 0;
+      let totalRating = 0;
+      let percent = 0;
+      Object.entries(response.data.ratings).forEach((rating) => {
+        totalRating += (Number(rating[0]) * Number(rating[1]));
+        totalEntries += Number(rating[1]);
+      });
+
+      if (totalEntries) {
+        percent = (Math.round((totalRating / totalEntries) * 4) / 4) * 20;
+      }
+
+      res.end(JSON.stringify({ percent }));
+    })
+    .catch((err) => new Error(err));
+});
+
 // Default loading for React router.
 app.get('/*', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/index.html'));
