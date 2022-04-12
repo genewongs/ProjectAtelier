@@ -22,7 +22,6 @@ function StyleSelector({ styles, product, index, changeGallery, changeStyle, add
   let navigate = useNavigate();
   let { styleId } = useParams();
   let prodSkus = styles[index].skus;
-  console.log(styles)
 
 
   useEffect(() => {
