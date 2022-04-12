@@ -8,26 +8,30 @@ import axios from 'axios';
 const ContextStoreContext = createContext();
 
 export function ContextStore({ children }) {
-  const [productInfo, setProductInfo] = useState([]);
+  const [product, setProduct] = useState([]);
   const [productName, setProductName] = useState('');
 
   const { productId } = useParams();
   const id = Number(productId) || 65640;
 
   const store = useMemo(() => ({
-    productInfo,
-    setProductInfo,
+    product,
+    setProduct,
     productName,
-  }), []);
+  }), [product, productName]);
 
   function getProduct() {
     axios.get('/api', { params: { path: `products/${id}` } })
       .then((response) => {
-        setProductInfo(response.data);
+        setProduct(response.data);
         setProductName(response.data.name);
       })
       .catch((err) => new Error(err));
   }
+
+  useEffect(() => {
+    getProduct();
+  }, []);
 
   useEffect(() => {
     getProduct();
