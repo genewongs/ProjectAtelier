@@ -17,8 +17,6 @@ function Gallery({ style, handleExpand, width, height, zoomLevel = 2.5, expanded
   const [preMagnify, setPreMagnify] = useState(true);
   const imageContainerRef = useRef(null);
 
-  console.log(style)
-
   function navigateImage(photo, index) {
     setImg(index);
   };

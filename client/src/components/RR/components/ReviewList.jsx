@@ -1,5 +1,4 @@
 import React, { useState, useCallback } from 'react';
-import PropTypes from 'prop-types';
 import Review from './Review';
 import ReviewListStyled from './styles/StyledReviewList';
 import ModalStyled from './styles/StyledModal';
@@ -40,7 +39,3 @@ export default function ReviewList({ reviews }) {
     </>
   );
 }
-
-ReviewList.propTypes = {
-  reviews: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.shape)).isRequired,
-};

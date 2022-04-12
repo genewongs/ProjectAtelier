@@ -1,6 +1,5 @@
 import React, { useState, useCallback, useContext } from 'react';
 import axios from 'axios';
-import PropTypes from 'prop-types';
 import Modal from './Modal';
 import ModalStyled from './styles/StyledModal';
 import StyledAddReview from './styles/StyledAddReview';
@@ -238,8 +237,3 @@ function AddReview({ modalState, toggleModal }) {
 }
 
 export default AddReview;
-
-AddReview.propTypes = {
-  modalState: PropTypes.bool.isRequired,
-  toggleModal: PropTypes.func.isRequired,
-};

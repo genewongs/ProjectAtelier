@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+
 import KeywordSearchStyled from './styles/StyledKeywordSearch';
 
 function KeywordSearch({ setSearchTerm }) {
@@ -21,7 +21,3 @@ function KeywordSearch({ setSearchTerm }) {
 }
 
 export default KeywordSearch;
-
-KeywordSearch.propTypes = {
-  setSearchTerm: PropTypes.func.isRequired,
-};
