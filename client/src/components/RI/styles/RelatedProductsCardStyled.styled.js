@@ -11,8 +11,8 @@ export const CardWrapper = styled.div`
   text-align: center;
   .star-icon{
     z-index: 98;
-    margin-left: 194;
-    padding-top: 3;
+    margin: 0px 0px 0px 194px;
+    padding: 3px 0px 0px 0px;
     height: 30px;
     width: 30px;
     position: absolute;
@@ -26,8 +26,8 @@ export const CardWrapper = styled.div`
   }
   .x-icon{
     z-index: 98;
-    margin-left: 194;
-    padding-top: 3;
+    margin: 0px 0px 0px 194px;
+    padding: 3px 0px 0px 0px;
     height: 30px;
     width: 30px;
     position: absolute;
@@ -39,6 +39,11 @@ export const CardWrapper = styled.div`
       cursor: pointer;
     }
   }
+`;
+
+export const StarRatingStyled = styled.div`
+  display: flex;
+  padding: 0px 0px 0px 5px;
 `;
 
 export const CardImage = styled.div`

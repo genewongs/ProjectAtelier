@@ -1,11 +1,12 @@
 import React from 'react';
 import { XCircleIcon } from '@heroicons/react/outline';
 import {
-  CardWrapper, CardCategory, CardImage, CardName, CardPrice,
+  CardWrapper, CardCategory, CardImage, CardName, CardPrice, StarRatingStyled,
 } from '../styles/RelatedProductsCardStyled.styled';
+import StarRating from '../../RR/components/StarRating';
 
 export default function YourOutfitCard({
-  url, name, category, price, removeProductLocally,
+  url, name, category, price, removeProductLocally, id,
 }) {
   return (
     <CardWrapper>
@@ -14,6 +15,9 @@ export default function YourOutfitCard({
       <CardCategory>{category}</CardCategory>
       <CardName>{name}</CardName>
       <CardPrice>{price}</CardPrice>
+      <StarRatingStyled>
+        <StarRating id={id} fontSize="1.25em" />
+      </StarRatingStyled>
     </CardWrapper>
   );
 }

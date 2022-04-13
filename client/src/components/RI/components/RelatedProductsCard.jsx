@@ -2,8 +2,9 @@ import React, { useCallback } from 'react';
 import { StarIcon } from '@heroicons/react/outline';
 import { useNavigate } from 'react-router-dom';
 import {
-  CardWrapper, CardCategory, CardImage, CardName, CardPrice,
+  CardWrapper, CardCategory, CardImage, CardName, CardPrice, StarRatingStyled,
 } from '../styles/RelatedProductsCardStyled.styled';
+import StarRating from '../../RR/components/StarRating';
 
 export default function RelatedProductsCard({
   url, name, category, price, modalOptions, id,
@@ -21,6 +22,9 @@ export default function RelatedProductsCard({
       <CardCategory>{category}</CardCategory>
       <CardName>{name}</CardName>
       <CardPrice>{price}</CardPrice>
+      <StarRatingStyled>
+        <StarRating id={id} fontSize="1.25em" />
+      </StarRatingStyled>
     </CardWrapper>
   );
 }

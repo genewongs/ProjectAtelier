@@ -15,18 +15,14 @@ import Modal from './Modal';
 export default function Compare({
   clickedRelatedData, productData, toggleModal, modalClicked,
 }) {
-  function getBothFeatures() {
-    clickedRelatedData.features.map((currentClickedFeatures) => {
-      console.log(currentClickedFeatures);
-      productData.features.map((currentProductFeatures) => {
-        console.log(currentProductFeatures);
-      });
-    });
-  }
+  // function getBothFeatures() {
+  //   let combinedFeatVal = [...clickedRelatedData.features, ...productData.features];
+  //   console.log(combinedFeatVal);
+  // }
 
-  useEffect(() => {
-    getBothFeatures();
-  }, []);
+  // useEffect(() => {
+  //   getBothFeatures();
+  // }, []);
 
   return (
     <div>

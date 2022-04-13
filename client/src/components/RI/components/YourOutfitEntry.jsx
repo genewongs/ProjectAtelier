@@ -16,6 +16,7 @@ export default function YourOutfitEntry({ singleLocalOutfit, localStorageOutfits
       category={singleLocalOutfit.category}
       price={`$${Math.trunc(singleLocalOutfit.default_price)}`}
       removeProductLocally={removeProductLocally}
+      id={singleLocalOutfit.product_id}
     />
   );
 }
