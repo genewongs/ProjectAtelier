@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { ShoppingBagIcon, SearchIcon } from '@heroicons/react/outline';
+import { useParams } from 'react-router-dom';
 import StyleSelector from './components/StyleSelector';
 import ProdDescription from './components/ProdDescription';
 import Socials from './components/Socials';
@@ -8,7 +9,7 @@ import { LordContainer } from './components/styles/LordContainerStyled';
 import { RightFlex } from './components/styles/ProductInfoStyled';
 import Gallery from './components/Gallery';
 import { NavBar, NavButtonsStyled, CartBadgeStyled } from './components/styles/NavBarStyled';
-import { useNavigate, useParams } from 'react-router-dom';
+import ContextStoreContext from '../../utils/ContextStore';
 
 const axios = require('axios');
 
@@ -19,9 +20,9 @@ export default function Overview() {
   const [index, setIndex] = useState(0);
   const [expanded, setExpanded] = useState(false);
   const [cart, setCart] = useState([]);
+  const { productInfo } = useContext(ContextStoreContext);
 
   let { productId } = useParams();
-
   productId = productId || '65631';
 
   useEffect(() => {
@@ -79,18 +80,18 @@ export default function Overview() {
     const data = { sku_id: skuId, count: quantity };
     const query = { path: 'cart', query: data };
     axios.post('api', query)
-      .then(res => {
-        if(res.status === 201) {
+      .then((res) => {
+        if (res.status === 201) {
           fetchCart()
-            .then(res => {setCart(res.data)})
-            .catch(err => console.log(err));
-        };
+            .then((res) => { setCart(res.data); })
+            .catch((err) => console.log(err));
+        }
       })
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
   }
 
   return (
-    <LordContainer data-testid='lordContainer'>
+    <LordContainer data-testid="lordContainer">
       <NavBar>
         <img src="./dist/images/BACKLASH_LOGO_sml.png" />
         <NavButtonsStyled>
@@ -102,12 +103,20 @@ export default function Overview() {
         </NavButtonsStyled>
       </NavBar>
       <Flex>
-        {currentStyle && <Gallery data-testid='carousel' style={currentStyle} expanded={expanded} handleExpand={handleExpand} />}
+        {currentStyle && (
+        <Gallery
+          data-testid="carousel"
+          style={currentStyle}
+          expanded={expanded}
+          handleExpand={handleExpand}
+        />
+        )}
         {!expanded && (
           <RightFlex>
             <Socials />
             {style && product && (
             <StyleSelector
+              productId={productId}
               styles={style}
               index={index}
               product={product}

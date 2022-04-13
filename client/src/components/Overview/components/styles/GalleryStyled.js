@@ -191,3 +191,16 @@ export const GalleryInnerRightStyled = styled.div`
     }
   }
 `;
+
+export const GalleryMagnifiedStyled = styled.div`
+  display: showMagnifier ?  : none;
+  position: absolute;
+  pointerEvents: none;
+  height: ${(props) => `${props.imgHeight}px` || '0px'};
+  width: ${(props) => `${props.imgWidth}px` || '0px'};
+  opacity: 1;
+  border: 1px solid lightgray;
+  background-color: white;
+  background-image: url(${(props) => props.img || '/dist/images/NPA.jpeg'});
+  background-repeat: no-repeat;
+`;

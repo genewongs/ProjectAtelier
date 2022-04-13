@@ -52,6 +52,13 @@ export const AddCartButton = styled.div`
   }
 `;
 
+export const StarContainerStyled = styled.div`
+  width: 100px;
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
 export const ErrorMsgStyled = styled.div`
   visibility: hidden;
   margin-top: 20px;
