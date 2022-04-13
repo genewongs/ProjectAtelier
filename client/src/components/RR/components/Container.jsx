@@ -131,7 +131,7 @@ function Container() {
   return (
     (averageRating
     && (
-    <ContainerStyled>
+    <ContainerStyled id="reviews">
       <div className="review-left-container">
         <div className="star-rating-container">
           <span className="average">{averageRating}</span>

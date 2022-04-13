@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import sampleStyles from './sampleStyles';
 import styled from 'styled-components';
 import Socials from './Socials';
@@ -6,10 +6,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import { SelectorContainer, ImageContainer, BadgeStyled } from './styles/StyledStyleSelector';
 import { ProductInfo } from './styles/ProductInfoStyled';
-import { SelectSize, SelectQuantity, AddCartButton, ErrorMsgStyled } from './styles/SelectSizeStyled';
+import { SelectSize, SelectQuantity, AddCartButton, ErrorMsgStyled, StarContainerStyled } from './styles/SelectSizeStyled';
 import { useNavigate, useParams } from 'react-router-dom';
+import StarRating from '../../RR/components/StarRating';
 
-function StyleSelector({ styles, product, index, changeGallery, changeStyle, addItem }) {
+function StyleSelector({ productId, styles, product, index, changeGallery, changeStyle, addItem }) {
   const [currentSku, setSku] = useState({});
   const [quantityNum, setQuantityNum] = useState(0);
   const [quantity, setQuantity] = useState('Select Quantity');
@@ -23,7 +24,6 @@ function StyleSelector({ styles, product, index, changeGallery, changeStyle, add
   let { styleId } = useParams();
   let prodSkus = styles[index].skus;
 
-
   useEffect(() => {
     setQuantityNum(currentSku.quantity || 0);
     setSelectedStyle(Object.keys(styles[0].skus)[0])
@@ -32,6 +32,10 @@ function StyleSelector({ styles, product, index, changeGallery, changeStyle, add
   return(
     <SelectorContainer>
       <ProductInfo>
+        <StarContainerStyled onClick={() => document.getElementById('reviews').scrollIntoView()}>
+          <StarRating id={productId} fontSize={'1em'} />
+          <a href="#reviews"><i>See Reviews</i></a>
+        </StarContainerStyled>
         <span className="category"> <i>CATEGORY: {product.category.toUpperCase()} </i> </span>
         <h2> {product.name} </h2>
         <span style={{color: styles[index].sale_price ? 'red' : 'black' }}>
