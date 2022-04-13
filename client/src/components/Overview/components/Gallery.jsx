@@ -5,11 +5,13 @@ import { ArrowsExpandIcon } from '@heroicons/react/outline';
 import {
   GalleryStyled, GalleryInnerStyled,
   GalleryInnerLeftStyled, GalleryInnerCenterStyled,
-  GalleryInnerRightStyled,
+  GalleryInnerRightStyled, GalleryMagnifiedStyled,
 } from './styles/GalleryStyled';
 import ThumbnailsGallery from './ThumbnailsGallery';
 
-function Gallery({ style, handleExpand, width, height, zoomLevel = 2.5, expanded }) {
+function Gallery({
+  style, handleExpand, width, height, zoomLevel = 2.5, expanded,
+}) {
   const [img, setImg] = useState(0);
   const [[imgWidth, imgHeight], setSize] = useState([0, 0]);
   const [showMagnifier, setShowMagnifier] = useState(false);
@@ -19,7 +21,7 @@ function Gallery({ style, handleExpand, width, height, zoomLevel = 2.5, expanded
 
   function navigateImage(photo, index) {
     setImg(index);
-  };
+  }
 
   return (
     <GalleryStyled>
@@ -31,7 +33,7 @@ function Gallery({ style, handleExpand, width, height, zoomLevel = 2.5, expanded
         img={style.photos[img].url}
         height={height}
         width={width}
-        className={preMagnify ? `magnify` : ''}
+        className={preMagnify ? 'magnify' : ''}
         onClick={() => {
           setPreMagnify(!preMagnify);
         }}
@@ -58,28 +60,15 @@ function Gallery({ style, handleExpand, width, height, zoomLevel = 2.5, expanded
 
         {!preMagnify
           ? (
-            <div
+            <GalleryMagnifiedStyled
+              img={style.photos[img].url}
+              imgHeight={imgHeight}
+              imgWidth={imgWidth}
               style={{
-                display: showMagnifier ? '' : 'none',
-                position: 'absolute',
-
-                pointerEvents: 'none',
-                height: `${imgHeight}px`,
-                width: `${imgWidth}px`,
-                // move element center to cursor pos
-                // top: `${magnifierHeight}px`,
-                // left: `${magnifieWidth}px`,
-                opacity: '1',
-                border: '1px solid lightgray',
-                backgroundColor: 'white',
-                backgroundImage: `url('${style.photos[img].url}')`,
-                backgroundRepeat: 'no-repeat',
-
                 // calculate zoomed image size
                 backgroundSize: `${imgWidth * zoomLevel}px ${
                   imgHeight * zoomLevel
                 }px`,
-
                 // calculate position of zoomed image.
                 backgroundPositionX: `${-x * zoomLevel / (1.68)}px`,
                 backgroundPositionY: `${-y * zoomLevel / (1.68)}px`,
