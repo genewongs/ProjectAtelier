@@ -95,6 +95,7 @@ function Container() {
   const toggleModal = useCallback(() => setModalState((prevState) => !prevState), []);
 
   useEffect(() => {
+    console.log('getreviewcalled');
     Promise.all([getReviews(), getMetaData()])
       .then((results) => {
         setReviewData(results[0].results);
@@ -104,6 +105,7 @@ function Container() {
   }, []);
 
   useEffect(() => {
+    console.log('getreviewcalled');
     getReviews()
       .then((response) => setReviewData(response.results))
       .then(() => {
