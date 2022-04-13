@@ -5,7 +5,7 @@ import RelatedProductsContext from '../utils/RelatedProductsContext';
 import RelatedProductsCarousel from './RelatedProductsCarousel';
 import YourOutfitCarousel from './YourOutfitCarousel';
 import Compare from './Compare';
-import { RelatedProductsStyled } from '../styles/RelatedProductsStyled.styled';
+import { RelatedProductsStyled, RelatedProductsTitle } from '../styles/RelatedProductsStyled.styled';
 import { YourOutfitStyled, OutfitWrapper, OutfitText } from '../styles/YourOutfitStyled.styled';
 
 export default function Container() {
@@ -60,8 +60,10 @@ export default function Container() {
   }
 
   useEffect(() => {
-    getRelatedInfo();
-    getProductInfo();
+    (async () => {
+      await getRelatedInfo();
+      await getProductInfo();
+    })();
   }, []);
 
   return (
