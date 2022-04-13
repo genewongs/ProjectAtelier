@@ -77,9 +77,7 @@ export default function QA() {
           <input type="text" placeholder="Have a question? Search for answers…" size="60" onChange={(event) => filterQuestionsWithSearch(event.target.value)} />
         </StyledSearchBar>
       </QuestionContainer>
-      <QuestionListStyled>
-        <QuestionList questions={questionData} getQuestions={getQuestions} />
-      </QuestionListStyled>
+      <QuestionList questions={questionData} getQuestions={getQuestions} />
       <QuestionContainer>
         <ButtonStyle>
           <div className="button-container">

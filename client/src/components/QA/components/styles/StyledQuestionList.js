@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 const QuestionListStyled = styled.div`
 min-height: 325px;
-max-height: 90vh;
+max-height: 75vh;
 overflow: auto;
 width: 1140px;
 margin: 0 auto;
