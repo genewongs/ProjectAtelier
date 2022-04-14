@@ -51,16 +51,16 @@ function StyleSelector({ productId, styles, product, index, changeGallery, chang
         <span style={{fontWeight: 'bold'}}>STYLE > </span> {styles[index].name}
       </div> <br></br>
       <ImageContainer>
-        {styles.map((product, index) => {
+        {styles.map((curProduct, index) => {
           return <img
             className={index === selectIndex ? 'selectedSize' : ''}
-            key={product.style_id}
-            src={product.photos[0].thumbnail_url || '/dist/images/NPA.jpeg'}
+            key={curProduct.style_id}
+            src={curProduct.photos[0].thumbnail_url || '/dist/images/NPA.jpeg'}
             onClick={() => {
-              changeGallery(product);
+              changeGallery(curProduct);
               setSelectIndex(index);
               setSku([]);
-              changeStyle(product, index);
+              changeStyle(curProduct, index);
               setHasBeenSelected(false);
             }
           }/>
