@@ -7,7 +7,6 @@ import QuestionList from './components/QuestionList';
 import NewQuestion from './components/NewQuestion';
 import StyledSearchBar from './components/styles/StyledSearchBar';
 import ButtonStyle from './components/styles/StyledButtons';
-import QuestionListStyled from './components/styles/StyledQuestionList';
 import QuestionContainer from './components/styles/StyledContainer';
 
 export default function QA() {
@@ -19,7 +18,7 @@ export default function QA() {
 
   const { productId } = useParams();
 
-  const id = Number(productId) || 65654;
+  const id = Number(productId) || 65631;
 
   function toggleModal() {
     if (show === true) {
@@ -30,14 +29,11 @@ export default function QA() {
   }
 
   function getQuestions() {
-    return axios.get('/api', { params: { path: `qa/questions?product_id=${id}&count=${count}` } })
-      .then((response) => setQuestionData(response.data.results))
-      .catch((err) => err);
-  }
-
-  function getLength() {
-    return axios.get('/api/length', { params: { path: `qa/questions?product_id=${id}&count=9999` } })
-      .then((response) => setLength(response.data))
+    return axios.get('/api', { params: { path: `qa/questions?product_id=${id}&count=9999` } })
+      .then((response) => {
+        setQuestionData(response.data.results);
+        setLength(response.data.results.length);
+      })
       .catch((err) => err);
   }
 
@@ -58,7 +54,6 @@ export default function QA() {
   const incrementQuestionCount = useCallback(() => setCount((prevCount) => prevCount + 2), []);
 
   useEffect(() => {
-    getLength();
     getQuestions()
       .then(() => {
         if (count >= totalLength) {
@@ -67,6 +62,14 @@ export default function QA() {
           setLimitHit(false);
         }
       });
+  }, []);
+
+  useEffect(() => {
+    if (count >= totalLength) {
+      setLimitHit(true);
+    } else {
+      setLimitHit(false);
+    }
   }, [count]);
 
   return (
@@ -77,7 +80,7 @@ export default function QA() {
           <input type="text" placeholder="Have a question? Search for answers…" size="60" onChange={(event) => filterQuestionsWithSearch(event.target.value)} />
         </StyledSearchBar>
       </QuestionContainer>
-      <QuestionList questions={questionData} getQuestions={getQuestions} />
+      <QuestionList questions={questionData.slice(0, count)} getQuestions={getQuestions} />
       <QuestionContainer>
         <ButtonStyle>
           <div className="button-container">
@@ -107,9 +110,7 @@ export default function QA() {
           </div>
         </ButtonStyle>
       </QuestionContainer>
-      {/* <Suspense fallback={<div>Loading...</div>}> */}
       <NewQuestion id={id} show={show} toggleModal={toggleModal} getQuestions={getQuestions} />
-      {/* </Suspense> */}
     </div>
   );
 }

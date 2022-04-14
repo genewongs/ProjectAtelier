@@ -20,7 +20,7 @@ background-color: rgba(255, 255, 255, 1);
   .new-answer-buttons {
   padding: 20px;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
   }
 `;
