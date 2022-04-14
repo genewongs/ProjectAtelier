@@ -1,13 +1,13 @@
 import React, {
-  useState, useEffect, useCallback,
+  useState, useEffect, useCallback, useContext,
 } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
 import QuestionList from './components/QuestionList';
 import NewQuestion from './components/NewQuestion';
 import StyledSearchBar from './components/styles/StyledSearchBar';
 import ButtonStyle from './components/styles/StyledButtons';
 import QuestionContainer from './components/styles/StyledContainer';
+import ContextStoreContext from '../../utils/ContextStore';
 
 export default function QA() {
   const [questionData, setQuestionData] = useState([]);
@@ -15,10 +15,7 @@ export default function QA() {
   const [show, setShow] = useState(false);
   const [limitHit, setLimitHit] = useState(false);
   const [totalLength, setLength] = useState(3);
-
-  const { productId } = useParams();
-
-  const id = Number(productId) || 65631;
+  const { id } = useContext(ContextStoreContext);
 
   function toggleModal() {
     if (show === true) {
