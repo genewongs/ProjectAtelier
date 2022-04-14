@@ -59,15 +59,6 @@ function DataGen() {
       .catch((err) => new Error(err));
   }
 
-  // async function getProductInfo() {
-  //   const productIDInfo = await axios.get('/api/product', { params: { productId } });
-  //   const productIDStyles = await axios.get('/api/product/styles', { params: { productId } });
-
-  //   const lazyMerge = { ...productIDInfo.data, ...productIDStyles.data };
-
-  //   setProductData(lazyMerge);
-  // }
-
   useEffect(() => {
     getProduct();
     getStyle();
