@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 
 const StyledModalContainer = styled.div`
+  z-index: 99;
+
 position: fixed;
 overflow: auto;
 left: 0;

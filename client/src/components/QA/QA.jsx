@@ -1,12 +1,13 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, {
+  useState, useEffect, useCallback, useContext,
+} from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
 import QuestionList from './components/QuestionList';
 import NewQuestion from './components/NewQuestion';
 import StyledSearchBar from './components/styles/StyledSearchBar';
 import ButtonStyle from './components/styles/StyledButtons';
-import QuestionListStyled from './components/styles/StyledQuestionList';
 import QuestionContainer from './components/styles/StyledContainer';
+import ContextStoreContext from '../../utils/ContextStore';
 
 export default function QA() {
   const [questionData, setQuestionData] = useState([]);
@@ -14,10 +15,7 @@ export default function QA() {
   const [show, setShow] = useState(false);
   const [limitHit, setLimitHit] = useState(false);
   const [totalLength, setLength] = useState(3);
-
-  const { productId } = useParams();
-
-  const id = Number(productId) || 65654;
+  const { id } = useContext(ContextStoreContext);
 
   function toggleModal() {
     if (show === true) {
@@ -28,14 +26,11 @@ export default function QA() {
   }
 
   function getQuestions() {
-    return axios.get('/api', { params: { path: `qa/questions?product_id=${id}&count=${count}` } })
-      .then((response) => setQuestionData(response.data.results))
-      .catch((err) => err);
-  }
-
-  function getLength() {
-    return axios.get('/api/length', { params: { path: `qa/questions?product_id=${id}&count=9999` } })
-      .then((response) => setLength(response.data))
+    return axios.get('/api', { params: { path: `qa/questions?product_id=${id}&count=9999` } })
+      .then((response) => {
+        setQuestionData(response.data.results);
+        setLength(response.data.results.length);
+      })
       .catch((err) => err);
   }
 
@@ -56,7 +51,6 @@ export default function QA() {
   const incrementQuestionCount = useCallback(() => setCount((prevCount) => prevCount + 2), []);
 
   useEffect(() => {
-    getLength();
     getQuestions()
       .then(() => {
         if (count >= totalLength) {
@@ -65,6 +59,14 @@ export default function QA() {
           setLimitHit(false);
         }
       });
+  }, []);
+
+  useEffect(() => {
+    if (count >= totalLength) {
+      setLimitHit(true);
+    } else {
+      setLimitHit(false);
+    }
   }, [count]);
 
   return (
@@ -75,9 +77,7 @@ export default function QA() {
           <input type="text" placeholder="Have a question? Search for answers…" size="60" onChange={(event) => filterQuestionsWithSearch(event.target.value)} />
         </StyledSearchBar>
       </QuestionContainer>
-      <QuestionListStyled>
-        <QuestionList questions={questionData} getQuestions={getQuestions} />
-      </QuestionListStyled>
+      <QuestionList questions={questionData.slice(0, count)} getQuestions={getQuestions} />
       <QuestionContainer>
         <ButtonStyle>
           <div className="button-container">

@@ -14,15 +14,12 @@ export default function QuestionListEntry({ question, getQuestions }) {
   const [helpClick, setHelpClick] = useState(false);
 
   function getAnswers() {
-    return axios.get('/api', { params: { path: `qa/questions/${question.question_id}/answers?count=${count}` } })
-      .then((response) => setAnswerData(response.data.results))
-      .catch((err) => err);
-  }
-
-  function getLength() {
-    return axios.get('/api/length', { params: { path: `qa/questions/${question.question_id}/answers?count=9999` } })
-      .then((response) => setLength(response.data))
-      .catch((err) => err);
+    return axios.get('/api', { params: { path: `qa/questions/${question.question_id}/answers?count=9999` } })
+      .then((response) => {
+        setAnswerData(response.data.results);
+        setLength(response.data.results.length);
+      })
+      .catch((err) => new Error(err));
   }
 
   function incrementHelpful() {
@@ -54,7 +51,6 @@ export default function QuestionListEntry({ question, getQuestions }) {
   const incrementCount = useCallback(() => setCount((prevCount) => prevCount + 2), []);
 
   useEffect(() => {
-    getLength();
     getAnswers()
       .then(() => {
         if (count >= totalLength) {
@@ -69,7 +65,6 @@ export default function QuestionListEntry({ question, getQuestions }) {
     <div>
       <div>
         <div>
-
           <ButtonStyle>
             <StyledQuestion>
               <span className="question-body">
@@ -112,7 +107,7 @@ export default function QuestionListEntry({ question, getQuestions }) {
         </div>
       </div>
       <div>
-        <AnswerList answers={answerData} getAnswers={getAnswers} />
+        <AnswerList answers={answerData.slice(0, count)} getAnswers={getAnswers} />
         <ButtonStyle>
           <div>
             {limitHit ? null : (
