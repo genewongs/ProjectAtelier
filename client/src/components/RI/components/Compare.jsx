@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   ModalWrapper,
   Title,
@@ -15,14 +15,26 @@ import Modal from './Modal';
 export default function Compare({
   clickedRelatedData, productData, toggleModal, modalClicked,
 }) {
-  // function getBothFeatures() {
-  //   let combinedFeatVal = [...clickedRelatedData.features, ...productData.features];
-  //   console.log(combinedFeatVal);
-  // }
+  const [combinedInfo, setCombinedInfo] = useState([]);
+  function getCombinedInfo() {
+    clickedRelatedData.features.map((currentFeature) => {
+      currentFeature.isLeft = true;
+    });
+    productData.features.map((currentFeature) => {
+      currentFeature.isRight = true;
+    });
 
-  // useEffect(() => {
-  //   getBothFeatures();
-  // }, []);
+    const merge = [...clickedRelatedData.features, ...productData.features];
+    console.log(merge);
+
+    let set = new Set();
+
+    setCombinedInfo(merge);
+  }
+
+  useEffect(() => {
+    getCombinedInfo();
+  }, []);
 
   return (
     <div>
@@ -30,31 +42,14 @@ export default function Compare({
         <Modal className="show-compare" show={modalClicked} toggleModal={toggleModal}>
           <div className="compare-container">
             <Title>Comparing</Title>
+            <span>
+              { clickedRelatedData.name }
+              { productData.name }
+            </span>
             <BothWrapper>
-              <LeftWrapper>
-                <LeftName>
-                  {clickedRelatedData.name}
-                </LeftName>
-                {clickedRelatedData.features.map((currentFeature) => (
-                  <LeftFeat>
-                    {currentFeature.feature}
-                    :
-                    {currentFeature.value || 'N/A'}
-                  </LeftFeat>
-                ))}
-              </LeftWrapper>
-              <RightWrapper>
-                <RightName>
-                  {productData.name}
-                </RightName>
-                {productData.features.map((currentFeature) => (
-                  <RightFeat>
-                    {currentFeature.feature}
-                    :
-                    {currentFeature.value || 'N/A'}
-                  </RightFeat>
-                ))}
-              </RightWrapper>
+              { combinedInfo.length === 0 ? '' : combinedInfo.map((currentFeature) => (
+                <div className="feature">{currentFeature.feature}</div>
+              )) }
             </BothWrapper>
           </div>
         </Modal>
@@ -62,3 +57,28 @@ export default function Compare({
     </div>
   );
 }
+
+// {/* <LeftWrapper>
+//   <LeftName>
+//     {clickedRelatedData.name}
+//   </LeftName>
+//   {clickedRelatedData.features.map((currentFeature) => (
+//     <LeftFeat>
+//       {currentFeature.feature}
+//       :
+//       {currentFeature.value || 'N/A'}
+//     </LeftFeat>
+//   ))}
+// </LeftWrapper>
+// <RightWrapper>
+//   <RightName>
+//     {productData.name}
+//   </RightName>
+//   {productData.features.map((currentFeature) => (
+//     <RightFeat>
+//       {currentFeature.feature}
+//       :
+//       {currentFeature.value || 'N/A'}
+//     </RightFeat>
+//   ))}
+// </RightWrapper> */}

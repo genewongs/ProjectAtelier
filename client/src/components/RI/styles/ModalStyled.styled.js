@@ -26,6 +26,7 @@ export const ModalWrapper = styled.div`
 
 export const BothWrapper = styled.div`
   display: flex;
+  flex-direction: column;
 `;
 
 export const Title = styled.h1`

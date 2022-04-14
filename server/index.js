@@ -74,6 +74,7 @@ app.get('/api/product/styles', (req, res) => {
 /*
   Route to collect the current product id's relative id styles
   Postman example: products/[iterate through related id]/styles
+  thx eric <3
 */
 app.get('/api/products/related/styles', (req, res) => {
   const { id } = req.query;
@@ -110,6 +111,7 @@ app.get('/api/products/related/styles', (req, res) => {
 /*
   Route to collect the current product id's relative id information
   Postman example: products/[iterate through related id]
+  thx eric <3
 */
 app.get('/api/products/related', (req, res) => {
   const { id } = req.query;
