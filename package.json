@@ -6,7 +6,8 @@
   "scripts": {
     "test": "jest --config=jest.config.js",
     "build": "webpack --config webpack.config.js -w",
-    "start": "nodemon server/index.js"
+    "start": "nodemon server/index.js",
+    "buildProd": "webpack --config webpack.config.js"
   },
   "repository": {
     "type": "git",
