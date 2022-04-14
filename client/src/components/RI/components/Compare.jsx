@@ -23,11 +23,10 @@ export default function Compare({
     productData.features.map((currentFeature) => {
       currentFeature.isRight = true;
     });
+    let set = new Set();
 
     const merge = [...clickedRelatedData.features, ...productData.features];
     console.log(merge);
-
-    let set = new Set();
 
     setCombinedInfo(merge);
   }
