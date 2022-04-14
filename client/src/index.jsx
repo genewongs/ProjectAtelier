@@ -1,4 +1,4 @@
-import  React, { useEffect, useContext } from 'react';
+import React, { useEffect, useContext } from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import axios from 'axios';
@@ -37,7 +37,9 @@ function App() {
 }
 
 function DataGen() {
-  const { setProductName, setStyle, setProduct, productId, id, style } = useContext(ContextStoreContext);
+  const {
+    setProductName, setStyle, setProduct, id,
+  } = useContext(ContextStoreContext);
 
   function getProduct() {
     axios.get('/api', { params: { path: `products/${id}` } })
@@ -55,15 +57,6 @@ function DataGen() {
       })
       .catch((err) => new Error(err));
   }
-
-  // async function getProductInfo() {
-  //   const productIDInfo = await axios.get('/api/product', { params: { productId } });
-  //   const productIDStyles = await axios.get('/api/product/styles', { params: { productId } });
-
-  //   const lazyMerge = { ...productIDInfo.data, ...productIDStyles.data };
-
-  //   setProductData(lazyMerge);
-  // }
 
   useEffect(() => {
     getProduct();

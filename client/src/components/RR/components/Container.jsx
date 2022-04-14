@@ -106,15 +106,16 @@ function Container() {
   useEffect(() => {
     getReviews()
       .then((response) => setReviewData(response.results))
-      .then(() => {
-        if (count >= reviewCount) {
-          setLimitHit(true);
-        } else {
-          setLimitHit(false);
-        }
-      })
       .catch((err) => new Error(err));
   }, [count, reviewCount, sort, sortBy]);
+
+  useEffect(() => {
+    if (count >= reviewCount) {
+      setLimitHit(true);
+    } else {
+      setLimitHit(false);
+    }
+  }, [count, reviewCount]);
 
   useEffect(() => {
     sortByStars();
@@ -129,7 +130,7 @@ function Container() {
   }, [searched, filtered, reviews]);
 
   return (
-    (averageRating
+    (averageRating !== null
     && (
     <ContainerStyled id="reviews">
       <div className="review-left-container">

@@ -176,7 +176,8 @@ app.post('/image-upload', (req, res) => {
   const promises = values.map((image) => cloudinary.v2.uploader.upload(image.path));
 
   Promise.all(promises)
-    .then((results) => res.send(results))
+    .then(([{ format, public_id, secure_url }]) => res
+      .status(201).send([{ format, public_id, secure_url }]))
     .catch((err) => new Error(err));
 });
 
