@@ -20,7 +20,7 @@ export default function Overview() {
   const [index, setIndex] = useState(0);
   const [expanded, setExpanded] = useState(false);
   const [cart, setCart] = useState([]);
-  const { setProductName, setStyle, setProduct, productId, style, product } = useContext(ContextStoreContext);
+  const { id, style, product } = useContext(ContextStoreContext);
   // let { productId } = useParams();
   // productId = productId || '65631';
   function fetchStyles(id) {
@@ -116,7 +116,7 @@ export default function Overview() {
             <Socials />
             {style && product && (
             <StyleSelector
-              productId={productId}
+              productId={id}
               styles={style.results}
               index={index}
               product={product}

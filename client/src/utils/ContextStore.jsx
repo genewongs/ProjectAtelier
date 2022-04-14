@@ -10,10 +10,9 @@ export function ContextStore({ children }) {
   const [product, setProduct] = useState(null);
   const [productName, setProductName] = useState('');
   const [style, setStyle] = useState(null);
-  const [currentStyle, setCurrentStyle] = useState(null);
 
   const { productId } = useParams();
-  const id = Number(productId) || 65640;
+  const id = Number(productId) || 65638;
 
   const store = useMemo(() => ({
     product,
@@ -24,8 +23,6 @@ export function ContextStore({ children }) {
     setStyle,
     id,
     productId,
-    setCurrentStyle,
-    currentStyle,
   }), [productName, style]);
 
   // function getProduct() {

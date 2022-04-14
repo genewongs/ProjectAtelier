@@ -37,20 +37,19 @@ function App() {
 }
 
 function DataGen() {
-  const { setProductName, setStyle, setProduct, productId, style, setCurrentStyle, currentStyle } = useContext(ContextStoreContext);
+  const { setProductName, setStyle, setProduct, productId, id, style } = useContext(ContextStoreContext);
 
   function getProduct() {
-    axios.get('/api', { params: { path: `products/${productId}` } })
+    axios.get('/api', { params: { path: `products/${id}` } })
       .then((response) => {
         setProduct(response.data);
-        setCurrentStyle(response.data.results[0]);
         setProductName(response.data.name);
       })
       .catch((err) => new Error(err));
   }
 
   function getStyle() {
-    axios.get('/api', { params: { path: `products/${productId}/styles` } })
+    axios.get('/api', { params: { path: `products/${id}/styles` } })
       .then((response) => {
         setStyle(response.data);
       })
@@ -74,7 +73,7 @@ function DataGen() {
   useEffect(() => {
     getProduct();
     getStyle();
-  }, [productId, style]);
+  }, [id]);
 
   return (<></>);
 }
