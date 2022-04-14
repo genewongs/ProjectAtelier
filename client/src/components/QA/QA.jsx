@@ -17,14 +17,6 @@ export default function QA() {
   const [totalLength, setLength] = useState(3);
   const { id } = useContext(ContextStoreContext);
 
-  function toggleModal() {
-    if (show === true) {
-      setShow(false);
-    } else {
-      setShow(true);
-    }
-  }
-
   function getQuestions() {
     return axios.get('/api', { params: { path: `qa/questions?product_id=${id}&count=9999` } })
       .then((response) => {
@@ -46,6 +38,14 @@ export default function QA() {
       }
     });
     setQuestionData(filteredList);
+  }
+
+  function toggleModal() {
+    if (show === true) {
+      setShow(false);
+    } else {
+      setShow(true);
+    }
   }
 
   const incrementQuestionCount = useCallback(() => setCount((prevCount) => prevCount + 2), []);
