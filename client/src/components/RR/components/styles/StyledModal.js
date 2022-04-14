@@ -36,12 +36,18 @@ const ModalStyled = styled.div`
       position: absolute;
       top: 0;
       left: 0;
+      height: 50px;
+      width: 50px;
       -ms-transform: translate(-50%, -50%);
       background-color: transparent;
       color: white;
-      font-size: 30;
-      border: 1px solid white;
+      border: 1px solid black;
       cursor: pointer;
+
+      .photo-close-button-span {
+        font-size: 25px;
+        -webkit-text-stroke: 1px black;
+      }
       &:hover {
         color: red;
       }

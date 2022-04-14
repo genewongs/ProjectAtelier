@@ -95,7 +95,6 @@ function Container() {
   const toggleModal = useCallback(() => setModalState((prevState) => !prevState), []);
 
   useEffect(() => {
-    console.log('getreviewcalled');
     Promise.all([getReviews(), getMetaData()])
       .then((results) => {
         setReviewData(results[0].results);
@@ -105,18 +104,18 @@ function Container() {
   }, []);
 
   useEffect(() => {
-    console.log('getreviewcalled');
     getReviews()
       .then((response) => setReviewData(response.results))
-      .then(() => {
-        if (count >= reviewCount) {
-          setLimitHit(true);
-        } else {
-          setLimitHit(false);
-        }
-      })
       .catch((err) => new Error(err));
-  }, [count, reviewCount, sort, sortBy]);
+  }, [count, sort, sortBy]);
+
+  useEffect(() => {
+    if (count >= reviewCount) {
+      setLimitHit(true);
+    } else {
+      setLimitHit(false);
+    }
+  }, [count, reviewCount]);
 
   useEffect(() => {
     sortByStars();

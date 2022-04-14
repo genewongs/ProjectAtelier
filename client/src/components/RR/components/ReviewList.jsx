@@ -33,7 +33,9 @@ export default function ReviewList({ reviews }) {
           toggleModal={toggleModal}
         >
           <img src={currDisplay} alt="bigboi" />
-          <button type="button" className="photo-close-button" onClick={toggleModal}>✖</button>
+          <button type="button" className="photo-close-button" onClick={toggleModal}>
+            <span className="photo-close-button-span">✖</span>
+          </button>
         </Modal>
       </ModalStyled>
     </>

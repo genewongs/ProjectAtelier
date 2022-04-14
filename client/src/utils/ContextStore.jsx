@@ -30,10 +30,6 @@ export function ContextStore({ children }) {
 
   useEffect(() => {
     getProduct();
-  }, []);
-
-  useEffect(() => {
-    getProduct();
   }, [productId]);
 
   return (

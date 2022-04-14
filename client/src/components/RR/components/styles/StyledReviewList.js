@@ -17,7 +17,6 @@ const ReviewListStyled = styled.div`
 
   &:hover {
     &::-webkit-scrollbar-thumb {
-      /* background-color: rgba(221, 54, 54, 0.5); */
       background-color: transparent;
     }
   }
