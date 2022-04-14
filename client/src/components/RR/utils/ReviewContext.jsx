@@ -9,7 +9,7 @@ const ReviewStoreContext = createContext();
 export function ReviewStore({ children }) {
   const [reviews, setReviewData] = useState([]);
   const [metaData, setMetaData] = useState([]);
-  const [averageRating, setAverageRating] = useState(0);
+  const [averageRating, setAverageRating] = useState(null);
   const [reviewCount, setReviewCount] = useState(0);
   const [recPercent, setRecPercent] = useState(0);
   const [ratingsPercents, setRatingsPercents] = useState({

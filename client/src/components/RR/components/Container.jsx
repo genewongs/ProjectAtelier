@@ -107,7 +107,7 @@ function Container() {
     getReviews()
       .then((response) => setReviewData(response.results))
       .catch((err) => new Error(err));
-  }, [count, sort, sortBy]);
+  }, [count, reviewCount, sort, sortBy]);
 
   useEffect(() => {
     if (count >= reviewCount) {
@@ -130,7 +130,7 @@ function Container() {
   }, [searched, filtered, reviews]);
 
   return (
-    (averageRating
+    (averageRating !== null
     && (
     <ContainerStyled id="reviews">
       <div className="review-left-container">
