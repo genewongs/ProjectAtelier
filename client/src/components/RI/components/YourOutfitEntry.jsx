@@ -11,7 +11,7 @@ export default function YourOutfitEntry({ singleLocalOutfit, localStorageOutfits
 
   return (
     <YourOutfitCard
-      url={singleLocalOutfit.results[0].photos[0].url || 'https://shenandoahcountyva.us/bos/wp-content/uploads/sites/4/2018/01/picture-not-available-clipart-12.jpg'}
+      url={singleLocalOutfit.results[0].photos[0].thumbnail_url}
       name={singleLocalOutfit.name}
       category={singleLocalOutfit.category}
       price={`$${Math.trunc(singleLocalOutfit.default_price)}`}
@@ -20,3 +20,4 @@ export default function YourOutfitEntry({ singleLocalOutfit, localStorageOutfits
     />
   );
 }
+// || 'https://shenandoahcountyva.us/bos/wp-content/uploads/sites/4/2018/01/picture-not-available-clipart-12.jpg'}

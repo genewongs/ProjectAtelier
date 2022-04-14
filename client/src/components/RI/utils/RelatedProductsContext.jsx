@@ -1,6 +1,5 @@
 /* eslint-disable react/jsx-no-constructed-context-values */
 import React, { useState, createContext, useCallback } from 'react';
-import { useParams } from 'react-router-dom';
 
 const RelatedProductsContext = createContext();
 
@@ -25,9 +24,6 @@ export function Related({ children }) {
   const [modalClicked, setModalClicked] = useState(false);
   const toggleModal = useCallback(() => setModalClicked((prevState) => !prevState), []);
 
-  let { productId } = useParams();
-  const id = productId || 65631;
-
   const store = {
     relatedData,
     setRelatedData,
@@ -40,7 +36,6 @@ export function Related({ children }) {
     clickedRelatedData,
     setClickedRelatedData,
     toggleModal,
-    id,
   };
 
   return (
