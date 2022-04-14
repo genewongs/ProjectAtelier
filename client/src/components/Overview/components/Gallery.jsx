@@ -10,7 +10,7 @@ import {
 import ThumbnailsGallery from './ThumbnailsGallery';
 
 function Gallery({
-  style, handleExpand, width, height, zoomLevel = 2.5, expanded,
+  style, handleExpand, width, height, zoomLevel = 2.5,
 }) {
   const [img, setImg] = useState(0);
   const [[imgWidth, imgHeight], setSize] = useState([0, 0]);

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const GalleryStyled = styled.div.attrs({ 'data-testid': 'carousel'})`
+export const GalleryStyled = styled.div.attrs({ 'data-testid': 'carousel' })`
   display: flex;
   flex-grow: 1;
   max-width: 100%;
