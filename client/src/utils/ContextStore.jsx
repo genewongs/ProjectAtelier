@@ -1,36 +1,26 @@
-import React, {
-  createContext, useState, useMemo, useEffect,
-} from 'react';
+import React, { createContext, useState, useMemo } from 'react';
 import { useParams } from 'react-router-dom';
-import axios from 'axios';
 
 const ContextStoreContext = createContext();
 
 export function ContextStore({ children }) {
-  const [productInfo, setProduct] = useState([]);
+  const [product, setProduct] = useState(null);
   const [productName, setProductName] = useState('');
+  const [style, setStyle] = useState(null);
 
   const { productId } = useParams();
-  const id = Number(productId) || 65640;
+  const id = Number(productId) || 65638;
 
   const store = useMemo(() => ({
-    productInfo,
+    product,
     setProduct,
     productName,
-  }), [productInfo, productName]);
-
-  function getProduct() {
-    axios.get('/api', { params: { path: `products/${id}` } })
-      .then((response) => {
-        setProduct(response.data);
-        setProductName(response.data.name);
-      })
-      .catch((err) => new Error(err));
-  }
-
-  useEffect(() => {
-    getProduct();
-  }, [productId]);
+    setProductName,
+    style,
+    setStyle,
+    id,
+    productId,
+  }), [productName, style]);
 
   return (
     <ContextStoreContext.Provider value={store}>

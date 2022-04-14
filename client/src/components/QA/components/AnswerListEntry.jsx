@@ -3,6 +3,7 @@ import axios from 'axios';
 import dayjs from 'dayjs';
 import ButtonStyle from './styles/StyledButtons';
 import AnswerListStyle from './styles/StyledAnswerList';
+import PhotoList from './PhotoList';
 
 export default function AnswerListEntry({ answer, getAnswers }) {
   const [helpClick, setHelpClick] = useState(false);
@@ -35,6 +36,7 @@ export default function AnswerListEntry({ answer, getAnswers }) {
       <div>
         <AnswerListStyle>
           <ButtonStyle>
+            {/* refactor this area */}
             <span className="answer-author-info">
               by:
               {' '}
@@ -68,9 +70,9 @@ export default function AnswerListEntry({ answer, getAnswers }) {
               </span>
             </span>
           </ButtonStyle>
+          <PhotoList photos={answer.photos} />
         </AnswerListStyle>
       </div>
-
       <br />
     </div>
   );
