@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const ProdDescriptionStyled = styled.div`
+const ProdDescriptionStyled = styled.div`
   display: flex;
   flex-direction: column;
   text-align: center;
@@ -19,3 +19,5 @@ export const ProdDescriptionStyled = styled.div`
     width: 100%;
   }
 `;
+
+export default ProdDescriptionStyled;

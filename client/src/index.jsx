@@ -1,9 +1,10 @@
-import  React, { useEffect, useContext } from 'react';
+import React, { useEffect, useContext } from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import axios from 'axios';
 import GlobalStyle from './globalStyles';
 
+import LandingPage from './components/LandingPage';
 import Overview from './components/Overview/Overview';
 import RI from './components/RI/RI';
 import QA from './components/QA/QA';
@@ -15,7 +16,7 @@ function RoutedApp() {
     <Router>
       <Routes>
         <Route path="/:productId" element={<App />} />
-        <Route path="/" element={<App />} />
+        <Route path="/" element={<LandingPage />} />
       </Routes>
     </Router>
   );
@@ -37,7 +38,9 @@ function App() {
 }
 
 function DataGen() {
-  const { setProductName, setStyle, setProduct, productId, id, style } = useContext(ContextStoreContext);
+  const {
+    setProductName, setStyle, setProduct, productId, id, style, product,
+  } = useContext(ContextStoreContext);
 
   function getProduct() {
     axios.get('/api', { params: { path: `products/${id}` } })

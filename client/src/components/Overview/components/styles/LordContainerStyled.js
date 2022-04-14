@@ -1,8 +1,10 @@
 import styled from 'styled-components';
 
-export const LordContainer = styled.div`
+const LordContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
 `;
+
+export default LordContainer;
