@@ -1,5 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import sampleStyles from './sampleStyles';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Socials from './Socials';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -7,7 +6,6 @@ import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import { SelectorContainer, ImageContainer, BadgeStyled } from './styles/StyledStyleSelector';
 import { ProductInfo } from './styles/ProductInfoStyled';
 import { SelectSize, SelectQuantity, AddCartButton, ErrorMsgStyled, StarContainerStyled } from './styles/SelectSizeStyled';
-import { useNavigate, useParams } from 'react-router-dom';
 import StarRating from '../../RR/components/StarRating';
 
 function StyleSelector({ productId, styles, product, index, changeGallery, changeStyle, addItem }) {
@@ -20,8 +18,6 @@ function StyleSelector({ productId, styles, product, index, changeGallery, chang
   const [error, setError] = useState(false);
   const [hasBeenSelected, setHasBeenSelected] = useState(false);
 
-  let navigate = useNavigate();
-  let { styleId } = useParams();
   let prodSkus = styles[index].skus;
 
   useEffect(() => {
@@ -53,6 +49,7 @@ function StyleSelector({ productId, styles, product, index, changeGallery, chang
       <ImageContainer>
         {styles.map((curProduct, index) => {
           return <img
+            alt={curProduct.name}
             className={index === selectIndex ? 'selectedSize' : ''}
             key={curProduct.style_id}
             src={curProduct.photos[0].thumbnail_url || '/dist/images/NPA.jpeg'}
