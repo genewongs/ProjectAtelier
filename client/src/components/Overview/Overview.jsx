@@ -14,42 +14,15 @@ import ContextStoreContext from '../../utils/ContextStore';
 const axios = require('axios');
 
 export default function Overview() {
-  const [style, setStyle] = useState(null);
-  const [product, setProduct] = useState(null);
+  // const [style, setStyle] = useState(null);
+  // const [product, setProduct] = useState(null);
   const [currentStyle, setCurrentStyle] = useState(null);
   const [index, setIndex] = useState(0);
   const [expanded, setExpanded] = useState(false);
   const [cart, setCart] = useState([]);
-  const { productInfo } = useContext(ContextStoreContext);
-
-  let { productId } = useParams();
-  productId = productId || '65631';
-
-  useEffect(() => {
-    fetchStyles(productId)
-      .then((res) => {
-        if (res.status === 200) {
-          setStyle(res.data.results);
-          setCurrentStyle(res.data.results[0]);
-        }
-      })
-      .catch((err) => console.log(err));
-    fetchProduct(productId)
-      .then((res) => {
-        if (res.status === 200) {
-          setProduct(res.data);
-        }
-      })
-      .catch((err) => console.log(err));
-    fetchCart()
-      .then((res) => {
-        if (res.status === 200) {
-          setCart(res.data);
-        }
-      })
-      .catch((err) => console.log(err));
-  }, []);
-
+  const { id, style, product } = useContext(ContextStoreContext);
+  // let { productId } = useParams();
+  // productId = productId || '65631';
   function fetchStyles(id) {
     return axios.get('/api', { params: { path: `products/${id}/styles` } });
   }
@@ -68,13 +41,40 @@ export default function Overview() {
     setCurrentStyle(object);
   }
 
-  function changeStyle(object, index) {
-    setIndex(index);
+  function changeStyle(object, ind) {
+    setIndex(ind);
   }
 
   function handleExpand() {
     setExpanded(!expanded);
   }
+
+  useEffect(() => {
+    // fetchStyles(productId)
+    //   .then((res) => {
+    //     if (res.status === 200) {
+    //       setStyle(res.data.results);
+    //       setCurrentStyle(res.data.results[0]);
+    //     }
+    //   })
+    //   .catch((err) => console.log(err));
+    // fetchProduct(productId)
+    //   .then((res) => {
+    //     if (res.status === 200) {
+    //       setProduct(res.data);
+    //     }
+    //   })
+    //   .catch((err) => console.log(err));
+    fetchCart()
+      .then((res) => {
+        if (res.status === 200) {
+          setCart(res.data);
+        }
+      })
+      .catch((err) => console.log(err));
+
+    style && setCurrentStyle(style.results[index]);
+  }, [style]);
 
   function addItem(skuId, quantity) {
     const data = { sku_id: skuId, count: quantity };
@@ -116,8 +116,8 @@ export default function Overview() {
             <Socials />
             {style && product && (
             <StyleSelector
-              productId={productId}
-              styles={style}
+              productId={id}
+              styles={style.results}
               index={index}
               product={product}
               fetchStyles={fetchStyles}
