@@ -23,10 +23,30 @@ export default function Compare({
     productData.features.map((currentFeature) => {
       currentFeature.isRight = true;
     });
-    let set = new Set();
 
     const merge = [...clickedRelatedData.features, ...productData.features];
-    console.log(merge);
+
+    const newCombined = [];
+    merge.map((currentIndex) => {
+      const newObj = {};
+      newObj.feature = `${currentIndex.feature} ${currentIndex.value}`;
+      if (currentIndex.isLeft) {
+        newObj.isLeft = currentIndex.isLeft;
+      } else {
+        newObj.isRight = currentIndex.isRight;
+      }
+      newCombined.push(newObj);
+    });
+
+    /*
+      0: {feature: 'Fabric 99% Cotton 1% Elastic', isLeft: true}
+      1: {feature: 'Cut Loose', isLeft: true}
+      2: {feature: 'Fabric 99% Cotton 1% Elastic', isRight: true}
+      3: {feature: 'Cut Loose', isRight: true}
+
+      0: {feature: 'Fabric 99% Cotton 1% Elastic', isLeft: true, isRight: true}
+      1: {feature: 'Cut Loose', isLeft: true, isRight: true}
+    */
 
     setCombinedInfo(merge);
   }
@@ -46,9 +66,9 @@ export default function Compare({
               { productData.name }
             </span>
             <BothWrapper>
-              { combinedInfo.length === 0 ? '' : combinedInfo.map((currentFeature) => (
+              {/* { combinedInfo.length === 0 ? '' : combinedInfo.map((currentFeature) => (
                 <div className="feature">{currentFeature.feature}</div>
-              )) }
+              )) } */}
             </BothWrapper>
           </div>
         </Modal>
@@ -56,7 +76,6 @@ export default function Compare({
     </div>
   );
 }
-
 // {/* <LeftWrapper>
 //   <LeftName>
 //     {clickedRelatedData.name}
@@ -81,3 +100,4 @@ export default function Compare({
 //     </RightFeat>
 //   ))}
 // </RightWrapper> */}
+
