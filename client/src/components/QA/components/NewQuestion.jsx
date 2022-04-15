@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import axios from 'axios';
 import StyledModalContainer from './styles/StyledModalContainer';
 import StyledModal from './styles/StyledModal';
+import ContextStoreContext from '../../../utils/ContextStore';
 
 export default function NewQuestion({
   id, show, toggleModal, getQuestions,
@@ -13,6 +14,7 @@ export default function NewQuestion({
   const [questionBody, setQuestionBody] = useState([]);
   const [questionAuthorName, setQuestionAuthorName] = useState([]);
   const [questionAuthorEmail, setQuestionAuthorEmail] = useState([]);
+  const { productName } = useContext(ContextStoreContext);
 
   function getBody(userInput) {
     setQuestionBody(userInput);
@@ -52,7 +54,14 @@ export default function NewQuestion({
     <div>
       <StyledModalContainer onClick={toggleModal}>
         <StyledModal onClick={(event) => { event.stopPropagation(); }}>
-          <h2>Ask Your Question Here:</h2>
+          <h2>
+            Ask Your Question About the
+            {' '}
+            {productName}
+            {' '}
+            Here:
+            {' '}
+          </h2>
           <span>Your Question: * </span>
           <br />
           <textarea
