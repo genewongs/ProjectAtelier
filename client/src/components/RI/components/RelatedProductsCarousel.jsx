@@ -24,6 +24,7 @@ export default function RelatedProductsCarousel({ relatedData }) {
     <>
       { relatedData.length > 4 && (
       <button
+        className="btn"
         onClick={() => { updateLeft(startingIndex, endingIndex); }}
       >
         &larr;
@@ -32,6 +33,7 @@ export default function RelatedProductsCarousel({ relatedData }) {
       <RelatedProductsList relatedData={relatedData.slice(startingIndex, endingIndex)} />
       { relatedData.length > 4 && (
       <button
+        className="btn"
         onClick={() => { updateRight(startingIndex, endingIndex); }}
       >
         &rarr;
