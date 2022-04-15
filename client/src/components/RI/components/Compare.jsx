@@ -1,28 +1,51 @@
-import React, { useEffect } from 'react';
-import {
-  ModalWrapper,
-  Title,
-  BothWrapper,
-  LeftWrapper,
-  LeftName,
-  LeftFeat,
-  RightWrapper,
-  RightName,
-  RightFeat,
-} from '../styles/ModalStyled.styled';
+import React, { useState, useEffect } from 'react';
+import { ModalWrapper, Title, BothWrapper } from '../styles/ModalStyled.styled';
 import Modal from './Modal';
 
 export default function Compare({
   clickedRelatedData, productData, toggleModal, modalClicked,
 }) {
-  // function getBothFeatures() {
-  //   let combinedFeatVal = [...clickedRelatedData.features, ...productData.features];
-  //   console.log(combinedFeatVal);
-  // }
+  const [combinedInfo, setCombinedInfo] = useState([]);
+  function getCombinedInfo() {
+    clickedRelatedData.features.map((currentFeature) => {
+      currentFeature.isLeft = true;
+    });
+    productData.features.map((currentFeature) => {
+      currentFeature.isRight = true;
+    });
 
-  // useEffect(() => {
-  //   getBothFeatures();
-  // }, []);
+    const merge = [...clickedRelatedData.features, ...productData.features];
+
+    const newCombined = [];
+    merge.map((currentIndex) => {
+      const newObj = {};
+      newObj.feature = `${currentIndex.feature} ${currentIndex.value}`;
+      if (currentIndex.isLeft) {
+        newObj.isLeft = currentIndex.isLeft;
+      } else {
+        newObj.isRight = currentIndex.isRight;
+      }
+      newCombined.push(newObj);
+    });
+
+    const compress = (arr) => {
+      const res = arr.reduce((compressedObj, obj) => {
+        const { feature } = obj;
+        compressedObj[feature] = compressedObj[feature]
+          ? { ...compressedObj[feature], ...obj }
+          : obj;
+        return compressedObj;
+      }, {});
+      return Object.values(res);
+    };
+
+    const newMerge = compress(newCombined);
+    setCombinedInfo(newMerge);
+  }
+
+  useEffect(() => {
+    getCombinedInfo();
+  }, []);
 
   return (
     <div>
@@ -30,31 +53,40 @@ export default function Compare({
         <Modal className="show-compare" show={modalClicked} toggleModal={toggleModal}>
           <div className="compare-container">
             <Title>Comparing</Title>
+            { clickedRelatedData.name }
+            {' '}
+            { productData.name }
             <BothWrapper>
-              <LeftWrapper>
-                <LeftName>
-                  {clickedRelatedData.name}
-                </LeftName>
-                {clickedRelatedData.features.map((currentFeature) => (
-                  <LeftFeat>
-                    {currentFeature.feature}
-                    :
-                    {currentFeature.value || 'N/A'}
-                  </LeftFeat>
-                ))}
-              </LeftWrapper>
-              <RightWrapper>
-                <RightName>
-                  {productData.name}
-                </RightName>
-                {productData.features.map((currentFeature) => (
-                  <RightFeat>
-                    {currentFeature.feature}
-                    :
-                    {currentFeature.value || 'N/A'}
-                  </RightFeat>
-                ))}
-              </RightWrapper>
+              { combinedInfo.length === 0 ? '' : combinedInfo.map((currentFeature) => (
+                <div className="feature">
+                  <span className="feature-span">
+                    {currentFeature.isLeft && !currentFeature.isRight ? (
+                      <span>
+                        &#10003;
+                        {' '}
+                        {currentFeature.feature}
+                        {' '}
+                      </span>
+                    ) : ''}
+                    {!currentFeature.isLeft && currentFeature.isRight ? (
+                      <span>
+                        {currentFeature.feature}
+                        {' '}
+                        &#10003;
+                      </span>
+                    ) : ''}
+                    {currentFeature.isLeft && currentFeature.isRight ? (
+                      <span>
+                        &#10003;
+                        {' '}
+                        {currentFeature.feature}
+                        {' '}
+                        &#10003;
+                      </span>
+                    ) : ''}
+                  </span>
+                </div>
+              )) }
             </BothWrapper>
           </div>
         </Modal>
