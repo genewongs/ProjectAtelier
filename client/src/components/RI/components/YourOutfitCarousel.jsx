@@ -1,6 +1,3 @@
-/* eslint-disable react/button-has-type */
-/* eslint-disable max-len */
-/* eslint-disable react/jsx-no-bind */
 import React, { useState } from 'react';
 import YourOutfitList from './YourOutfitList';
 
@@ -26,14 +23,21 @@ export default function YourOutfitCarousel({ localStorageOutfits, setLocalStorag
     <>
       { (localStorageOutfits.length > 4) && (
       <button
+        type="button"
+        className="btn"
         onClick={() => { updateLeft(startingIndex, endingIndex); }}
       >
         &larr;
       </button>
       )}
-      <YourOutfitList localStorageOutfits={localStorageOutfits.slice(startingIndex, endingIndex)} setLocalStorageOutfits={setLocalStorageOutfits} />
+      <YourOutfitList
+        localStorageOutfits={localStorageOutfits.slice(startingIndex, endingIndex)}
+        setLocalStorageOutfits={setLocalStorageOutfits}
+      />
       { (localStorageOutfits.length > 4) && (
       <button
+        type="button"
+        className="btn"
         onClick={() => { updateRight(startingIndex, endingIndex); }}
       >
         &rarr;

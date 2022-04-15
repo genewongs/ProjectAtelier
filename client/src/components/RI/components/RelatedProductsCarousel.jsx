@@ -1,4 +1,3 @@
-/* eslint-disable react/button-has-type */
 import React, { useState } from 'react';
 import RelatedProductsList from './RelatedProductsList';
 
@@ -24,6 +23,7 @@ export default function RelatedProductsCarousel({ relatedData }) {
     <>
       { relatedData.length > 4 && (
       <button
+        type="button"
         className="btn"
         onClick={() => { updateLeft(startingIndex, endingIndex); }}
       >
@@ -33,6 +33,7 @@ export default function RelatedProductsCarousel({ relatedData }) {
       <RelatedProductsList relatedData={relatedData.slice(startingIndex, endingIndex)} />
       { relatedData.length > 4 && (
       <button
+        type="button"
         className="btn"
         onClick={() => { updateRight(startingIndex, endingIndex); }}
       >

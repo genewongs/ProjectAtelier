@@ -1,4 +1,5 @@
 /* eslint-disable react/jsx-no-constructed-context-values */
+/* eslint-disable no-plusplus */
 import React, { useState, createContext, useCallback } from 'react';
 
 const RelatedProductsContext = createContext();
