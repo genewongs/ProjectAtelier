@@ -1,11 +1,12 @@
+/* eslint-disable react/jsx-no-bind */
 /* eslint-disable no-param-reassign */
 import React, { useContext, useEffect } from 'react';
 import axios from 'axios';
+import { PlusCircleIcon } from '@heroicons/react/outline';
 import RelatedProductsContext from '../utils/RelatedProductsContext';
 import RelatedProductsCarousel from './RelatedProductsCarousel';
 import YourOutfitCarousel from './YourOutfitCarousel';
 import Compare from './Compare';
-import { PlusCircleIcon } from '@heroicons/react/outline';
 import { RelatedProductsStyled } from '../styles/RelatedProductsStyled.styled';
 import { YourOutfitStyled, OutfitWrapper } from '../styles/YourOutfitStyled.styled';
 
@@ -89,7 +90,7 @@ export default function Container() {
           <div className="add-curr-product">
             Add Current Product
           </div>
-          <PlusCircleIcon className="plus-icon" onClick={saveProductLocally}/>
+          <PlusCircleIcon className="plus-icon" onClick={saveProductLocally} />
         </OutfitWrapper>
         <YourOutfitCarousel
           productData={productData}
