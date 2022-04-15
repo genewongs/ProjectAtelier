@@ -39,7 +39,7 @@ function App() {
 
 function DataGen() {
   const {
-    setProductName, setStyle, setProduct, productId, id, style, product,
+    setProductName, setStyle, setProduct, id,
   } = useContext(ContextStoreContext);
 
   function getProduct() {
