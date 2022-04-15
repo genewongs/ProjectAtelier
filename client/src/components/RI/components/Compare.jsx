@@ -1,3 +1,5 @@
+/* eslint-disable array-callback-return */
+/* eslint-disable no-param-reassign */
 import React, { useState, useEffect } from 'react';
 import { ModalWrapper, Title, BothWrapper } from '../styles/ModalStyled.styled';
 import Modal from './Modal';
@@ -53,9 +55,16 @@ export default function Compare({
         <Modal className="show-compare" show={modalClicked} toggleModal={toggleModal}>
           <div className="compare-container">
             <Title> Comparing </Title>
-            <span style={{ fontWeight: 'bold' }} >{ clickedRelatedData.name } </span>
+            <span style={{ fontWeight: 'bold' }}>
+              { clickedRelatedData.name }
+              {' '}
+            </span>
             {' '}
-            <i> { productData.name } </i>
+            <i>
+              {' '}
+              { productData.name }
+              {' '}
+            </i>
             <BothWrapper>
               { combinedInfo.length === 0 ? '' : combinedInfo.map((currentFeature) => (
                 <span className="feature-span">

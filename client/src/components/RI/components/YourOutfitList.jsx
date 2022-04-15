@@ -1,5 +1,4 @@
-/* eslint-disable max-len */
-/* eslint-disable react/jsx-no-bind */
+/* eslint-disable react/no-array-index-key */
 import React from 'react';
 import YourOutfitEntry from './YourOutfitEntry';
 

@@ -6,11 +6,11 @@ import {
 import StarRating from '../../RR/components/StarRating';
 
 export default function YourOutfitCard({
-  url, name, category, price, removeProductLocally, id,
+  name, category, price, removeProductLocally, id, urlOne, urlTwo,
 }) {
   return (
     <CardWrapper>
-      <CardImage photo={url} />
+      <CardImage photo={urlOne || urlTwo} />
       <XCircleIcon className="x-icon" onClick={removeProductLocally} />
       <CardCategory>{category}</CardCategory>
       <CardName>{name}</CardName>

@@ -7,7 +7,7 @@ import {
 import StarRating from '../../RR/components/StarRating';
 
 export default function RelatedProductsCard({
-  url, name, category, price, modalOptions, id,
+  urlOne, urlTwo, name, category, price, modalOptions, id,
 }) {
   const navigate = useNavigate();
   const handleOnClick = useCallback(() => {
@@ -18,7 +18,7 @@ export default function RelatedProductsCard({
   return (
     <CardWrapper>
       <StarIcon className="star-icon" onClick={modalOptions} />
-      <CardImage photo={url} onClick={handleOnClick} />
+      <CardImage photo={urlOne || urlTwo} onClick={handleOnClick} />
       <CardCategory>{category}</CardCategory>
       <CardName>{name}</CardName>
       <CardPrice>{price}</CardPrice>
