@@ -52,10 +52,10 @@ export default function Compare({
       <ModalWrapper>
         <Modal className="show-compare" show={modalClicked} toggleModal={toggleModal}>
           <div className="compare-container">
-            <Title>Comparing</Title>
-            { clickedRelatedData.name }
+            <Title> Comparing </Title>
+            <span style={{ fontWeight: 'bold' }} >{ clickedRelatedData.name } </span>
             {' '}
-            { productData.name }
+            <i> { productData.name } </i>
             <BothWrapper>
               { combinedInfo.length === 0 ? '' : combinedInfo.map((currentFeature) => (
                 <span className="feature-span">
