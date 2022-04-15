@@ -28,8 +28,8 @@ export const BothWrapper = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
-  .check{
-    font-size: 2px;
+  .check-left{
+    position: rel;
   }
 `;
 
