@@ -89,7 +89,7 @@ export default function Container() {
           <div className="add-curr-product">
             Add Current Product
           </div>
-          {/* <PlusCircleIcon className="plus-icon" onClick={saveProductLocally}/> */}
+          <PlusCircleIcon className="plus-icon" onClick={saveProductLocally}/>
         </OutfitWrapper>
         <YourOutfitCarousel
           productData={productData}

@@ -12,6 +12,8 @@ export const OutfitWrapper = styled.div`
   display: flex;
   border: 1px solid;
   justify-content: center;
+  flex-direction: row;
+  flex-wrap: wrap;
   .add-curr-product{
     display: flex;
     padding: 30px;
