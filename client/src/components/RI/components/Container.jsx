@@ -5,8 +5,9 @@ import RelatedProductsContext from '../utils/RelatedProductsContext';
 import RelatedProductsCarousel from './RelatedProductsCarousel';
 import YourOutfitCarousel from './YourOutfitCarousel';
 import Compare from './Compare';
+import { PlusCircleIcon } from '@heroicons/react/outline';
 import { RelatedProductsStyled } from '../styles/RelatedProductsStyled.styled';
-import { YourOutfitStyled, OutfitWrapper, OutfitText } from '../styles/YourOutfitStyled.styled';
+import { YourOutfitStyled, OutfitWrapper } from '../styles/YourOutfitStyled.styled';
 
 import ContextStoreContext from '../../../utils/ContextStore';
 
@@ -84,10 +85,11 @@ export default function Container() {
         )}
       </RelatedProductsStyled>
       <YourOutfitStyled>
-        <OutfitWrapper onClick={saveProductLocally}>
-          <OutfitText>
+        <OutfitWrapper>
+          <div className="add-curr-product">
             Add Current Product
-          </OutfitText>
+          </div>
+          {/* <PlusCircleIcon className="plus-icon" onClick={saveProductLocally}/> */}
         </OutfitWrapper>
         <YourOutfitCarousel
           productData={productData}
