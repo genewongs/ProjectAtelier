@@ -5,7 +5,7 @@ const GlobalStyle = createGlobalStyle`
     scroll-behavior: smooth;
   }
   body {
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Helvetica', sans-serif;
     background: white;
   }
   a:visited {

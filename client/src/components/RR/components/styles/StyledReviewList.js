@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 const ReviewListStyled = styled.div`
-  max-height: 90vh;
+  max-height: 600px;
   width: 700px;
   overflow: scroll;
   margin: 10px;
@@ -17,7 +17,7 @@ const ReviewListStyled = styled.div`
 
   &:hover {
     &::-webkit-scrollbar-thumb {
-      background-color: transparent;
+      background-color: red;
     }
   }
 
