@@ -26,10 +26,10 @@ function App() {
     <div className="app-container">
       <ContextStore>
         <DataGen />
-        <GlobalStyle />
+        {/* <GlobalStyle />
         <Overview />
         <RI />
-        <QA />
+        <QA /> */}
         <RR />
       </ContextStore>
     </div>
