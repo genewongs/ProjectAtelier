@@ -14,6 +14,7 @@ const ContainerStyled = styled.div`
     display:flex;
     flex-direction: column;
     width: 500px;
+    height: 600px;
     padding: 5px;
 
     .star-rating-container {
@@ -35,6 +36,7 @@ const ContainerStyled = styled.div`
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    height: 600px;
     padding: 10px;
 
     .sort-selector {

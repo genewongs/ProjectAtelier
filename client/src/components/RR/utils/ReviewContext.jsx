@@ -75,7 +75,7 @@ export function ReviewStore({ children }) {
     ratingsPercents,
     reviewCount,
     id,
-  }), [reviews, metaData]);
+  }), [reviews, metaData, reviewCount]);
 
   return (
     <ReviewStoreContext.Provider value={store}>

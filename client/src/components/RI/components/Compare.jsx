@@ -52,40 +52,38 @@ export default function Compare({
       <ModalWrapper>
         <Modal className="show-compare" show={modalClicked} toggleModal={toggleModal}>
           <div className="compare-container">
-            <Title>Comparing</Title>
-            { clickedRelatedData.name }
+            <Title> Comparing </Title>
+            <span style={{ fontWeight: 'bold' }} >{ clickedRelatedData.name } </span>
             {' '}
-            { productData.name }
+            <i> { productData.name } </i>
             <BothWrapper>
               { combinedInfo.length === 0 ? '' : combinedInfo.map((currentFeature) => (
-                <div className="feature">
-                  <span className="feature-span">
-                    {currentFeature.isLeft && !currentFeature.isRight ? (
-                      <span>
-                        &#10003;
-                        {' '}
-                        {currentFeature.feature}
-                        {' '}
-                      </span>
-                    ) : ''}
-                    {!currentFeature.isLeft && currentFeature.isRight ? (
-                      <span>
-                        {currentFeature.feature}
-                        {' '}
-                        &#10003;
-                      </span>
-                    ) : ''}
-                    {currentFeature.isLeft && currentFeature.isRight ? (
-                      <span>
-                        &#10003;
-                        {' '}
-                        {currentFeature.feature}
-                        {' '}
-                        &#10003;
-                      </span>
-                    ) : ''}
-                  </span>
-                </div>
+                <span className="feature-span">
+                  {currentFeature.isLeft && !currentFeature.isRight ? (
+                    <span>
+                      <span className="check-left">&#10003;</span>
+                      {' '}
+                      {currentFeature.feature}
+                      {' '}
+                    </span>
+                  ) : ''}
+                  {!currentFeature.isLeft && currentFeature.isRight ? (
+                    <span>
+                      {currentFeature.feature}
+                      {' '}
+                      <span className="check-right">&#10003;</span>
+                    </span>
+                  ) : ''}
+                  {currentFeature.isLeft && currentFeature.isRight ? (
+                    <span>
+                      <span className="check-left">&#10003;</span>
+                      {' '}
+                      {currentFeature.feature}
+                      {' '}
+                      <span className="check-right">&#10003;</span>
+                    </span>
+                  ) : ''}
+                </span>
               )) }
             </BothWrapper>
           </div>

@@ -84,6 +84,7 @@ bundle.js
 bundle.js.gz
 bundle.js.LICENSE.txt
 bundle.js.LICENSE.txt.gz
+bundle.js.br
 
 # Gatsby files
 .cache/
