@@ -12,7 +12,6 @@ import ContextStoreContext from '../../../utils/ContextStore';
 function AddReview({ modalState, toggleModal }) {
   const { id, metaData } = useContext(ReviewStoreContext);
   const { productName } = useContext(ContextStoreContext);
-  // const [productName, setProductName] = useState('');
   const [photoModalState, setPhotoModalState] = useState(false);
   const [errModalState, setErrModalState] = useState(false);
   const [warning, setWarning] = useState('');

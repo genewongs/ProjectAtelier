@@ -11,11 +11,14 @@ export const OutfitWrapper = styled.div`
   width: 225px;
   display: flex;
   border: 1px solid;
-`;
-
-export const OutfitText = styled.div`
-  padding-left:15px;
-  padding-right: 20px;
-  padding-top:60px;
-  padding-bottom: 20px;
+  justify-content: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+  .add-curr-product{
+    display: flex;
+    padding: 30px;
+  }
+  .plus-icon{
+    display: flex;
+  }
 `;

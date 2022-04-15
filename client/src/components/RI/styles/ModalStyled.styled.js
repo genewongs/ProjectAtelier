@@ -20,47 +20,32 @@ export const ModalWrapper = styled.div`
     flex-direction: column;
     align-items: center;
     border: 1px solid;
+    min-width: 350px;
+    min-height: 200px;
     background-color: rgba(255, 255, 255, 1);
   }
 `;
 
 export const BothWrapper = styled.div`
   display: flex;
+  align-items: center;
+  position: relative;
+  flex-direction: column;
+  padding-top: 10px;
+  .check-left{
+    position: absolute;
+    left: -3em;
+  }
+  .check-right{
+    position: absolute;
+    right: -3em;
+  }
 `;
 
 export const Title = styled.h1`
     display: flex;
-    font-size: 15px;
+    font-size: 20px;
+    font-weight: bold;
+    text-decoration: underline;
     color: black;
-`;
-
-export const LeftWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
-export const LeftName = styled.p`
-  display: flex;
-`;
-
-export const LeftFeat = styled.div`
-  font-size: 15px;
-  text-align: left;
-  color: grey;
-`;
-
-export const RightWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
-export const RightName = styled.p`
-  display: flex;
-  justify-content: flex-end;
-`;
-
-export const RightFeat = styled.div`
-  font-size: 15px;
-  text-align: right;
-  color: grey;
 `;

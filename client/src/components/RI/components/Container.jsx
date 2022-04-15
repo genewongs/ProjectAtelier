@@ -5,8 +5,11 @@ import RelatedProductsContext from '../utils/RelatedProductsContext';
 import RelatedProductsCarousel from './RelatedProductsCarousel';
 import YourOutfitCarousel from './YourOutfitCarousel';
 import Compare from './Compare';
-import { RelatedProductsStyled, RelatedProductsTitle } from '../styles/RelatedProductsStyled.styled';
-import { YourOutfitStyled, OutfitWrapper, OutfitText } from '../styles/YourOutfitStyled.styled';
+import { PlusCircleIcon } from '@heroicons/react/outline';
+import { RelatedProductsStyled } from '../styles/RelatedProductsStyled.styled';
+import { YourOutfitStyled, OutfitWrapper } from '../styles/YourOutfitStyled.styled';
+
+import ContextStoreContext from '../../../utils/ContextStore';
 
 export default function Container() {
   const {
@@ -19,15 +22,12 @@ export default function Container() {
     setRelatedData,
     productData,
     setProductData,
-    id,
   } = useContext(RelatedProductsContext);
 
+  const { id, product, style } = useContext(ContextStoreContext);
+
   async function getProductInfo() {
-    const productIDInfo = await axios.get('/api/product', { params: { id } });
-    const productIDStyles = await axios.get('/api/product/styles', { params: { id } });
-
-    const lazyMerge = { ...productIDInfo.data, ...productIDStyles.data };
-
+    const lazyMerge = { ...product, ...style };
     setProductData(lazyMerge);
   }
 
@@ -62,9 +62,12 @@ export default function Container() {
   useEffect(() => {
     (async () => {
       await getRelatedInfo();
-      await getProductInfo();
     })();
   }, []);
+
+  useEffect(() => {
+    getProductInfo();
+  }, [product]);
 
   return (
     <>
@@ -82,10 +85,11 @@ export default function Container() {
         )}
       </RelatedProductsStyled>
       <YourOutfitStyled>
-        <OutfitWrapper onClick={saveProductLocally}>
-          <OutfitText>
+        <OutfitWrapper>
+          <div className="add-curr-product">
             Add Current Product
-          </OutfitText>
+          </div>
+          <PlusCircleIcon className="plus-icon" onClick={saveProductLocally}/>
         </OutfitWrapper>
         <YourOutfitCarousel
           productData={productData}

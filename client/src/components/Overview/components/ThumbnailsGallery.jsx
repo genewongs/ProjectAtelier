@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronUp, faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import {
@@ -26,7 +26,7 @@ function ThumbnailsGallery({ style, img, navigateImage }) {
 
       <ThumbnailsLeft>
         <FontAwesomeIcon
-          style={{display: length <= 7 ? 'none' : ''}}
+          style={{ display: length <= 7 ? 'none' : '' }}
           className={display === 0 ? 'upButton disable' : 'upButton'}
           icon={faChevronUp}
           size="2x"
@@ -41,7 +41,7 @@ function ThumbnailsGallery({ style, img, navigateImage }) {
           ? (
             <ThumbnailsImageStyled
               className={img === index ? 'selected' : ''}
-              key={index}
+              key={photo.thumbnail_url}
               img={photo.thumbnail_url || '/dist/images/NPA.jpeg'}
               onClick={() => {
                 navigateImage(photo, index);
@@ -52,7 +52,7 @@ function ThumbnailsGallery({ style, img, navigateImage }) {
 
       <ThumbnailsRight>
         <FontAwesomeIcon
-          style={{display: length <= 7 ? 'none' : ''}}
+          style={{ display: length <= 7 ? 'none' : '' }}
           className={display === length - 7 ? 'downButton disable' : 'downButton'}
           icon={faChevronDown}
           size="2x"

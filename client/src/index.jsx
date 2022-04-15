@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import axios from 'axios';
 import GlobalStyle from './globalStyles';
 
+import LandingPage from './components/LandingPage';
 import Overview from './components/Overview/Overview';
 import RI from './components/RI/RI';
 import QA from './components/QA/QA';
@@ -15,7 +16,7 @@ function RoutedApp() {
     <Router>
       <Routes>
         <Route path="/:productId" element={<App />} />
-        <Route path="/" element={<App />} />
+        <Route path="/" element={<LandingPage />} />
       </Routes>
     </Router>
   );
