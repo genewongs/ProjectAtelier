@@ -26,41 +26,15 @@ export const ModalWrapper = styled.div`
 
 export const BothWrapper = styled.div`
   display: flex;
+  align-items: center;
+  flex-direction: column;
+  .check{
+    font-size: 2px;
+  }
 `;
 
 export const Title = styled.h1`
     display: flex;
     font-size: 15px;
     color: black;
-`;
-
-export const LeftWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
-export const LeftName = styled.p`
-  display: flex;
-`;
-
-export const LeftFeat = styled.div`
-  font-size: 15px;
-  text-align: left;
-  color: grey;
-`;
-
-export const RightWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
-export const RightName = styled.p`
-  display: flex;
-  justify-content: flex-end;
-`;
-
-export const RightFeat = styled.div`
-  font-size: 15px;
-  text-align: right;
-  color: grey;
 `;
