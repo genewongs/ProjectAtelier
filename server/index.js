@@ -13,7 +13,15 @@ const app = express();
 const port = process.env.PORT;
 
 app.use(express.json());
-app.use(expressStaticGzip('client'));
+// app.use(expressStaticGzip('client'));
+app.use(expressStaticGzip('client', {
+  enableBrotli: true,
+  customCompressions: [{
+    encodingName: 'deflate',
+    fileExtension: 'zz',
+  }],
+  orderPreference: ['br'],
+}));
 
 app.listen(port, () => { console.log('listening on port: ', port); });
 
