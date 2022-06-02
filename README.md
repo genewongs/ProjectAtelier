@@ -5,7 +5,7 @@ HR2202 FEC Project
 
 ## Instructions for how to deploy the webpage:
 
-Create a .env file and copy over the example.env contents
+Create a .env file and copy over the example.env contents.
   
 Generate your own github api key with these settings:  
 - read:org  
